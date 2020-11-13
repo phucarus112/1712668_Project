@@ -6,9 +6,9 @@ const SettingScreen = (pros) =>{
     
             <View style={styles.container}>
                 <View style={styles.abView} >
-                    <Image style={{ alignSelf: 'center', width: 20,height:20, tintColor: 'white', marginLeft: 10}} source={require('../../assets/back.png')} />
+                   
                     <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: '#fff'}}>Cài đặt</Text>
-                    <Text>          </Text>
+                
                 </View>
                 <View style={styles.containerBody}>
                     <View style={{flexDirection: 'row', justifyContent:'space-between', padding:5, }}>
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
   },
   abView:{
     flexDirection: 'row',
-    justifyContent:'space-between',
+    justifyContent:'center',
         alignSelf: "stretch",
         marginTop: 15,
         paddingTop: 5,
