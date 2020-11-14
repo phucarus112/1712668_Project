@@ -12,10 +12,10 @@ const DownloadScreen = (props) =>{
     return (
      <SafeAreaView style={styles.container}>
       <ScrollView>
-      <View>
+      <View style={styles.container}>
           <View style={styles.abView} >
                     
-                    <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: '#fff'}}>Tải xuống</Text>
+                    <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: '#fff'}}>Download</Text>
                   
           </View>
           <View style={styles.containerBody}>

@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from './HomeScreen'
 import DownloadScreen from './DownloadScreen'
+import BrowseScreen from './BrowseScreen'
 import SearchCourseScreen from './SearchCourseScreen'
 import SettingScreen from './SettingScreen'
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -22,6 +23,8 @@ const MainScreen = (props) =>{
                 iconName = focused? 'ios-home' : 'ios-home';
               } else if (route.name === 'Download') {
                 iconName = focused ? 'ios-cloud-download' : 'ios-cloud-download';
+              } else if (route.name === 'Browse') {
+                iconName = focused ? 'ios-browsers' : 'ios-browsers';
               } else if (route.name === 'Search') {
                 iconName = focused ? 'md-search' : 'md-search';
               } else if (route.name === 'Setting') {
@@ -42,6 +45,7 @@ const MainScreen = (props) =>{
         }}>
           <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarBadge: 3 }}/>
           <Tab.Screen name="Download" component={DownloadScreen} />
+          <Tab.Screen name="Browse" component={BrowseScreen} />
           <Tab.Screen name="Search" component={SearchCourseScreen} />
           <Tab.Screen name="Setting" component={SettingScreen} />
         </Tab.Navigator>

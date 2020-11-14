@@ -1,8 +1,9 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {StyleSheet, View,Text, Button, Image, TextInput, SafeAreaView, Dimensions ,ScrollView, FlatList, VirtualizedList} from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import ItemCourseVertical from '../Courses/Item/ItemCourseVertical'
+import { SearchBar } from 'react-native-search-bar';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -104,9 +105,9 @@ function SearchAuthors(){
 
 const SearchCourseScreen = (props) =>{
     return (
-     
     <NavigationContainer independent={true} >
        <View style={styles.abView}>
+   
           <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: '#fff'}}>Cancel</Text>
           
         </View>

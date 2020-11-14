@@ -7,31 +7,31 @@ const SettingScreen = (pros) =>{
             <View style={styles.container}>
                 <View style={styles.abView} >
                    
-                    <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: '#fff'}}>Cài đặt</Text>
+                    <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: '#fff'}}>Setting</Text>
                 
                 </View>
                 <View style={styles.containerBody}>
-                    <View style={{flexDirection: 'row', justifyContent:'space-between', padding:5, }}>
+                    <View style={{flexDirection: 'row', justifyContent:'space-between', paddingBottom: 10, borderBottomWidth: 0.5, borderBottomColor: '#424949' }}>
                         <Text style={{ marginLeft: 15, marginTop: 20, color: '#fff',}}>Tài khoản</Text>
                         <Image style={{ marginTop: 20, marginRight: 15, width: 18,height:18, tintColor: '#424949'}} source={require('../../assets/arrow.png')} />
                     </View>
-                    <View style={{flexDirection: 'row', justifyContent:'space-between', padding:5}}>
+                    <View style={{flexDirection: 'row', justifyContent:'space-between', paddingBottom: 10, borderBottomWidth: 0.5, borderBottomColor: '#424949' }}>
                         <Text style={{ marginLeft: 15, marginTop: 20, color: '#fff',}}>Theme</Text>
                         <Image style={{ marginTop: 20, marginRight: 15, width: 18,height:18, tintColor: '#424949'}} source={require('../../assets/arrow.png')} />
                     </View>
-                    <View style={{flexDirection: 'row', justifyContent:'space-between', padding:5, }}>
+                    <View style={{flexDirection: 'row', justifyContent:'space-between', paddingBottom: 10, borderBottomWidth: 0.5, borderBottomColor: '#424949' }}>
                         <Text style={{ marginLeft: 15, marginTop: 20, color: '#fff',}}>Yêu cầu Wi-Fi cho streaming</Text>
                         <Switch trackColor={{ false: "#42c5f5", true: "#81b0ff" }} thumbColor="#fff" style ={{marginTop:18}}/>
                     </View>
-                    <View style={{flexDirection: 'row', justifyContent:'space-between', padding:5,}}>
+                    <View style={{flexDirection: 'row', justifyContent:'space-between', paddingBottom: 10, borderBottomWidth: 0.5, borderBottomColor: '#424949' }}>
                         <Text style={{ marginLeft: 15, marginTop: 20, color: '#fff',}}>Yêu cầu Wi-Fi cho download</Text>
                         <Switch trackColor={{ false: "#42c5f5", true: "#81b0ff" }} thumbColor="#fff" style ={{marginTop:18}}/>
                     </View>
-                    <View style={{flexDirection: 'row', justifyContent:'space-between', padding:5, }}>
+                    <View style={{flexDirection: 'row', justifyContent:'space-between', paddingBottom: 10, borderBottomWidth: 0.5, borderBottomColor: '#424949'  }}>
                         <Text style={{ marginLeft: 15, marginTop: 20, color: '#fff',}}>Feedback</Text>
                         <Image style={{ marginTop: 20, marginRight: 15, width: 18,height:18, tintColor: '#424949'}} source={require('../../assets/arrow.png')} />
                     </View>
-                    <View style={{flexDirection: 'row', justifyContent:'space-between', padding:5}}>
+                    <View style={{flexDirection: 'row', justifyContent:'space-between', paddingBottom: 10, borderBottomWidth: 0.5, borderBottomColor: '#424949' }}>
                         <Text style={{ marginLeft: 15, marginTop: 20, color: '#fff',}}>Version</Text>
                         <Text style={{ marginRight: 15, marginTop: 20, color: '#fff',}}>1.0</Text>
                     </View>
