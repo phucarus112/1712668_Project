@@ -1,22 +1,28 @@
 import React, {useState} from 'react'
-import {StyleSheet, View,Text, Button, Image, TextInput, SafeAreaView, ScrollView, FlatList} from 'react-native'
+import {StyleSheet, View,Text, Button, Image, TextInput, SafeAreaView, ScrollView, FlatList, TouchableOpacity} from 'react-native'
 import ItemTopAuthors from '../Courses/Item/ItemTopAuthors'
 import ItemCourseHorizontal from '../Courses/Item/ItemCourseHorizontal'
 
-const HomeScreen = (props) =>{
+const HomeScreen = ({navigation}) =>{
   const renderItemNew = ({ item }) => (
-    <ItemCourseHorizontal title={item.title} level ={item.level} author={item.author} totalHours = {item.totalHours}
+    <TouchableOpacity onPress={()=>{navigation.navigate("CourseIntroduction")}}>
+        <ItemCourseHorizontal title={item.title} level ={item.level} author={item.author} totalHours = {item.totalHours}
                 totalComments = {item.totalComments} img={item.img} />
+    </TouchableOpacity>  
   );
+  
   const renderItemTrending = ({ item }) => (
-    <ItemCourseHorizontal title={item.title} level ={item.level} author={item.author} totalHours = {item.totalHours}
+    <TouchableOpacity onPress={()=>{navigation.navigate("CourseIntroduction")}}>
+        <ItemCourseHorizontal title={item.title} level ={item.level} author={item.author} totalHours = {item.totalHours}
                 totalComments = {item.totalComments} img={item.img} />
+    </TouchableOpacity>
   );
+
   const renderItemAuthor = ({item}) =>(
     <ItemTopAuthors name ={item.name}/>
   );
     return (
-      <SafeAreaView>
+    <SafeAreaView>
     <ScrollView>
       <View style={styles.container}>
           <View style={styles.abView} >
@@ -26,9 +32,18 @@ const HomeScreen = (props) =>{
             <View >
                 <View style={{flexDirection: 'row', justifyContent:'space-between', padding:5}}>
                     <Text style={{ marginLeft: 10, marginTop: 20, color: '#fff',}}>Mới nhất</Text>
-                    <View style={{flexDirection: 'row', marginTop:13,backgroundColor:"#424949", padding:10 ,borderRadius:30}}>
-                        <Text style={{color: '#fff', marginRight:3, fontSize:10}}>Xem tất cả</Text>
-                        <Image style={{ marginLeft:3, marginRight:3,width: 15,height:15, tintColor: '#fff'}} source={require('../../assets/arrow.png')} />
+                    <View onStartShouldSetResponder={()=>{
+                      navigation.navigate("NewCourse")
+                    }} style={{flexDirection: 'row', marginTop:13,backgroundColor:"#424949", padding:10 ,borderRadius:30}}>
+                        <Text style={{color: '#fff', marginRight:3, fontSize:10}} onPress={()=>{
+                           navigation.navigate("NewCourse")
+                        }}>Xem tất cả</Text>
+                        <TouchableOpacity onPress={()=>{
+                           navigation.navigate("NewCourse")
+                        }}>
+                            <Image style={{ marginLeft:3, marginRight:3,width: 15,height:15, tintColor: '#fff'}} source={require('../../assets/arrow.png')} />
+                        </TouchableOpacity>
+                       
                     </View>
                 </View>
                 <SafeAreaView>
@@ -39,9 +54,17 @@ const HomeScreen = (props) =>{
                 </SafeAreaView>
                 <View style={{flexDirection: 'row', justifyContent:'space-between', padding:5}}>
                     <Text style={{ marginLeft: 10, marginTop: 20, color: '#fff',}}>Xu hướng</Text>
-                    <View style={{flexDirection: 'row', marginTop:13,backgroundColor:"#424949", padding:10 ,borderRadius:30}}>
-                        <Text style={{color: '#fff', marginRight:3, fontSize:10}}>Xem tất cả</Text>
+                    <View onStartShouldSetResponder={()=>{
+                      navigation.navigate("TrendingCourse")
+                    }} style={{flexDirection: 'row', marginTop:13,backgroundColor:"#424949", padding:10 ,borderRadius:30}}>
+                        <Text onPress={()=>{
+                           navigation.navigate("TrendingCourse")
+                        }} style={{color: '#fff', marginRight:3, fontSize:10}}>Xem tất cả</Text>
+                         <TouchableOpacity onPress={()=>{
+                           navigation.navigate("TrendingCourse")
+                        }}>
                         <Image style={{ marginLeft:3, marginRight:3,width: 15,height:15, tintColor: '#fff'}} source={require('../../assets/arrow.png')} />
+                        </TouchableOpacity>
                     </View>
                 </View>
                 <SafeAreaView>

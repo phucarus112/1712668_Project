@@ -1,13 +1,17 @@
 import React, {useState} from 'react'
-import {StyleSheet, View,Text, Button, Image, TextInput,SafeAreaView, ScrollView} from 'react-native'
+import {StyleSheet, View,Text, Button, Image, TextInput,SafeAreaView, ScrollView, TouchableOpacity} from 'react-native'
 
-const UpdateAccountScreen = (pros) =>{
+const UpdateAccountScreen = ({navigation}) =>{
     return (
     <SafeAreaView>
         <ScrollView>
             <View style={styles.container}>
                 <View style={styles.abView} >
-                <Image style={{ alignSelf: 'center', width: 20,height:20, tintColor: 'white', marginLeft: 10}} source={require('../../assets/back.png')} />
+                    <TouchableOpacity style={{ alignSelf: 'center'}} onPress={()=>{
+                            navigation.goBack()
+                        }}>
+                            <Image style={{ alignSelf: 'center', width: 20,height:20, tintColor: 'white', marginLeft: 10}} source={require('../../assets/back.png')} />
+                        </TouchableOpacity>
                     <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: '#fff'}}>Cập nhật tài khoản</Text>
                     <Text>          </Text>
                 </View>

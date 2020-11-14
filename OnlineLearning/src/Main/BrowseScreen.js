@@ -1,13 +1,16 @@
 import React, {useState} from 'react'
-import {StyleSheet, View,Text, Button, Image, ImageBackground, TextInput,SafeAreaView, ScrollView,FlatList} from 'react-native'
+import {StyleSheet, View,Text, Button, Image, ImageBackground, TextInput,SafeAreaView, ScrollView,FlatList, TouchableOpacity} from 'react-native'
 import ItemCourseHorizontal from '../Courses/Item/ItemCourseHorizontal'
 
-const renderItemPath = ({ item }) => (
-    <ItemCourseHorizontal title={item.title} level ={item.level} author={item.author} totalHours = {item.totalHours}
-                totalComments = {item.totalComments} img={item.img} />
-  );
 
-const SettingScreen = (pros) =>{
+
+const SettingScreen = ({navigation}) =>{
+    const renderItemPath = ({ item }) => (
+        <TouchableOpacity onPress={()=>{navigation.navigate("CourseIntroduction")}}>
+        <ItemCourseHorizontal title={item.title} level ={item.level} author={item.author} totalHours = {item.totalHours}
+                    totalComments = {item.totalComments} img={item.img} />
+                    </TouchableOpacity>
+      );
     return (
         <SafeAreaView>
             <ScrollView> 

@@ -30,7 +30,7 @@ const renderListLesson = ({ item }) => (
     <ItemLesson nameLesson={item.nameLesson} />
     );
 
-function Contents(){
+function Contents({navigation}){
     return(
       <SafeAreaView style={styles.container} >
       <ScrollView>
@@ -64,7 +64,7 @@ function Contents(){
     )
 }
 
-function Transcript(){
+function Transcript({navigation}){
     return(
       <View style={styles.noDataContainer}>
             <Text style={{color: "#fff"}}>Không có dữ liệu</Text>
@@ -72,7 +72,7 @@ function Transcript(){
     )
 }
 
-const LessonScreen = (props) =>{
+const LessonScreen = ({navigation}) =>{
     return (
         <NavigationContainer independent={true} >  
             <View style={styles.containerBody2}>

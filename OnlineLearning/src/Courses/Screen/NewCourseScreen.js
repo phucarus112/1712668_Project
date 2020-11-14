@@ -1,12 +1,14 @@
 import React, {useState} from 'react'
-import {StyleSheet, View,Text, Button, Image, TextInput, SafeAreaView, ScrollView, FlatList} from 'react-native'
+import {StyleSheet, View,Text, Button, Image, TextInput, SafeAreaView, ScrollView, FlatList, TouchableOpacity} from 'react-native'
 import ItemCourseVertical from '../Item/ItemCourseVertical'
 
-const NewCourseScreen = (props) =>{
+const NewCourseScreen = ({navigation}) =>{
 
   const renderItemNew = ({ item }) => (
+    <TouchableOpacity onPress={()=>{navigation.navigate("CourseIntroduction")}}>
     <ItemCourseVertical title={item.title} level ={item.level} author={item.author} totalHours = {item.totalHours}
                 totalComments = {item.totalComments} img={item.img} />
+                </TouchableOpacity>
     );
 
     return (
@@ -14,7 +16,12 @@ const NewCourseScreen = (props) =>{
     <ScrollView style={{backgroundColor:"#000"}}>
       <View style={styles.container}>
           <View style={styles.abView} >
-                    <Image style={{ alignSelf: 'center', width: 20,height:20, tintColor: 'white', marginLeft: 10}} source={require('../../../assets/back.png')} />
+             <TouchableOpacity style={{ alignSelf: 'center'}} onPress={()=>{
+                navigation.goBack()
+             }}>
+             <Image style={{ alignSelf: 'center', width: 20,height:20, tintColor: 'white', marginLeft: 10}} source={require('../../../assets/back.png')} />
+             </TouchableOpacity>
+                   
                     <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: '#fff'}}>Mới nhất</Text>
                     <Text>          </Text>
           </View>

@@ -1,33 +1,22 @@
 import React, {useState, useEffect} from 'react'
-import {StyleSheet, View,Text, Button, Image, TextInput, SafeAreaView, Dimensions ,ScrollView, FlatList, VirtualizedList} from 'react-native'
+import {StyleSheet, View,Text, Button, Image, TextInput, SafeAreaView, TouchableOpacity ,ScrollView, FlatList, VirtualizedList} from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import ItemCourseVertical from '../Courses/Item/ItemCourseVertical'
-import { SearchBar } from 'react-native-search-bar';
+import { createStackNavigator } from '@react-navigation/stack';
+import CourseIntroductionScreen from '../CourseDetail/Screen/CourseIntroductionScreen'
+import LessonScreen from '../CourseDetail/Screen/LessonScreen'
 
+const Stack = createStackNavigator();
 const Tab = createMaterialTopTabNavigator();
 
-const renderItemAll = ({ item }) => (
-  <ItemCourseVertical title={item.title} level ={item.level} author={item.author} totalHours = {item.totalHours}
-              totalComments = {item.totalComments} img={item.img} />
-  );
-
-const renderItemCourses = ({ item }) => (
+const SearchAll = ({navigation}) =>{
+  const renderItemAll = ({ item }) => (
+    <TouchableOpacity onPress={()=>{navigation.navigate("CourseIntroduction")}}>
     <ItemCourseVertical title={item.title} level ={item.level} author={item.author} totalHours = {item.totalHours}
                 totalComments = {item.totalComments} img={item.img} />
+                </TouchableOpacity>
     );
-
-const renderItemPaths = ({ item }) => (
-      <ItemCourseVertical title={item.title} level ={item.level} author={item.author} totalHours = {item.totalHours}
-                  totalComments = {item.totalComments} img={item.img} />
-      );
-
-const renderItemAuthors = ({ item }) => (
-        <ItemCourseVertical title={item.title} level ={item.level} author={item.author} totalHours = {item.totalHours}
-                    totalComments = {item.totalComments} img={item.img} />
-        );
-
-function SearchAll(){
           return(
             <SafeAreaView style={styles.container} >
             <ScrollView>
@@ -46,7 +35,13 @@ function SearchAll(){
           )
 }
         
-function SearchCourses(){
+const SearchCourses = ({navigation}) =>{
+  const renderItemCourses = ({ item }) => (
+    <TouchableOpacity onPress={()=>{navigation.navigate("CourseIntroduction")}}>
+    <ItemCourseVertical title={item.title} level ={item.level} author={item.author} totalHours = {item.totalHours}
+                totalComments = {item.totalComments} img={item.img} />
+                </TouchableOpacity>
+    );
           return(
             <SafeAreaView style={styles.container} >
             <ScrollView>
@@ -56,7 +51,7 @@ function SearchCourses(){
                           <Text style={{color: '#42c5f5',marginTop:13, marginRight:3, fontSize:12}}>4 kết quả</Text>
                       </View>
                       <SafeAreaView>
-                        <FlatList data={DATA} renderItem={renderItemAll} keyExtractor={item => item.id}/>
+                        <FlatList data={DATA} renderItem={renderItemCourses} keyExtractor={item => item.id}/>
                         </SafeAreaView>
                  </View>
                  </View>
@@ -65,7 +60,13 @@ function SearchCourses(){
           )
         }
         
-function SearchPaths(){
+const  SearchPaths = ({navigation}) =>{
+  const renderItemPaths = ({ item }) => (
+    <TouchableOpacity onPress={()=>{navigation.navigate("CourseIntroduction")}}>
+    <ItemCourseVertical title={item.title} level ={item.level} author={item.author} totalHours = {item.totalHours}
+                totalComments = {item.totalComments} img={item.img} />
+                </TouchableOpacity>
+    );
             return(
               <SafeAreaView style={styles.container} >
               <ScrollView>
@@ -75,7 +76,7 @@ function SearchPaths(){
                             <Text style={{color: '#42c5f5',marginTop:13, marginRight:3, fontSize:12}}>10 kết quả</Text>
                         </View>
                         <SafeAreaView>
-                          <FlatList data={DATA} renderItem={renderItemAll} keyExtractor={item => item.id}/>
+                          <FlatList data={DATA} renderItem={renderItemPaths} keyExtractor={item => item.id}/>
                           </SafeAreaView>
                    </View>
                    </View>
@@ -84,7 +85,13 @@ function SearchPaths(){
             )
         }
         
-function SearchAuthors(){
+const SearchAuthors = ({navigation}) =>{
+  const renderItemAuthors = ({ item }) => (
+    <TouchableOpacity onPress={()=>{navigation.navigate("CourseIntroduction")}}>
+    <ItemCourseVertical title={item.title} level ={item.level} author={item.author} totalHours = {item.totalHours}
+                totalComments = {item.totalComments} img={item.img} />
+                </TouchableOpacity>
+    );
           return(
             <SafeAreaView style={styles.container} >
             <ScrollView>
@@ -94,7 +101,7 @@ function SearchAuthors(){
                           <Text style={{color: '#42c5f5',marginTop:13, marginRight:3, fontSize:12}}>101 kết quả</Text>
                       </View>
                       <SafeAreaView>
-                        <FlatList data={DATA} renderItem={renderItemAll} keyExtractor={item => item.id}/>
+                        <FlatList data={DATA} renderItem={renderItemAuthors} keyExtractor={item => item.id}/>
                         </SafeAreaView>
                  </View>
                  </View>
@@ -103,9 +110,49 @@ function SearchAuthors(){
           )
         }
 
-const SearchCourseScreen = (props) =>{
+function SearchAllStack(){
+  return(
+    <Stack.Navigator>
+        <Stack.Screen name="All" component={SearchAll} options={{headerShown: false}}/>
+        <Stack.Screen name="CourseIntroduction" component={CourseIntroductionScreen} options={{headerShown: false}}/>
+        <Stack.Screen name="Lesson" component={LessonScreen} options={{headerShown: false}}/>
+    </Stack.Navigator>
+  )
+}
+
+function SearchCoursesStack(){
+  return(
+    <Stack.Navigator>
+        <Stack.Screen name="Courses" component={SearchCourses} options={{headerShown: false}}/>
+        <Stack.Screen name="CourseIntroduction" component={CourseIntroductionScreen} options={{headerShown: false}}/>
+        <Stack.Screen name="Lesson" component={LessonScreen} options={{headerShown: false}}/>
+    </Stack.Navigator>
+  )
+}
+
+function SearchPathsStack(){
+  return(
+    <Stack.Navigator>
+        <Stack.Screen name="Paths" component={SearchPaths} options={{headerShown: false }}/>
+        <Stack.Screen name="CourseIntroduction" component={CourseIntroductionScreen} options={{headerShown: false}}/>
+        <Stack.Screen name="Lesson" component={LessonScreen} options={{headerShown: false}}/>
+    </Stack.Navigator>
+  )
+}
+
+function SearchAuthorsStack(){
+  return(
+    <Stack.Navigator>
+        <Stack.Screen name="Authors" component={SearchAuthors} options={{headerShown: false}}/>
+        <Stack.Screen name="CourseIntroduction" component={CourseIntroductionScreen} options={{headerShown: false, }}/>
+        <Stack.Screen name="Lesson" component={LessonScreen} options={{headerShown: false}}/>
+    </Stack.Navigator>
+  )
+}
+
+const SearchCourseScreen = ({navigation}) =>{
     return (
-    <NavigationContainer independent={true} >
+    <NavigationContainer independent={true}>
        <View style={styles.abView}>
    
           <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: '#fff'}}>Cancel</Text>
@@ -115,10 +162,10 @@ const SearchCourseScreen = (props) =>{
                         labelStyle: { fontSize: 12 , color: '#fff'},
                         style: { backgroundColor: '#000' },
            }}>
-            <Tab.Screen name="All" component={SearchAll}/>
-            <Tab.Screen name="Courses" component={SearchCourses} />
-            <Tab.Screen name="Paths" component={SearchPaths} />
-            <Tab.Screen name="Authors" component={SearchAuthors} />
+            <Tab.Screen name="All" component={SearchAllStack}/>
+            <Tab.Screen name="Courses" component={SearchCoursesStack} />
+            <Tab.Screen name="Paths" component={SearchPathsStack} />
+            <Tab.Screen name="Authors" component={SearchAuthorsStack} />
       </Tab.Navigator>
     </NavigationContainer>
     

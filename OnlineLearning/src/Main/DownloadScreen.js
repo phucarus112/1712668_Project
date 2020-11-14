@@ -1,12 +1,14 @@
 import React, {useState} from 'react'
-import {StyleSheet, View,Text, Button, Image, TextInput, SafeAreaView, ScrollView, FlatList, VirtualizedList} from 'react-native'
+import {StyleSheet, View,Text, Button, Image, TextInput, SafeAreaView, ScrollView, FlatList, TouchableOpacity} from 'react-native'
 import ItemCourseVertical from '../Courses/Item/ItemCourseVertical'
 
-const DownloadScreen = (props) =>{
+const DownloadScreen = ({navigation}) =>{
 
   const renderItemNew = ({ item }) => (
+    <TouchableOpacity onPress={()=>{navigation.navigate("CourseIntroduction")}}>
     <ItemCourseVertical title={item.title} level ={item.level} author={item.author} totalHours = {item.totalHours}
                 totalComments = {item.totalComments} img={item.img} />
+                </TouchableOpacity>
     );
 
     return (

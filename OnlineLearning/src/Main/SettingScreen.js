@@ -1,21 +1,23 @@
 import React, {useState} from 'react'
 import {StyleSheet, View,Text, Button, Image, TextInput,SafeAreaView, ScrollView, Switch} from 'react-native'
 
-const SettingScreen = (pros) =>{
+const SettingScreen = ({navigation}) =>{
     return (
-    
             <View style={styles.container}>
                 <View style={styles.abView} >
-                   
                     <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: '#fff'}}>Setting</Text>
                 
                 </View>
                 <View style={styles.containerBody}>
-                    <View style={{flexDirection: 'row', justifyContent:'space-between', paddingBottom: 10, borderBottomWidth: 0.5, borderBottomColor: '#424949' }}>
+                    <View onStartShouldSetResponder={()=>{
+                        navigation.navigate("Account")
+                    }} style={{flexDirection: 'row', justifyContent:'space-between', paddingBottom: 10, borderBottomWidth: 0.5, borderBottomColor: '#424949' }}>
                         <Text style={{ marginLeft: 15, marginTop: 20, color: '#fff',}}>Tài khoản</Text>
                         <Image style={{ marginTop: 20, marginRight: 15, width: 18,height:18, tintColor: '#424949'}} source={require('../../assets/arrow.png')} />
                     </View>
-                    <View style={{flexDirection: 'row', justifyContent:'space-between', paddingBottom: 10, borderBottomWidth: 0.5, borderBottomColor: '#424949' }}>
+                    <View onStartShouldSetResponder={()=>{
+                        navigation.navigate("ChangeTheme")
+                    }} style={{flexDirection: 'row', justifyContent:'space-between', paddingBottom: 10, borderBottomWidth: 0.5, borderBottomColor: '#424949' }}>
                         <Text style={{ marginLeft: 15, marginTop: 20, color: '#fff',}}>Theme</Text>
                         <Image style={{ marginTop: 20, marginRight: 15, width: 18,height:18, tintColor: '#424949'}} source={require('../../assets/arrow.png')} />
                     </View>

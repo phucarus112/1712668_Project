@@ -1,13 +1,17 @@
 import React, {useState} from 'react'
-import {StyleSheet, View,Text, Button, Image, TextInput,SafeAreaView, ScrollView} from 'react-native'
+import {StyleSheet, View,Text, Button, Image, TextInput,SafeAreaView, ScrollView, TouchableOpacity} from 'react-native'
 
-const VerifyEmailScreen = (pros) =>{
+const VerifyEmailScreen = ({navigation}) =>{
     return (
-    
             <View style={styles.container}>
                 <View style={styles.abView} >
-                <Image style={{ alignSelf: 'center', width: 20,height:20, tintColor: 'white', marginLeft: 10}} source={require('../../assets/back.png')} />
-                    <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: '#fff'}}>Xác nhận</Text>
+                    <TouchableOpacity style={{ alignSelf: 'center'}} onPress={()=>{
+                        navigation.goBack()
+                    }}>
+                            <Image style={{ alignSelf: 'center', width: 20,height:20, tintColor: 'white', marginLeft: 10}} source={require('../../assets/back.png')} />
+                    </TouchableOpacity>
+               
+                    <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: '#fff'}}>Xác nhận Email</Text>
                     <Text>          </Text>
                 </View>
                 <View style={styles.containerBody}>
@@ -15,8 +19,12 @@ const VerifyEmailScreen = (pros) =>{
                     <View style={styles.container2}>
                         <TextInput placeholder="" ></TextInput>
                     </View>
-                    <View  style={styles.container3} >
-                        <Text style={{color: "#fff", fontWeight: 'bold', alignSelf: "center"}} >Gửi</Text>
+                    <View  style={styles.container3} onStartShouldSetResponder={()=>{
+                        navigation.navigate("VerifyPassword")
+                    }}>
+                        <Text style={{color: "#fff", fontWeight: 'bold', alignSelf: "center"}} onPress={()=>{
+                            navigation.navigate("VerifyPassword")
+                        }}>Gửi</Text>
                     </View>
                 </View>
                 <View>

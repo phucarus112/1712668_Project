@@ -6,7 +6,7 @@ const ItemCourseHorizontal = (props) =>{
    
    return(
     <View style={styles.item}>
-        <Image style={{ alignSelf: 'center', width: 200,height:85}} source={props.img} />
+        <Image style={{ alignSelf: 'center', width: 210,height:85}} source={props.img} />
         
         <Text style={{color: '#fff',fontSize:12, margin: 7}}>{props.title}</Text>
         <Text style={{color: '#fff',fontSize:10, marginLeft:7}}>{props.author}</Text>
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
         height:200,
         flexDirection: 'column',
          backgroundColor:'#424949',
-        margin: 10,
+        margin: 5,
     }
   });
 

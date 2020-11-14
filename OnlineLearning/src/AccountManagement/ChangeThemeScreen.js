@@ -1,11 +1,15 @@
 import React, {useState} from 'react'
-import {StyleSheet, View,Text, Button, Image, TextInput,SafeAreaView, ScrollView, Switch} from 'react-native'
+import {StyleSheet, View,Text, Button, Image, TextInput,SafeAreaView, ScrollView, Switch,TouchableOpacity} from 'react-native'
 
-const ChangeThemeScreen = (pros) =>{
+const ChangeThemeScreen = ({navigation}) =>{
     return (
             <View style={styles.container}>
                 <View style={styles.abView} >
-                    <Image style={{ alignSelf: 'center', width: 20,height:20, tintColor: 'white', marginLeft: 10}} source={require('../../assets/back.png')} />
+                <TouchableOpacity style={{ alignSelf: 'center'}} onPress={()=>{
+                        navigation.goBack()
+                    }}>
+                        <Image style={{ alignSelf: 'center', width: 20,height:20, tintColor: 'white', marginLeft: 10}} source={require('../../assets/back.png')} />
+                    </TouchableOpacity>
                     <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: '#fff'}}>Theme</Text>
                     <Text>          </Text>
                 </View>

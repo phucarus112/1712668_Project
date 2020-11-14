@@ -1,18 +1,27 @@
 import React, {useState} from 'react'
-import {StyleSheet, View,Text, Button, Image, TextInput,SafeAreaView, ScrollView} from 'react-native'
+import {StyleSheet, View,Text, Button, Image, TextInput,SafeAreaView, ScrollView, TouchableOpacity} from 'react-native'
 
-const AccountScreen = (pros) =>{
+const AccountScreen = ({navigation}) =>{
     return (
             <View style={styles.container}>
                 <View style={styles.abView} >
-                    <Image style={{ alignSelf: 'center', width: 20,height:20, tintColor: 'white', marginLeft: 10}} source={require('../../assets/back.png')} />
+                    <TouchableOpacity style={{ alignSelf: 'center'}} onPress={()=>{
+                        navigation.goBack()
+                    }}>
+                        <Image style={{ alignSelf: 'center', width: 20,height:20, tintColor: 'white', marginLeft: 10}} source={require('../../assets/back.png')} />
+                    </TouchableOpacity>
                     <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: '#fff'}}>Tài khoản</Text>
                     <Text>          </Text>
                 </View>
                 <Image style={{ alignSelf: 'center', width: 150,height:150, borderRadius:75, marginTop:15}} source={require('../../assets/avt.png')} />
                 <View style={{flexDirection: 'row', justifyContent:'center', padding:5, }}>
                         <Text style={{ marginTop: 15, color: '#fff', fontWeight: 'bold'}}>Huỳnh Phúc</Text>
-                        <Image style={{ marginTop: 18,marginLeft:8, width: 18,height:18, tintColor: '#fff'}} source={require('../../assets/arrow.png')} />
+                        <TouchableOpacity onPress={()=>{
+                            navigation.navigate("UpdateAccount")
+                        }}>
+                            <Image style={{ marginTop: 18,marginLeft:8, width: 18,height:18, tintColor: '#fff'}} source={require('../../assets/arrow.png')} />
+                        </TouchableOpacity>
+                        
                 </View>
                 <View style={styles.containerBody}>
                     <View style={{flexDirection: 'column', justifyContent:'space-between', padding:5, }}>

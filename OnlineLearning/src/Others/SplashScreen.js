@@ -1,16 +1,20 @@
 import React, {useState} from 'react'
 import {StyleSheet, View,Text, Button, Image} from 'react-native'
 
-const SplashScreen = (pros) =>{
+const SplashScreen = ({navigation}) =>{
     return (
       <View style={styles.container}>
-          <Image style={styles.tinyLogo}  source={require('../../assets/book.png')}/>
+          <Image style={styles.tinyLogo}  source={require('../../assets/launch.png')}/>
           <Text style={styles.tinyText}>ONLINE LEARNING</Text>
           <View  style={styles.container2} >
-            <Text style={styles.textView} >Đăng nhập</Text>
+            <Text style={styles.textView} onPress={()=>{
+                navigation.navigate("Login")
+            }} >Đăng nhập</Text>
           </View>
           <View  style={styles.container2}>
-            <Text style={styles.textView} >Đăng ký</Text>
+            <Text style={styles.textView} onPress={()=>{
+                navigation.navigate("Register")
+            }} >Đăng ký</Text>
           </View>
     </View>
     )
@@ -37,6 +41,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   tinyLogo: {
+    tintColor: "#fff",
     width: 50,
     height: 50,
   },

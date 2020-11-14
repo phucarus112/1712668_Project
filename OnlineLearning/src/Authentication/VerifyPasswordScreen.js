@@ -1,13 +1,18 @@
 import React, {useState} from 'react'
-import {StyleSheet, View,Text, Button, Image, TextInput,SafeAreaView, ScrollView} from 'react-native'
+import {StyleSheet, View,Text, Button, Image, TextInput,SafeAreaView, ScrollView, TouchableOpacity} from 'react-native'
 
-const VerifyPasswordScreen = (pros) =>{
+const VerifyPasswordScreen = ({navigation}) =>{
     return (
     
             <View style={styles.container}>
                 <View style={styles.abView} >
-                <Image style={{ alignSelf: 'center', width: 20,height:20, tintColor: 'white', marginLeft: 10}} source={require('../../assets/back.png')} />
-                    <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: '#fff'}}>Xác nhận</Text>
+                    <TouchableOpacity style={{ alignSelf: 'center'}} onPress={()=>{
+                        navigation.goBack()
+                    }}>
+                        <Image style={{ alignSelf: 'center', width: 20,height:20, tintColor: 'white', marginLeft: 10}} source={require('../../assets/back.png')} />
+                    </TouchableOpacity>
+                
+                    <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: '#fff'}}>Xác nhận mật khẩu mới</Text>
                     <Text>          </Text>
                 </View>
                 <View style={styles.containerBody}>
@@ -19,8 +24,12 @@ const VerifyPasswordScreen = (pros) =>{
                     <View style={styles.container2}>
                         <TextInput placeholder="" ></TextInput>
                     </View>
-                    <View  style={styles.container3} >
-                        <Text style={{color: "#fff", fontWeight: 'bold', alignSelf: "center"}} >Cập nhật</Text>
+                    <View  style={styles.container3}onStartShouldSetResponder={()=>{
+                        navigation.navigate("Login")
+                    }}>
+                        <Text style={{color: "#fff", fontWeight: 'bold', alignSelf: "center"}} onPress={()=>{
+                            navigation.navigate("Login")
+                        }} >Cập nhật</Text>
                     </View>
                 </View>
                 <View>

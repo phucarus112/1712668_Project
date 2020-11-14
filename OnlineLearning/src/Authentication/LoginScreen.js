@@ -1,12 +1,17 @@
 import React, {useState} from 'react'
-import {StyleSheet, View,Text, Button, Image, TextInput} from 'react-native'
+import {StyleSheet, View,Text, Button, Image, TextInput, TouchableOpacity} from 'react-native'
 
-const LoginScreen = (pros) =>{
+const LoginScreen = ({navigation}) =>{
     return (
       <View style={styles.container}>
 
           <View style={styles.abView} >
-          <Image style={{ alignSelf: 'center', width: 20,height:20, tintColor: 'white', marginLeft: 10}} source={require('../../assets/back.png')} />
+            <TouchableOpacity style={{alignSelf: 'center'}} onPress={()=>{
+              navigation.goBack()
+            }}>
+            <Image style={{ alignSelf: 'center', width: 20,height:20, tintColor: 'white', marginLeft: 10}} source={require('../../assets/back.png')} />
+            </TouchableOpacity>
+         
                     <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: '#fff'}}>Đăng nhập</Text>
                     <Text>          </Text>
           </View>
@@ -22,10 +27,16 @@ const LoginScreen = (pros) =>{
             <View style={styles.container2}>
                 <TextInput placeholder="" ></TextInput>
             </View>
-            <View  style={styles.container3} >
-            <Text style={{color: "#fff", fontWeight: 'bold', alignSelf: "center"}} >Đăng nhập</Text>
+            <View  style={styles.container3} onStartShouldSetResponder={()=>{
+              navigation.navigate("Main")
+            }} >
+            <Text style={{color: "#fff", fontWeight: 'bold', alignSelf: "center"}} onPress={()=>{
+               navigation.navigate("Main")
+            }} >Đăng nhập</Text>
            </View>
-           <Text style={{color:"#42c5f5",alignSelf: 'center', fontSize: 12}}>Quên mật khấu</Text>
+           <Text style={{color:"#42c5f5",alignSelf: 'center', fontSize: 12}} onPress={()=>{
+                navigation.navigate("ForgetPassword")
+           }}>Quên mật khấu</Text>
            </View>
 
          <View>

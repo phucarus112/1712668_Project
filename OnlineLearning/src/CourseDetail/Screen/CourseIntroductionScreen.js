@@ -1,9 +1,8 @@
 import React from 'react'
-import {StyleSheet, View,Text, Button, Image, TextInput,SafeAreaView, ScrollView, Switch} from 'react-native'
+import {StyleSheet, View,Text, Button, Image, TextInput,SafeAreaView, ScrollView, Switch, TouchableOpacity} from 'react-native'
 import { Video } from 'expo-av';
-import SeeMore from 'react-native-read-more-text'
 
-const CourseIntroductionScreen = (props) =>{
+const CourseIntroductionScreen = ({navigation}) =>{
     return (
 <SafeAreaView >
     <ScrollView>
@@ -59,9 +58,17 @@ const CourseIntroductionScreen = (props) =>{
                     editable={false}
                         style={{color: '#fff', margin: 15, fontSize:12}}
                         value="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum"/>    
-                     <View  style={styles.container3} >
-                        <Image style={{tintColor: 'white', width: 20, height: 20, marginRight: 5,}} source={require('../../../assets/launch.png')} />
-                        <Text style={{color: "#fff", fontWeight: 'bold', alignSelf: "center", marginLeft: 5, fontSize: 12}} >Bắt đầu học</Text>
+                     <View  style={styles.container3} onStartShouldSetResponder={()=>{
+                         navigation.navigate("Lesson")
+                     }} >
+                         <TouchableOpacity onPress={()=>{
+                             navigation.navigate("Lesson")
+                         }}>
+                            <Image style={{tintColor: 'white', width: 20, height: 20, marginRight: 5,}} source={require('../../../assets/launch.png')} />
+                         </TouchableOpacity>
+                        <Text onPress={()=>{
+                             navigation.navigate("Lesson")
+                         }} style={{color: "#fff", fontWeight: 'bold', alignSelf: "center", marginLeft: 5, fontSize: 12}} >Bắt đầu học</Text>
                     </View>
                     <View  style={styles.container3} >
                         <Image style={{tintColor: 'white', width: 20, height: 20, marginRight: 5,}} source={require('../../../assets/test.png')} />
