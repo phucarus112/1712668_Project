@@ -1,39 +1,39 @@
 import React, {useState} from 'react'
 import {StyleSheet, View,Text, Button, Image} from 'react-native'
+import {useNavigation} from '@react-navigation/native'
 
-const SplashScreen = ({navigation}) =>{
+class SplashScreen extends React.Component{
+
+  constructor(props){
+    super(props);
+    this.state = {loading: 0}
+  }
+
+  componentDidMount(){
+    this.timer = setInterval(()=>{
+        let newValue = this.state.loading + 1;
+        if(newValue === 100){
+          clearInterval(this.timer);
+          const { navigation } = this.props;
+          navigation.navigate("ChooseAuthentication");
+        }
+        this.setState({loading: newValue})
+    },25)
+  }
+
+  render(){
+   
     return (
       <View style={styles.container}>
           <Image style={styles.tinyLogo}  source={require('../../assets/launch.png')}/>
-          <Text style={styles.tinyText}>ONLINE LEARNING</Text>
-          <View  style={styles.container2} >
-            <Text style={styles.textView} onPress={()=>{
-                navigation.navigate("Login")
-            }} >Đăng nhập</Text>
-          </View>
-          <View  style={styles.container2}>
-            <Text style={styles.textView} onPress={()=>{
-                navigation.navigate("Register")
-            }} >Đăng ký</Text>
-          </View>
+          <Text style={{color: "#fff", marginTop:10}}>Loading... {`${this.state.loading}`} % </Text>
     </View>
     )
+  }
 }
 
 const styles = StyleSheet.create({
-  container2:{
-   alignSelf: "stretch",
-    margin: 15,
-    backgroundColor:'#000',
-    borderRadius:10,
-    borderWidth: 1,
-    borderColor: '#42c5f5',
-  },
-  textView:{
-    textAlign: 'center',
-    padding: 15,
-    color: '#42c5f5',
-  },
+
   container: {
     flex: 1,
     backgroundColor: '#000',
@@ -44,13 +44,6 @@ const styles = StyleSheet.create({
     tintColor: "#fff",
     width: 50,
     height: 50,
-  },
-  tinyText: {
-    color: '#fff',
-    fontWeight: 'bold',
-    fontSize: 22,
-    marginTop: 10,
-    marginBottom: 10
   },
 });
 

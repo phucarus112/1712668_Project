@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import {StyleSheet, View,Text, Button, Image, TextInput, TouchableOpacity} from 'react-native'
 
 const LoginScreen = ({navigation}) =>{
+ 
     return (
       <View style={styles.container}>
 
@@ -25,7 +26,7 @@ const LoginScreen = ({navigation}) =>{
             </View>
             <Text style={styles.label}>Mật khẩu</Text>
             <View style={styles.container2}>
-                <TextInput placeholder="" ></TextInput>
+                <TextInput placeholder="" secureTextEntry={true} ></TextInput>
             </View>
             <View  style={styles.container3} onStartShouldSetResponder={()=>{
               navigation.navigate("Main")

@@ -19,11 +19,10 @@ import AccountScreen from '../AccountManagement/AccountScreen'
 import ChangeThemeScreen from '../AccountManagement/ChangeThemeScreen'
 import UpdateAccountScreen from '../AccountManagement/UpdateAccountScreen'
 import LoginScreen from '../Authentication/LoginScreen'
+import ResultCourseScreen from '../Courses/Screen/ResultCourseScreen'
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
-const HomeStackNavigation = createStackNavigator();
-const DownloadStackNavigation = createStackNavigator();
 
 const HomeStack = ({navigation}) =>{
   function handleBackButtonClick() {
@@ -91,11 +90,23 @@ useEffect(()=>{
 }
 
 const SearchStack= ({navigation}) =>{
+  function handleBackButtonClick() {
+    navigation.goBack();
+    return true;
+  }
+
+useEffect(()=>{
+  BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
+  return () => {
+    BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
+  };
+},[]);
   return (
     <Stack.Navigator>
       <Stack.Screen name="SearchCourseTab" component={SearchCourseTab} options={{headerShown: false}}/>
-    
+      <Stack.Screen name="ResultCourse" component={ResultCourseScreen} options={{headerShown: false}}/>
   </Stack.Navigator>
+ 
   );
 }
 

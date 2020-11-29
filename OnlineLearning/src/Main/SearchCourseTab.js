@@ -1,159 +1,8 @@
 import React, {useState, useEffect} from 'react'
 import {BackHandler, StyleSheet, View,Text, Button, Image, TextInput, SafeAreaView, TouchableOpacity ,ScrollView, FlatList, VirtualizedList} from 'react-native'
-import { NavigationContainer } from '@react-navigation/native'
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
-import ItemCourseVertical from '../Courses/Item/ItemCourseVertical'
-import { createStackNavigator } from '@react-navigation/stack';
-import CourseIntroductionScreen from '../CourseDetail/Screen/CourseIntroductionScreen'
-import LessonScreen from '../CourseDetail/Screen/LessonScreen'
-import { Modal } from 'react-native-paper'
-
-const Stack = createStackNavigator();
-const Tab = createMaterialTopTabNavigator();
-
-const SearchAll = ({navigation}) =>{
-  
-  const renderItemAll = ({ item }) => (
-    <TouchableOpacity onPress={()=>{
-      navigation.navigate("CourseIntroduction")}}>
-    <ItemCourseVertical title={item.title} level ={item.level} author={item.author} totalHours = {item.totalHours}
-                totalComments = {item.totalComments} img={item.img} />
-                </TouchableOpacity>
-    );
-          return(
-            <SafeAreaView style={styles.container} >
-            <ScrollView>
-            <View style={styles.container}>
-                  <View style={styles.containerBody}>
-                      <View style={{flexDirection: 'row', justifyContent:'flex-end', padding:5}}>
-                          <Text style={{color: '#42c5f5',marginTop:13, marginRight:3, fontSize:12}}>3 kết quả</Text>
-                      </View>
-                      <SafeAreaView>
-                        <FlatList data={DATA} renderItem={renderItemAll} keyExtractor={item => item.id}/>
-                        </SafeAreaView>
-                 </View>
-                 </View>
-           </ScrollView>
-           </SafeAreaView>
-          )
-}
-        
-const SearchCourses = ({navigation}) =>{
-  const renderItemCourses = ({ item }) => (
-    <TouchableOpacity onPress={()=>{navigation.navigate("CourseIntroduction")}}>
-    <ItemCourseVertical title={item.title} level ={item.level} author={item.author} totalHours = {item.totalHours}
-                totalComments = {item.totalComments} img={item.img} />
-                </TouchableOpacity>
-    );
-          return(
-            <SafeAreaView style={styles.container} >
-            <ScrollView>
-            <View style={styles.container}>
-                  <View style={styles.containerBody}>
-                      <View style={{flexDirection: 'row', justifyContent:'flex-end', padding:5}}>
-                          <Text style={{color: '#42c5f5',marginTop:13, marginRight:3, fontSize:12}}>4 kết quả</Text>
-                      </View>
-                      <SafeAreaView>
-                        <FlatList data={DATA} renderItem={renderItemCourses} keyExtractor={item => item.id}/>
-                        </SafeAreaView>
-                 </View>
-                 </View>
-           </ScrollView>
-           </SafeAreaView>
-          )
-        }
-        
-const  SearchPaths = ({navigation}) =>{
-  const renderItemPaths = ({ item }) => (
-    <TouchableOpacity onPress={()=>{navigation.navigate("CourseIntroduction")}}>
-    <ItemCourseVertical title={item.title} level ={item.level} author={item.author} totalHours = {item.totalHours}
-                totalComments = {item.totalComments} img={item.img} />
-                </TouchableOpacity>
-    );
-            return(
-              <SafeAreaView style={styles.container} >
-              <ScrollView>
-              <View style={styles.container}>
-                    <View style={styles.containerBody}>
-                        <View style={{flexDirection: 'row', justifyContent:'flex-end', padding:5}}>
-                            <Text style={{color: '#42c5f5',marginTop:13, marginRight:3, fontSize:12}}>10 kết quả</Text>
-                        </View>
-                        <SafeAreaView>
-                          <FlatList data={DATA} renderItem={renderItemPaths} keyExtractor={item => item.id}/>
-                          </SafeAreaView>
-                   </View>
-                   </View>
-             </ScrollView>
-             </SafeAreaView>
-            )
-        }
-        
-const SearchAuthors = ({navigation}) =>{
-  const renderItemAuthors = ({ item }) => (
-    <TouchableOpacity onPress={()=>{navigation.navigate("CourseIntroduction")}}>
-    <ItemCourseVertical title={item.title} level ={item.level} author={item.author} totalHours = {item.totalHours}
-                totalComments = {item.totalComments} img={item.img} />
-                </TouchableOpacity>
-    );
-          return(
-            <SafeAreaView style={styles.container} >
-            <ScrollView>
-            <View style={styles.container}>
-                  <View style={styles.containerBody}>
-                      <View style={{flexDirection: 'row', justifyContent:'flex-end', padding:5}}>
-                          <Text style={{color: '#42c5f5',marginTop:13, marginRight:3, fontSize:12}}>101 kết quả</Text>
-                      </View>
-                      <SafeAreaView>
-                        <FlatList data={DATA} renderItem={renderItemAuthors} keyExtractor={item => item.id}/>
-                        </SafeAreaView>
-                 </View>
-                 </View>
-           </ScrollView>
-           </SafeAreaView>
-          )
-        }
-
-const SearchAllStack = ({navigation}) =>{
-  return(
-    <Stack.Navigator>
-        <Stack.Screen name="All" component={SearchAll} options={{headerShown: false}}/>
-        <Stack.Screen name="CourseIntroduction" component={CourseIntroductionScreen} options={{headerShown: false}}/>
-        <Stack.Screen name="Lesson" component={LessonScreen} options={{headerShown: false}}/>
-    </Stack.Navigator>
-  )
-}
-
-const SearchCoursesStack = ({navigation}) =>{
-  return(
-    <Stack.Navigator>
-        <Stack.Screen name="Courses" component={SearchCourses} options={{headerShown: false}}/>
-        <Stack.Screen name="CourseIntroduction" component={CourseIntroductionScreen} options={{headerShown: false}}/>
-        <Stack.Screen name="Lesson" component={LessonScreen} options={{headerShown: false}}/>
-    </Stack.Navigator>
-  )
-}
-
-const SearchPathsStack = ({navigation}) =>{
-  return(
-    <Stack.Navigator>
-        <Stack.Screen name="Paths" component={SearchPaths} options={{headerShown: false }}/>
-        <Stack.Screen name="CourseIntroduction" component={CourseIntroductionScreen} options={{headerShown: false}}/>
-        <Stack.Screen name="Lesson" component={LessonScreen} options={{headerShown: false}}/>
-    </Stack.Navigator>
-  )
-}
-
-const SearchAuthorsStack = ({navigation}) =>{
-  return(
-    <Stack.Navigator>
-        <Stack.Screen name="Authors" component={SearchAuthors} options={{headerShown: false}}/>
-        <Stack.Screen name="CourseIntroduction" component={CourseIntroductionScreen} options={{headerShown: false, }}/>
-        <Stack.Screen name="Lesson" component={LessonScreen} options={{headerShown: false}}/>
-    </Stack.Navigator>
-  )
-}
 
 const SearchCourseTab= ({navigation}) =>{
+
   function handleBackButtonClick() {
     navigation.goBack();
     return true;
@@ -167,32 +16,34 @@ const SearchCourseTab= ({navigation}) =>{
     },[]);
     
     return (
-    <NavigationContainer independent={true}>
+      <View style={styles.container}>
        <View style={styles.abView}>
             <View style={styles.container2}>
                 <Image style={{ marginTop: -5, width: 15,height:20, padding: 13, tintColor: '#fff'}} source={require('../../assets/loupe.png')} />
                 <TextInput placeholder="Search here" style={{color:"#fff" ,flex: 8, marginLeft: 10, marginRight: 10,}}></TextInput>
-                <Image style={{ marginTop: -5, width: 10,height:10, padding: 13, tintColor: '#fff'}} source={require('../../assets/cancel.png')} />
+              
             </View>
-            <Text style={{ alignSelf: 'center',textAlign: 'center', paddingBottom: 15, paddingRight: 15, paddingTop: 15, paddingLeft: 8, color: '#fff', flex: 2, fontSize: 13}}
-              onPress={()=>{
-                navigation.goBack()
-              }}>Cancel</Text>
+            <View  style={styles.container3} onStartShouldSetResponder={()=>{
+              navigation.navigate("ResultCourse")}} >
+              <Text style={{color: "#fff", alignSelf: "center"}} onPress={()=>{
+                navigation.navigate("ResultCourse")}} >Search</Text>
+           </View>
         </View>
-        <Tab.Navigator tabBarOptions={{
-                        labelStyle: { fontSize: 12 , color: '#fff'},
-                        style: { backgroundColor: '#000' }}}>
-            <Tab.Screen name="All" component={SearchAllStack}/>
-            <Tab.Screen name="Courses" component={SearchCoursesStack} />
-            <Tab.Screen name="Paths" component={SearchPathsStack} />
-            <Tab.Screen name="Authors" component={SearchAuthorsStack} />
-      </Tab.Navigator>
-    </NavigationContainer>
-    
+        <View style={styles.noDataContainer}>
+        <Text style={{color: "#c9c9c9", maxWidth: 250, fontSize:13}}>Over 7.000 courses at your fingertips. </Text>
+        <Text style={{color: "#c9c9c9", maxWidth: 300}}>Search by title, path, author or subject. </Text>
+        </View>
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
+  noDataContainer:{
+    flex: 1,
+    alignItems: "center",
+    justifyContent: 'center',
+    backgroundColor: "#000"
+},
   container2:{
      flexDirection: "row",
     flex: 8,
@@ -200,8 +51,14 @@ const styles = StyleSheet.create({
      padding: 15,
      backgroundColor:'#424949',
      borderRadius:10,
-    
-     
+   },
+   container3:{
+    backgroundColor: '#42c5f5',
+    alignSelf: "stretch",
+   marginLeft:5,
+   marginRight:5,
+   borderRadius: 20,
+     padding: 15,
    },
   container: {
         flex: 1,
