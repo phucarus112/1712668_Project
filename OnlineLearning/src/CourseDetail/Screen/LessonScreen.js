@@ -1,11 +1,12 @@
-import React from 'react'
-import {StyleSheet, View,Text, Button, Image, TextInput,SafeAreaView, ScrollView, TouchableOpacity, FlatList,ImageBackground, Share} from 'react-native'
+import React, {useEffect} from 'react'
+import {StyleSheet,BackHandler, View,Text, Button, Image, TextInput,SafeAreaView, ScrollView, TouchableOpacity, FlatList,ImageBackground, Share} from 'react-native'
 import { Video } from 'expo-av';
 import { NavigationContainer } from '@react-navigation/native'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import ItemLesson from '../Item/ItemLesson'
 
 const Tab = createMaterialTopTabNavigator();
+
 const onShare = async () => {
     try {
       const result = await Share.share({
@@ -33,7 +34,7 @@ const renderListLesson = ({ item }) => (
 function Contents({navigation}){
     return(
       <SafeAreaView style={styles.container} >
-      <ScrollView>
+     
       <View style={styles.container}>
             <View style={styles.containerBody}>
                 <View style={{flexDirection: 'row', margin: 15, justifyContent:'space-between'}}>
@@ -59,7 +60,7 @@ function Contents({navigation}){
                   </SafeAreaView>
            </View>
            </View>
-     </ScrollView>
+     
      </SafeAreaView>
     )
 }
@@ -73,20 +74,29 @@ function Transcript({navigation}){
 }
 
 const LessonScreen = ({navigation}) =>{
+  function handleBackButtonClick() {
+    navigation.goBack();
+    return true;
+  }
+
+  useEffect(()=>{
+      BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
+    };
+  },[]);
     return (
-        <NavigationContainer independent={true} >  
+        <NavigationContainer independent={true}>  
             <View style={styles.containerBody2}>
                 <Video
                         source={{ uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4' }}
                         rate={1.0}
-                        useNativeControls
+                        useNativeControls 
+                        shouldPlay
                         volume={4.0}
                         isLooping
                         isMuted={false}
-                        resizeMode="contain"
-                        style={{ height: 200 }}>
-                          </Video>
-            
+                        style={{ height: 200 }}/>
             </View>
             <Tab.Navigator tabBarOptions={{
                                 labelStyle: { fontSize: 12 , color: '#fff'},

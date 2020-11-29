@@ -1,40 +1,32 @@
-import React, {useState} from 'react'
-import {StyleSheet, View,Text, Button, Image, TextInput, SafeAreaView, ScrollView, FlatList, TouchableOpacity} from 'react-native'
+import React, {useState, useEffect} from 'react'
+import {StyleSheet,BackHandler, View,Text, Button, Image, TextInput, SafeAreaView, ScrollView, FlatList, TouchableOpacity} from 'react-native'
 import ItemCourseVertical from '../Courses/Item/ItemCourseVertical'
 
-const DownloadScreen = ({navigation}) =>{
+const DownloadTab = ({navigation}) =>{
 
   const renderItemNew = ({ item }) => (
     <TouchableOpacity onPress={()=>{navigation.navigate("CourseIntroduction")}}>
     <ItemCourseVertical title={item.title} level ={item.level} author={item.author} totalHours = {item.totalHours}
                 totalComments = {item.totalComments} img={item.img} />
-                </TouchableOpacity>
+    </TouchableOpacity>
     );
 
     return (
      <SafeAreaView style={styles.container}>
-      <ScrollView>
-      <View style={styles.container}>
+      <View  style={styles.container}>
           <View style={styles.abView} >
-                    
-                    <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: '#fff'}}>Download</Text>
-                  
+                    <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: '#fff'}}>Download</Text> 
           </View>
           <View style={styles.containerBody}>
           <View style={{flexDirection: 'row', justifyContent:'flex-end', padding:5}}>
-                 
-                        <Text style={{color: '#42c5f5',marginTop:13, marginRight:3, fontSize:12}}>Xoá tất cả</Text>
-                   
-                </View>
-                <SafeAreaView>
-                  <FlatList 
+                 <Text style={{color: '#42c5f5',marginTop:13, marginRight:3, fontSize:12}}>Xoá tất cả</Text> 
+          </View>
+          <FlatList 
                     data={DATA}
                     renderItem={renderItemNew}
-                    keyExtractor={item => item.id}/>
-                </SafeAreaView>
+                    keyExtractor={item => item.id}/>  
           </View>
     </View>
-    </ScrollView>
     </SafeAreaView>
     )
 }
@@ -60,6 +52,42 @@ const DATA = [
   },
   {
     id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f65',
+    title: 'Build application with NodeJS (Advanced)',
+    author: "Liah Yoo",
+    level: "Advanced",
+    totalHours: 2,
+    totalComments: 10,
+    img: require('../../assets/img3.jpg')
+  },
+  {
+    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f69',
+    title: 'Build application with NodeJS (Advanced)',
+    author: "Liah Yoo",
+    level: "Advanced",
+    totalHours: 2,
+    totalComments: 10,
+    img: require('../../assets/img3.jpg')
+  },
+  {
+    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f68',
+    title: 'Build application with NodeJS (Advanced)',
+    author: "Liah Yoo",
+    level: "Advanced",
+    totalHours: 2,
+    totalComments: 10,
+    img: require('../../assets/img3.jpg')
+  },
+  {
+    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f66',
+    title: 'Build application with NodeJS (Advanced)',
+    author: "Liah Yoo",
+    level: "Advanced",
+    totalHours: 2,
+    totalComments: 10,
+    img: require('../../assets/img3.jpg')
+  },
+  {
+    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f67',
     title: 'Build application with NodeJS (Advanced)',
     author: "Liah Yoo",
     level: "Advanced",
@@ -102,4 +130,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DownloadScreen ;
+export default DownloadTab ;

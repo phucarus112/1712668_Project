@@ -1,8 +1,20 @@
-import React, {useState} from 'react'
-import {StyleSheet, View,Text, Button, Image, TextInput, SafeAreaView, ScrollView, FlatList, TouchableOpacity} from 'react-native'
+import React, {useState,useEffect} from 'react'
+import {StyleSheet, BackHandler, View,Text, Button, Image, TextInput, SafeAreaView, ScrollView, FlatList, TouchableOpacity} from 'react-native'
 import ItemCourseVertical from '../Item/ItemCourseVertical'
 
 const TrendingCourseScreen = ({navigation}) =>{
+
+  function handleBackButtonClick() {
+    navigation.goBack();
+    return true;
+  }
+
+  useEffect(()=>{
+      BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
+    };
+  },[]);
 
   const renderItemNew = ({ item }) => (
     <TouchableOpacity onPress={()=>{navigation.navigate("CourseIntroduction")}}>
@@ -13,7 +25,7 @@ const TrendingCourseScreen = ({navigation}) =>{
 
     return (
       <SafeAreaView style={styles.container} >
-    <ScrollView style={{backgroundColor:"#000"}}>
+  
       <View style={styles.container}>
           <View style={styles.abView} >
           <TouchableOpacity style={{ alignSelf: 'center'}} onPress={()=>{
@@ -34,7 +46,7 @@ const TrendingCourseScreen = ({navigation}) =>{
                 </SafeAreaView>
           </View>
     </View>
-    </ScrollView>
+    
     </SafeAreaView>
     )
 }

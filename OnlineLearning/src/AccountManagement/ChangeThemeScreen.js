@@ -1,7 +1,18 @@
-import React, {useState} from 'react'
-import {StyleSheet, View,Text, Button, Image, TextInput,SafeAreaView, ScrollView, Switch,TouchableOpacity} from 'react-native'
+import React, {useState, useEffect} from 'react'
+import {StyleSheet, View,Text, Button,BackHandler, Image, TextInput,SafeAreaView, ScrollView, Switch,TouchableOpacity} from 'react-native'
 
 const ChangeThemeScreen = ({navigation}) =>{
+    function handleBackButtonClick() {
+        navigation.goBack();
+        return true;
+      }
+    
+      useEffect(()=>{
+          BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
+        return () => {
+          BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
+        };
+      },[]);
     return (
             <View style={styles.container}>
                 <View style={styles.abView} >
@@ -10,7 +21,7 @@ const ChangeThemeScreen = ({navigation}) =>{
                     }}>
                         <Image style={{ alignSelf: 'center', width: 20,height:20, tintColor: 'white', marginLeft: 10}} source={require('../../assets/back.png')} />
                     </TouchableOpacity>
-                    <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: '#fff'}}>Theme</Text>
+                    <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: '#fff'}}>Change Theme</Text>
                     <Text>          </Text>
                 </View>
                 <View style={styles.containerBody}>

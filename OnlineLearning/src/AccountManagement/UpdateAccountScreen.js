@@ -1,7 +1,18 @@
-import React, {useState} from 'react'
-import {StyleSheet, View,Text, Button, Image, TextInput,SafeAreaView, ScrollView, TouchableOpacity} from 'react-native'
+import React, {useState,useEffect} from 'react'
+import {StyleSheet, View,Text,BackHandler, Button, Image, TextInput,SafeAreaView, ScrollView, TouchableOpacity} from 'react-native'
 
 const UpdateAccountScreen = ({navigation}) =>{
+    function handleBackButtonClick() {
+        navigation.goBack();
+        return true;
+      }
+    
+      useEffect(()=>{
+          BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
+        return () => {
+          BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
+        };
+      },[]);
     return (
     <SafeAreaView>
         <ScrollView>
@@ -12,7 +23,7 @@ const UpdateAccountScreen = ({navigation}) =>{
                         }}>
                             <Image style={{ alignSelf: 'center', width: 20,height:20, tintColor: 'white', marginLeft: 10}} source={require('../../assets/back.png')} />
                         </TouchableOpacity>
-                    <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: '#fff'}}>Cập nhật tài khoản</Text>
+                    <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: '#fff'}}>Update Account</Text>
                     <Text>          </Text>
                 </View>
                 <View style={styles.containerBody}>

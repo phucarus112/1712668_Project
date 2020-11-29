@@ -11,7 +11,7 @@ const VerifyEmailScreen = ({navigation}) =>{
                             <Image style={{ alignSelf: 'center', width: 20,height:20, tintColor: 'white', marginLeft: 10}} source={require('../../assets/back.png')} />
                     </TouchableOpacity>
                
-                    <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: '#fff'}}>Xác nhận Email</Text>
+                    <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: '#fff'}}>Verify Email</Text>
                     <Text>          </Text>
                 </View>
                 <View style={styles.containerBody}>

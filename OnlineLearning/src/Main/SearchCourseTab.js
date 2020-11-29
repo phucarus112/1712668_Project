@@ -1,18 +1,21 @@
 import React, {useState, useEffect} from 'react'
-import {StyleSheet, View,Text, Button, Image, TextInput, SafeAreaView, TouchableOpacity ,ScrollView, FlatList, VirtualizedList} from 'react-native'
+import {BackHandler, StyleSheet, View,Text, Button, Image, TextInput, SafeAreaView, TouchableOpacity ,ScrollView, FlatList, VirtualizedList} from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import ItemCourseVertical from '../Courses/Item/ItemCourseVertical'
 import { createStackNavigator } from '@react-navigation/stack';
 import CourseIntroductionScreen from '../CourseDetail/Screen/CourseIntroductionScreen'
 import LessonScreen from '../CourseDetail/Screen/LessonScreen'
+import { Modal } from 'react-native-paper'
 
 const Stack = createStackNavigator();
 const Tab = createMaterialTopTabNavigator();
 
 const SearchAll = ({navigation}) =>{
+  
   const renderItemAll = ({ item }) => (
-    <TouchableOpacity onPress={()=>{navigation.navigate("CourseIntroduction")}}>
+    <TouchableOpacity onPress={()=>{
+      navigation.navigate("CourseIntroduction")}}>
     <ItemCourseVertical title={item.title} level ={item.level} author={item.author} totalHours = {item.totalHours}
                 totalComments = {item.totalComments} img={item.img} />
                 </TouchableOpacity>
@@ -110,7 +113,7 @@ const SearchAuthors = ({navigation}) =>{
           )
         }
 
-function SearchAllStack(){
+const SearchAllStack = ({navigation}) =>{
   return(
     <Stack.Navigator>
         <Stack.Screen name="All" component={SearchAll} options={{headerShown: false}}/>
@@ -120,7 +123,7 @@ function SearchAllStack(){
   )
 }
 
-function SearchCoursesStack(){
+const SearchCoursesStack = ({navigation}) =>{
   return(
     <Stack.Navigator>
         <Stack.Screen name="Courses" component={SearchCourses} options={{headerShown: false}}/>
@@ -130,7 +133,7 @@ function SearchCoursesStack(){
   )
 }
 
-function SearchPathsStack(){
+const SearchPathsStack = ({navigation}) =>{
   return(
     <Stack.Navigator>
         <Stack.Screen name="Paths" component={SearchPaths} options={{headerShown: false }}/>
@@ -140,7 +143,7 @@ function SearchPathsStack(){
   )
 }
 
-function SearchAuthorsStack(){
+const SearchAuthorsStack = ({navigation}) =>{
   return(
     <Stack.Navigator>
         <Stack.Screen name="Authors" component={SearchAuthors} options={{headerShown: false}}/>
@@ -150,18 +153,35 @@ function SearchAuthorsStack(){
   )
 }
 
-const SearchCourseScreen = ({navigation}) =>{
+const SearchCourseTab= ({navigation}) =>{
+  function handleBackButtonClick() {
+    navigation.goBack();
+    return true;
+  }
+
+    useEffect(()=>{
+        BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
+      return () => {
+        BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
+      };
+    },[]);
+    
     return (
     <NavigationContainer independent={true}>
        <View style={styles.abView}>
-   
-          <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: '#fff'}}>Cancel</Text>
-          
+            <View style={styles.container2}>
+                <Image style={{ marginTop: -5, width: 15,height:20, padding: 13, tintColor: '#fff'}} source={require('../../assets/loupe.png')} />
+                <TextInput placeholder="Search here" style={{color:"#fff" ,flex: 8, marginLeft: 10, marginRight: 10,}}></TextInput>
+                <Image style={{ marginTop: -5, width: 10,height:10, padding: 13, tintColor: '#fff'}} source={require('../../assets/cancel.png')} />
+            </View>
+            <Text style={{ alignSelf: 'center',textAlign: 'center', paddingBottom: 15, paddingRight: 15, paddingTop: 15, paddingLeft: 8, color: '#fff', flex: 2, fontSize: 13}}
+              onPress={()=>{
+                navigation.goBack()
+              }}>Cancel</Text>
         </View>
         <Tab.Navigator tabBarOptions={{
                         labelStyle: { fontSize: 12 , color: '#fff'},
-                        style: { backgroundColor: '#000' },
-           }}>
+                        style: { backgroundColor: '#000' }}}>
             <Tab.Screen name="All" component={SearchAllStack}/>
             <Tab.Screen name="Courses" component={SearchCoursesStack} />
             <Tab.Screen name="Paths" component={SearchPathsStack} />
@@ -174,12 +194,14 @@ const SearchCourseScreen = ({navigation}) =>{
 
 const styles = StyleSheet.create({
   container2:{
+     flexDirection: "row",
+    flex: 8,
     alignSelf: "stretch",
-     padding: 10,
+     padding: 15,
      backgroundColor:'#424949',
      borderRadius:10,
-     borderWidth: 1,
-     borderColor: '#c9c9c9',
+    
+     
    },
   container: {
         flex: 1,
@@ -191,13 +213,15 @@ const styles = StyleSheet.create({
       alignSelf: "stretch",
   },
   abView:{
+    height: 70,
     flexDirection: 'row',
     justifyContent:'center',
         alignSelf: "stretch",
         marginTop: 15,
-        paddingTop: 5,
-        paddingBottom: 5,
-        backgroundColor:'#424949',
+        paddingLeft: 10,
+        paddingTop:10,
+        paddingBottom:10,
+        backgroundColor:'#000',
   },
   textLabel:{
     marginTop:15, marginLeft: 15,
@@ -255,4 +279,4 @@ const DATA = [
 ];
 
 
-export default SearchCourseScreen ;
+export default SearchCourseTab;

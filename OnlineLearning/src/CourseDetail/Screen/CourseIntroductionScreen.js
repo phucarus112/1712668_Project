@@ -1,8 +1,21 @@
-import React from 'react'
-import {StyleSheet, View,Text, Button, Image, TextInput,SafeAreaView, ScrollView, Switch, TouchableOpacity} from 'react-native'
+import React, {useEffect} from 'react'
+import {StyleSheet,BackHandler, View,Text, Button, Image, TextInput,SafeAreaView, ScrollView, Switch, TouchableOpacity} from 'react-native'
 import { Video } from 'expo-av';
 
 const CourseIntroductionScreen = ({navigation}) =>{
+
+    function handleBackButtonClick() {
+        navigation.goBack();
+        return true;
+      }
+    
+      useEffect(()=>{
+          BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
+        return () => {
+          BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
+        };
+      },[]);
+
     return (
 <SafeAreaView >
     <ScrollView>
@@ -12,6 +25,7 @@ const CourseIntroductionScreen = ({navigation}) =>{
                         source={{ uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4' }}
                         rate={1.0}
                         useNativeControls
+                   shoul
                         volume={4.0}
                         isLooping
                         isMuted={false}

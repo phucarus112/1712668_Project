@@ -1,12 +1,11 @@
 import React, {useState} from 'react'
 import {StyleSheet, View,Text, Button, Image, TextInput,SafeAreaView, ScrollView, Switch} from 'react-native'
 
-const SettingScreen = ({navigation}) =>{
+const SettingTab = ({navigation}) =>{
     return (
             <View style={styles.container}>
                 <View style={styles.abView} >
                     <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: '#fff'}}>Setting</Text>
-                
                 </View>
                 <View style={styles.containerBody}>
                     <View onStartShouldSetResponder={()=>{
@@ -37,7 +36,11 @@ const SettingScreen = ({navigation}) =>{
                         <Text style={{ marginLeft: 15, marginTop: 20, color: '#fff',}}>Version</Text>
                         <Text style={{ marginRight: 15, marginTop: 20, color: '#fff',}}>1.0</Text>
                     </View>
-                    <View style={styles.container2} >
+                    <View style={styles.container2}  
+                          onStartShouldSetResponder={()=>{
+                                navigation.goBack()
+                                navigation.goBack()
+                    }}>
                         <Text style={styles.textView} >Đăng xuất</Text>
                     </View>
                 </View>
@@ -102,4 +105,4 @@ const styles = StyleSheet.create({
  
 });
 
-export default SettingScreen;
+export default SettingTab;

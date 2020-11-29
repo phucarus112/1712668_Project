@@ -3,7 +3,12 @@ import {StyleSheet, View,Text, Button, Image, TextInput, SafeAreaView, ScrollVie
 import ItemTopAuthors from '../Courses/Item/ItemTopAuthors'
 import ItemCourseHorizontal from '../Courses/Item/ItemCourseHorizontal'
 
-const HomeScreen = ({navigation}) =>{
+import { NavigationContainer} from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
+const Stack = createStackNavigator();
+
+const HomeTab = ({navigation}) =>{
   const renderItemNew = ({ item }) => (
     <TouchableOpacity onPress={()=>{navigation.navigate("CourseIntroduction")}}>
         <ItemCourseHorizontal title={item.title} level ={item.level} author={item.author} totalHours = {item.totalHours}
@@ -22,7 +27,9 @@ const HomeScreen = ({navigation}) =>{
     <ItemTopAuthors name ={item.name}/>
   );
     return (
-    <SafeAreaView>
+          <NavigationContainer independent={true}>
+          
+          <SafeAreaView>
     <ScrollView>
       <View style={styles.container}>
           <View style={styles.abView} >
@@ -87,6 +94,10 @@ const HomeScreen = ({navigation}) =>{
     </View>
     </ScrollView>
     </SafeAreaView>
+  
+          </NavigationContainer>
+      
+   
     )
 }
 
@@ -171,4 +182,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+export default HomeTab;
