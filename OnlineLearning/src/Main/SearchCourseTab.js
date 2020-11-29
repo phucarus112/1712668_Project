@@ -37,6 +37,7 @@ const SearchCourseTab= ({navigation}) =>{
     )
 }
 
+
 const styles = StyleSheet.create({
   noDataContainer:{
     flex: 1,
