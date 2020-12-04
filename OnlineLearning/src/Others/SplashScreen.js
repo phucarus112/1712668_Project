@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {StyleSheet, View,Text, Button, Image} from 'react-native'
-import {useNavigation} from '@react-navigation/native'
+import { ThemeContext } from '../../App';
 
 class SplashScreen extends React.Component{
 
@@ -23,25 +23,34 @@ class SplashScreen extends React.Component{
 
   render(){
    
-    return (
-      <View style={styles.container}>
-          <Image style={styles.tinyLogo}  source={require('../../assets/launch.png')}/>
-          <Text style={{color: "#fff", marginTop:10}}>Loading... {`${this.state.loading}`} % </Text>
-    </View>
-    )
+    return <ThemeContext.Consumer>
+      {
+        ({theme,changeTheme})=>{
+          console.log(theme);
+          return(<View style={{...styles.container, backgroundColor: theme.background}}>
+                <Image style={styles.tinyLogo}  source={require('../../assets/launch.png')}/>
+                <Text style={{color: "#424949", marginTop:10}}>Loading... {`${this.state.loading}`} % </Text>
+          </View>
+          )
+        }
+      }
+    </ThemeContext.Consumer>
+
+    
   }
 }
+
+SplashScreen.contextType = ThemeContext;
 
 const styles = StyleSheet.create({
 
   container: {
     flex: 1,
-    backgroundColor: '#000',
     alignItems: 'center',
     justifyContent: 'center',
   },
   tinyLogo: {
-    tintColor: "#fff",
+    tintColor: "#424949",
     width: 50,
     height: 50,
   },

@@ -42,16 +42,16 @@ function Contents({navigation}){
                         <ImageBackground source={require('../../../assets/img1.png')} style={{width: 115,height:60, justifyContent:"center"}}/>
                 
                         <View>
-                            <Text style={{color: '#fff',fontSize:12, margin: 7, maxWidth: 200, fontWeight: 'bold'}}>Getting Started</Text>
-                            <Text style={{color: '#fff',fontSize:10, marginLeft: 7}}>01:30</Text>
+                            <Text style={{color: '#424949',fontSize:12, margin: 7, maxWidth: 200, fontWeight: 'bold'}}>Getting Started</Text>
+                            <Text style={{color: '#424949',fontSize:10, marginLeft: 7}}>01:30</Text>
                         </View>
                     </View>
                     <View style={{flexDirection: 'row'}}>
                     <TouchableOpacity activeOpacity = { .5 } onPress={onShare} style={{marginTop: 20}}>
-                      <Image style={{ alignSelf: 'center', width: 15,height:15, tintColor: 'white', marginRight: 15}} source={require('../../../assets/share.png')} />
+                      <Image style={{ alignSelf: 'center', width: 15,height:15, tintColor: '#424949', marginRight: 15}} source={require('../../../assets/share.png')} />
                        </TouchableOpacity>
-                        <Image style={{ alignSelf: 'center', width: 15,height:15, tintColor: 'white', marginRight: 15}} source={require('../../../assets/download.png')} />
-                        <Image style={{ alignSelf: 'center', width: 15,height:15, tintColor: 'white'}} source={require('../../../assets/option.png')} />
+                        <Image style={{ alignSelf: 'center', width: 15,height:15, tintColor: '#424949', marginRight: 15}} source={require('../../../assets/download.png')} />
+                        <Image style={{ alignSelf: 'center', width: 15,height:15, tintColor: '#424949'}} source={require('../../../assets/option.png')} />
                     </View>
                 </View>
                

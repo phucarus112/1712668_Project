@@ -1,7 +1,11 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import {StyleSheet,BackHandler, View,Text, Button, Image} from 'react-native'
+import {ThemeContext} from '../../App'
 
 const ChooseAuthenticationScreen = ({navigation}) =>{
+
+  const theme = useContext(ThemeContext);
+
   function handleBackButtonClick() {
     navigation.goBack(null);
     return true;
@@ -13,29 +17,29 @@ const ChooseAuthenticationScreen = ({navigation}) =>{
       BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
     };
   },[]);
-    return (
-      <View style={styles.container}>
-          <Image style={styles.tinyLogo}  source={require('../../assets/launch.png')}/>
-          <Text style={styles.tinyText}>ONLINE LEARNING</Text>
-          <View  style={styles.container2} >
-            <Text style={styles.textView} onPress={()=>{
-                navigation.navigate("Login")
-            }} >Đăng nhập</Text>
-          </View>
-          <View  style={styles.container2}>
-            <Text style={styles.textView} onPress={()=>{
-                navigation.navigate("Register")
-            }} >Đăng ký</Text>
-          </View>
-    </View>
-    )
+
+  return(
+        <View style={{...styles.container, backgroundColor: theme.background }}>
+            <Image style={styles.tinyLogo}  source={require('../../assets/launch.png')}/>
+            <Text style={styles.tinyText}>ONLINE LEARNING</Text>
+            <View  style={{...styles.container2,  backgroundColor: theme.background}} >
+              <Text style={styles.textView} onPress={()=>{
+                  navigation.navigate("Login")
+              }} >Đăng nhập</Text>
+            </View>
+            <View  style={{...styles.container2,  backgroundColor: theme.background}}>
+              <Text style={styles.textView} onPress={()=>{
+                  navigation.navigate("Register")
+              }} >Đăng ký</Text>
+            </View>
+      </View>
+      )
 }
 
 const styles = StyleSheet.create({
   container2:{
    alignSelf: "stretch",
     margin: 15,
-    backgroundColor:'#000',
     borderRadius:10,
     borderWidth: 1,
     borderColor: '#42c5f5',
@@ -47,17 +51,16 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: '#000',
     alignItems: 'center',
     justifyContent: 'center',
   },
   tinyLogo: {
-    tintColor: "#fff",
+    tintColor: "#424949",
     width: 50,
     height: 50,
   },
   tinyText: {
-    color: '#fff',
+    color: '#424949',
     fontWeight: 'bold',
     fontSize: 22,
     marginTop: 10,

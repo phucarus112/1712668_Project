@@ -6,7 +6,7 @@ const ItemLesson = (props) =>{
    return(
     <View style={styles.item}> 
         <View style={{width: 10, height: 10, borderRadius: 15, marginRight: 15, marginLeft: 15, marginTop: 15,backgroundColor: "#00ff00",}} />
-        <Text style={{color: '#fff',fontSize:12, marginLeft:7,  marginTop: 8}}>{props.nameLesson}</Text>
+        <Text style={{color: '#424949',fontSize:12, marginLeft:7,  marginTop: 8}}>{props.nameLesson}</Text>
     </View>
    )
 }

@@ -1,9 +1,11 @@
-import React, {useState} from 'react'
+import React, {useState,useContext} from 'react'
 import {StyleSheet, View,Text, Button, Image, TextInput,SafeAreaView, ScrollView, TouchableOpacity} from 'react-native'
+import {ThemeContext} from '../../App'
 
 const ForgetPasswordScreen = ({navigation}) =>{
+    const theme = useContext(ThemeContext);
     return (
-            <View style={styles.container}>
+            <View style={{...styles.container, backgroundColor: theme.background}}>
                 <View style={styles.abView} >
                     <TouchableOpacity style={{ alignSelf: 'center'}} onPress={()=>{
                         navigation.goBack()
@@ -14,7 +16,7 @@ const ForgetPasswordScreen = ({navigation}) =>{
                     <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: '#fff'}}>Forget Password</Text>
                     <Text>          </Text>
                 </View>
-                <View style={styles.containerBody}>
+                <View style={{...styles.containerBody, backgroundColor: theme.background}}>
                     <Text style={{ marginLeft: 15, marginTop: 20, color: '#424949',}}>Nhập Email để xác nhận</Text>
                     <View style={styles.container2}>
                         <TextInput placeholder="" ></TextInput>
@@ -45,13 +47,11 @@ const styles = StyleSheet.create({
    },
   container: {
         flex: 1,
-        backgroundColor: '#000',
         alignItems: 'center',
         justifyContent: 'space-between',
     },
   containerBody: {
-      alignSelf: "stretch",
-      backgroundColor: '#000',
+      alignSelf: "stretch"
   },
   abView:{
     flexDirection: 'row',

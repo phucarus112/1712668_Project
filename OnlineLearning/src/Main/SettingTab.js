@@ -11,30 +11,30 @@ const SettingTab = ({navigation}) =>{
                     <View onStartShouldSetResponder={()=>{
                         navigation.navigate("Account")
                     }} style={{flexDirection: 'row', justifyContent:'space-between', paddingBottom: 10, borderBottomWidth: 0.5, borderBottomColor: '#424949' }}>
-                        <Text style={{ marginLeft: 15, marginTop: 20, color: '#fff',}}>Tài khoản</Text>
+                        <Text style={{ marginLeft: 15, marginTop: 20, color: '#424949',}}>Tài khoản</Text>
                         <Image style={{ marginTop: 20, marginRight: 15, width: 18,height:18, tintColor: '#424949'}} source={require('../../assets/arrow.png')} />
                     </View>
                     <View onStartShouldSetResponder={()=>{
                         navigation.navigate("ChangeTheme")
                     }} style={{flexDirection: 'row', justifyContent:'space-between', paddingBottom: 10, borderBottomWidth: 0.5, borderBottomColor: '#424949' }}>
-                        <Text style={{ marginLeft: 15, marginTop: 20, color: '#fff',}}>Theme</Text>
+                        <Text style={{ marginLeft: 15, marginTop: 20, color: '#424949',}}>Theme</Text>
                         <Image style={{ marginTop: 20, marginRight: 15, width: 18,height:18, tintColor: '#424949'}} source={require('../../assets/arrow.png')} />
                     </View>
                     <View style={{flexDirection: 'row', justifyContent:'space-between', paddingBottom: 10, borderBottomWidth: 0.5, borderBottomColor: '#424949' }}>
-                        <Text style={{ marginLeft: 15, marginTop: 20, color: '#fff',}}>Yêu cầu Wi-Fi cho streaming</Text>
+                        <Text style={{ marginLeft: 15, marginTop: 20, color: '#424949',}}>Yêu cầu Wi-Fi cho streaming</Text>
                         <Switch trackColor={{ false: "#42c5f5", true: "#81b0ff" }} thumbColor="#fff" style ={{marginTop:18}}/>
                     </View>
                     <View style={{flexDirection: 'row', justifyContent:'space-between', paddingBottom: 10, borderBottomWidth: 0.5, borderBottomColor: '#424949' }}>
-                        <Text style={{ marginLeft: 15, marginTop: 20, color: '#fff',}}>Yêu cầu Wi-Fi cho download</Text>
+                        <Text style={{ marginLeft: 15, marginTop: 20, color: '#424949',}}>Yêu cầu Wi-Fi cho download</Text>
                         <Switch trackColor={{ false: "#42c5f5", true: "#81b0ff" }} thumbColor="#fff" style ={{marginTop:18}}/>
                     </View>
                     <View style={{flexDirection: 'row', justifyContent:'space-between', paddingBottom: 10, borderBottomWidth: 0.5, borderBottomColor: '#424949'  }}>
-                        <Text style={{ marginLeft: 15, marginTop: 20, color: '#fff',}}>Feedback</Text>
+                        <Text style={{ marginLeft: 15, marginTop: 20, color: '#424949',}}>Feedback</Text>
                         <Image style={{ marginTop: 20, marginRight: 15, width: 18,height:18, tintColor: '#424949'}} source={require('../../assets/arrow.png')} />
                     </View>
                     <View style={{flexDirection: 'row', justifyContent:'space-between', paddingBottom: 10, borderBottomWidth: 0.5, borderBottomColor: '#424949' }}>
-                        <Text style={{ marginLeft: 15, marginTop: 20, color: '#fff',}}>Version</Text>
-                        <Text style={{ marginRight: 15, marginTop: 20, color: '#fff',}}>1.0</Text>
+                        <Text style={{ marginLeft: 15, marginTop: 20, color: '#424949',}}>Version</Text>
+                        <Text style={{ marginRight: 15, marginTop: 20, color: '#424949',}}>1.0</Text>
                     </View>
                     <View style={styles.container2}  
                           onStartShouldSetResponder={()=>{

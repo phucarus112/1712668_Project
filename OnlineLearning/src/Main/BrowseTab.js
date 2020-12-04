@@ -32,7 +32,7 @@ const BrowseTab = ({navigation}) =>{
                         </ImageBackground>
                     </View>
                     <View style={{flexDirection: 'column', justifyContent:'space-between', padding:5, }}>
-                        <Text style={{ marginTop: 10, color: '#fff',}}>Kỹ năng ưa chuộng</Text>
+                        <Text style={{ marginTop: 10, color: '#424949',}}>Kỹ năng ưa chuộng</Text>
                         <View style={{flexDirection: 'row', justifyContent:'space-around', padding:5, flexWrap: "wrap"}}>
                             <View style={{flexDirection: 'row', marginTop:8,backgroundColor:"#424949", padding:10 ,borderRadius:30, marginRight: 10}}>
                                 <Image style={{ marginLeft:3, marginRight:3,width: 15,height:15, tintColor: 'red'}} source={require('../../assets/check.png')} />
@@ -50,7 +50,7 @@ const BrowseTab = ({navigation}) =>{
                         </View>
                     </View>
                     <View style={{flexDirection: 'row', justifyContent:'space-between', padding:5}}>
-                    <Text style={{ marginLeft: 10, marginTop: 20, color: '#fff',}}>Lộ trình</Text>
+                    <Text style={{ marginLeft: 10, marginTop: 20, color: '#424949',}}>Lộ trình</Text>
                     <View style={{flexDirection: 'row', marginTop:13,backgroundColor:"#424949", padding:10 ,borderRadius:30}}>
                         <Text style={{color: '#fff', marginRight:3, fontSize:10}}>Xem tất cả</Text>
                         <Image style={{ marginLeft:3, marginRight:3,width: 15,height:15, tintColor: '#fff'}} source={require('../../assets/arrow.png')} />

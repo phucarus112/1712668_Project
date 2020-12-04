@@ -8,35 +8,33 @@ const SearchCourseTab= ({navigation}) =>{
     return true;
   }
 
-    useEffect(()=>{
+  useEffect(()=>{
         BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
       return () => {
         BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
       };
-    },[]);
+  },[]);
     
-    return (
+  return (
       <View style={styles.container}>
-       <View style={styles.abView}>
-            <View style={styles.container2}>
+        <View style={styles.abView}>
+          <View style={styles.container2}>
                 <Image style={{ marginTop: -5, width: 15,height:20, padding: 13, tintColor: '#fff'}} source={require('../../assets/loupe.png')} />
                 <TextInput placeholder="Search here" style={{color:"#fff" ,flex: 8, marginLeft: 10, marginRight: 10,}}></TextInput>
-              
-            </View>
-            <View  style={styles.container3} onStartShouldSetResponder={()=>{
+          </View>
+          <View style={styles.container3} onStartShouldSetResponder={()=>{
               navigation.navigate("ResultCourse")}} >
               <Text style={{color: "#fff", alignSelf: "center"}} onPress={()=>{
                 navigation.navigate("ResultCourse")}} >Search</Text>
-           </View>
+          </View>
         </View>
         <View style={styles.noDataContainer}>
-        <Text style={{color: "#c9c9c9", maxWidth: 250, fontSize:13}}>Over 7.000 courses at your fingertips. </Text>
-        <Text style={{color: "#c9c9c9", maxWidth: 300}}>Search by title, path, author or subject. </Text>
+          <Text style={{color: "#c9c9c9", maxWidth: 250, fontSize:13}}>Over 7.000 courses at your fingertips. </Text>
+          <Text style={{color: "#c9c9c9", maxWidth: 300}}>Search by title, path, author or subject. </Text>
         </View>
-        </View>
+      </View>
     )
 }
-
 
 const styles = StyleSheet.create({
   noDataContainer:{
@@ -44,36 +42,36 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: 'center',
     backgroundColor: "#000"
-},
+  },
   container2:{
-     flexDirection: "row",
+    flexDirection: "row",
     flex: 8,
     alignSelf: "stretch",
-     padding: 15,
-     backgroundColor:'#424949',
-     borderRadius:10,
+    padding: 15,
+    backgroundColor:'#424949',
+    borderRadius:10,
    },
-   container3:{
+  container3:{
     backgroundColor: '#42c5f5',
     alignSelf: "stretch",
-   marginLeft:5,
-   marginRight:5,
-   borderRadius: 20,
+    marginLeft:5,
+    marginRight:5,
+    borderRadius: 20,
      padding: 15,
    },
-  container: {
+  container:{
         flex: 1,
         backgroundColor: '#000',
         alignItems: 'center',
         justifyContent: 'flex-start',
-    },
-  containerBody: {
+  },
+  containerBody:{
       alignSelf: "stretch",
   },
   abView:{
-    height: 70,
-    flexDirection: 'row',
-    justifyContent:'center',
+        height: 70,
+        flexDirection: 'row',
+        justifyContent:'center',
         alignSelf: "stretch",
         marginTop: 15,
         paddingLeft: 10,
@@ -82,9 +80,10 @@ const styles = StyleSheet.create({
         backgroundColor:'#000',
   },
   textLabel:{
-    marginTop:15, marginLeft: 15,
-      color: '#fff',
-  },
+    marginTop:15, 
+    marginLeft: 15,
+    color: '#fff',
+  }
 });
 
 const AUTHORS = [

@@ -1,11 +1,13 @@
-import React, {useState} from 'react'
+import React, {useState,useContext} from 'react'
 import {StyleSheet, View,Text, Button, Image, TextInput,SafeAreaView, ScrollView, TouchableOpacity} from 'react-native'
+import {ThemeContext} from '../../App'
 
 const RegisterScreen = ({navigation}) =>{
+    const theme = useContext(ThemeContext);
     return (
     <SafeAreaView>
         <ScrollView>
-            <View style={styles.container}>
+            <View style={{...styles.container, backgroundColor: theme.background}}>
                 <View style={styles.abView} >
                     <TouchableOpacity style={{ alignSelf: 'center'}} onPress={()=>{
                         navigation.goBack()
@@ -16,7 +18,7 @@ const RegisterScreen = ({navigation}) =>{
                     <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: '#fff'}}>Register</Text>
                     <Text>          </Text>
                 </View>
-                <View style={styles.containerBody}>
+                <View style={{...styles.containerBody, backgroundColor: theme.background}}>
                     <Text style={{ marginLeft: 15, marginTop: 20, color: '#424949',}}>Tên đăng nhập</Text>
                 <View style={styles.container2}>
                     <TextInput placeholder="" ></TextInput>
@@ -42,10 +44,10 @@ const RegisterScreen = ({navigation}) =>{
                     <TextInput placeholder="" ></TextInput>
                 </View>
                 <View  style={styles.container3}  onStartShouldSetResponder={()=>{
-                navigation.navigate("Main")
+                navigation.navigate("Login")
                 }}>
                 <Text style={{color: "#fff", fontWeight: 'bold', alignSelf: "center"}} onPress={()=>{
-                        navigation.navigate("Main")
+                        navigation.navigate("Login")
                 }}>Đăng ký</Text>
                 </View>
                 </View>
@@ -69,13 +71,13 @@ const styles = StyleSheet.create({
    },
   container: {
         flex: 1,
-        backgroundColor: '#000',
+      
         alignItems: 'center',
         justifyContent: 'space-between',
     },
   containerBody: {
       alignSelf: "stretch",
-      backgroundColor: '#000',
+     
   },
   abView:{
     flexDirection: 'row',

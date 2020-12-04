@@ -32,12 +32,12 @@ const CourseIntroductionScreen = ({navigation}) =>{
                         resizeMode="contain"
                         style={{ height: 200 }}/>
                     <View style={{flexDirection: 'row', justifyContent:'space-between', padding:5, }}>
-                        <Text style={{  marginTop: 15, color: '#fff', fontSize: 18}}>BIG BUCK FUNNY Trailer</Text>
+                        <Text style={{  marginTop: 15, color: '#424949', fontSize: 18}}>BIG BUCK FUNNY Trailer</Text>
                     </View>
                     <View style={{flexDirection: 'row', padding:5}}>
-                        <Text style={{color: '#fff',marginLeft:7}}>Beginner</Text>
-                        <Text style={{color: '#fff'}}> - 27s</Text>
-                        <Text style={{color: '#fff',marginLeft:7}}>Bình luận: (5)</Text>
+                        <Text style={{color: '#424949',marginLeft:7}}>Beginner</Text>
+                        <Text style={{color: '#424949'}}> - 27s</Text>
+                        <Text style={{color: '#424949',marginLeft:7}}>Bình luận: (5)</Text>
                     </View>
                     <View style={{padding:5, flexDirection:'row', justifyContent:'space-between'}}>
                         <View style={{flexDirection: 'row', marginTop:8,backgroundColor:"#424949", padding:10 ,borderRadius:30}}>
@@ -51,26 +51,27 @@ const CourseIntroductionScreen = ({navigation}) =>{
                                <View style={{backgroundColor:"#424949", padding:15 ,borderRadius:30, width: 60, height: 60}}>
                                     <Image style={{tintColor: 'white', width: 30, height: 30}} source={require('../../../assets/bookmark.png')} />
                                 </View>
-                                <Text style={{color: '#fff', fontSize: 10, marginTop: 10, marginLeft:5}}>Bookmark</Text>
+                                <Text style={{color: '#424949', fontSize: 10, marginTop: 10, marginLeft:5}}>Bookmark</Text>
                             </View>
                             <View style={{flexDirection: 'column', justifyContent:"center",padding:5}}>
                                <View style={{backgroundColor:"#424949", padding:15 ,borderRadius:30, width: 60, height: 60}}>
                                     <Image style={{tintColor: 'white', width: 30, height: 30}} source={require('../../../assets/radio.png')} />
                                 </View>
-                                <Text style={{color: '#fff', fontSize: 10, marginTop: 10,marginLeft:-5}}>Add to channel</Text>
+                                <Text style={{color: '#424949', fontSize: 10, marginTop: 10,marginLeft:-5}}>Add to channel</Text>
                             </View>
                             <View style={{flexDirection: 'column',justifyContent:"center", padding:5}}>
                                <View style={{backgroundColor:"#424949", padding:15 ,borderRadius:30, width: 60, height: 60}}>
                                     <Image style={{tintColor: 'white', width: 30, height: 30}} source={require('../../../assets/download.png')} />
                                 </View>
-                                <Text style={{color: '#fff', fontSize: 10, marginTop: 10,marginLeft:5}}>Download</Text>
+                                <Text style={{color: '#424949', fontSize: 10, marginTop: 10,marginLeft:5}}>Download</Text>
                             </View>
                     </View>
                     <TextInput
+                
                     autogrow
                     multiline
                     editable={false}
-                        style={{color: '#fff', margin: 15, fontSize:12}}
+                        style={{color: '#424949', margin: 15, fontSize:12}}
                         value="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum"/>    
                      <View  style={styles.container3} onStartShouldSetResponder={()=>{
                          navigation.navigate("Lesson")

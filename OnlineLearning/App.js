@@ -1,5 +1,4 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, {useState} from 'react';
 
 import SplashScreen from './src/Others/SplashScreen'
 import ChooseAuthenticationScreen from './src/Others/ChooseAuthenticationScreen'
@@ -15,21 +14,36 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
 
+export const themeList = {
+  light: {
+    background: "#fff"
+  },
+  dark:{
+    background: "#000"
+  }
+}
+
+export const ThemeContext = React.createContext();
+
 export default function App() {
+
+  const [theme, changeTheme] =  useState(themeList.light);
   
   return (
-    <NavigationContainer independent={true}>
-      <Stack.Navigator>
-        <Stack.Screen name="Splash" component={SplashScreen} options={{headerShown: false}}/>
-        <Stack.Screen name="ChooseAuthentication" component={ChooseAuthenticationScreen} options={{headerShown: false}}/>
-        <Stack.Screen name="Login" component={LoginScreen}  options={{headerShown: false}}/>
-        <Stack.Screen name="Register" component={RegisterScreen}  options={{headerShown: false}}/>
-        <Stack.Screen name="ForgetPassword" component={ForgetPasswordScreen} options={{headerShown: false}} />
-        <Stack.Screen name="VerifyEmail" component={VerifyEmailScreen} options={{headerShown: false}} />
-        <Stack.Screen name="VerifyPassword" component={VerifyPasswordScreen} options={{headerShown: false}} />
-        <Stack.Screen name="Main" component={MainScreen} options={{headerShown: false}}/>
-      </Stack.Navigator>
-    </NavigationContainer>
+    <ThemeContext.Provider value={{theme,changeTheme}}>
+      <NavigationContainer independent={true}>
+        <Stack.Navigator>
+          <Stack.Screen name="Splash" component={SplashScreen} options={{headerShown: false}}/>
+          <Stack.Screen name="ChooseAuthentication" component={ChooseAuthenticationScreen} options={{headerShown: false}}/>
+          <Stack.Screen name="Login" component={LoginScreen}  options={{headerShown: false}}/>
+          <Stack.Screen name="Register" component={RegisterScreen}  options={{headerShown: false}}/>
+          <Stack.Screen name="ForgetPassword" component={ForgetPasswordScreen} options={{headerShown: false}} />
+          <Stack.Screen name="VerifyEmail" component={VerifyEmailScreen} options={{headerShown: false}} />
+          <Stack.Screen name="VerifyPassword" component={VerifyPasswordScreen} options={{headerShown: false}} />
+          <Stack.Screen name="Main" component={MainScreen} options={{headerShown: false}}/>
+        </Stack.Navigator>
+      </NavigationContainer>
+    </ThemeContext.Provider>
   );
 }
 

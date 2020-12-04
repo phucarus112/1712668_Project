@@ -173,7 +173,7 @@ const ResultCourseScreen = ({navigation}) =>{
                 <TextInput placeholder="Search here" style={{color:"#fff" ,flex: 8, marginLeft: 10, marginRight: 10,}}></TextInput>
                 <Image style={{ marginTop: -5, width: 10,height:10, padding: 13, tintColor: '#fff'}} source={require('../../../assets/cancel.png')} />
             </View>
-            <Text style={{ alignSelf: 'center',textAlign: 'center', paddingBottom: 15, paddingRight: 15, paddingTop: 15, paddingLeft: 8, color: '#fff', flex: 2, fontSize: 13}}
+            <Text style={{ alignSelf: 'center',textAlign: 'center', paddingBottom: 15, paddingRight: 15, paddingTop: 15, paddingLeft: 8, color: '#424949', flex: 2, fontSize: 13}}
               onPress={()=>{
                 navigation.goBack()
               }}>Cancel</Text>

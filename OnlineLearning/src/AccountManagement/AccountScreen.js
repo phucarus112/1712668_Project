@@ -26,17 +26,17 @@ const AccountScreen = ({navigation}) =>{
                 </View>
                 <Image style={{ alignSelf: 'center', width: 150,height:150, borderRadius:75, marginTop:15}} source={require('../../assets/avt.png')} />
                 <View style={{flexDirection: 'row', justifyContent:'center', padding:5, }}>
-                        <Text style={{ marginTop: 15, color: '#fff', fontWeight: 'bold'}}>Huỳnh Phúc</Text>
+                        <Text style={{ marginTop: 15, color: '#424949', fontWeight: 'bold'}}>Huỳnh Phúc</Text>
                         <TouchableOpacity onPress={()=>{
                             navigation.navigate("UpdateAccount")
                         }}>
-                            <Image style={{ marginTop: 18,marginLeft:8, width: 18,height:18, tintColor: '#fff'}} source={require('../../assets/arrow.png')} />
+                            <Image style={{ marginTop: 18,marginLeft:8, width: 18,height:18, tintColor: '#424949'}} source={require('../../assets/arrow.png')} />
                         </TouchableOpacity>
                         
                 </View>
                 <View style={styles.containerBody}>
                     <View style={{flexDirection: 'column', justifyContent:'space-between', padding:5, }}>
-                        <Text style={{ marginLeft: 15, marginTop: 20, color: '#fff',}}>Sở thích</Text>
+                        <Text style={{ marginLeft: 15, marginTop: 20, color: '#424949',}}>Sở thích</Text>
                         <View style={{flexDirection: 'row', justifyContent:'space-around', padding:5, flexWrap: "wrap"}}>
                             <View style={{flexDirection: 'row', marginTop:8,backgroundColor:"#424949", padding:10 ,borderRadius:30}}>
                                 <Image style={{ marginLeft:3, marginRight:3,width: 15,height:15, tintColor: 'red'}} source={require('../../assets/check.png')} />
@@ -55,12 +55,12 @@ const AccountScreen = ({navigation}) =>{
                 </View>
                 <View style={styles.containerBody}>
                     <View style={{flexDirection: 'row',marginTop: 20, justifyContent:'space-between'}}>
-                        <Text style={{ marginLeft: 15, color: '#fff',}}>Số giờ hoạt động trong ngày</Text>
-                        <Text style={{ marginRight: 15, color: '#fff',}}>4</Text>
+                        <Text style={{ marginLeft: 15, color: '#424949',}}>Số giờ hoạt động trong ngày</Text>
+                        <Text style={{ marginRight: 15, color: '#424949',}}>4</Text>
                     </View>
                     <View style={{flexDirection: 'row',marginTop: 20, justifyContent:'space-between'}}>
-                        <Text style={{ marginLeft: 15, color: '#fff',}}>Số khoá học đã tham gia</Text>
-                        <Text style={{ marginRight: 15, color: '#fff',}}>2</Text>
+                        <Text style={{ marginLeft: 15, color: '#424949',}}>Số khoá học đã tham gia</Text>
+                        <Text style={{ marginRight: 15, color: '#424949',}}>2</Text>
                     </View>
                 </View>
             </View>  

@@ -36,6 +36,7 @@ useEffect(()=>{
     BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
   };
 },[]);
+
   return (
     <Stack.Navigator  initialRouteName="HomeTab">
       <Stack.Screen name="HomeTab" component={HomeTab} options={{headerShown: false}}/>

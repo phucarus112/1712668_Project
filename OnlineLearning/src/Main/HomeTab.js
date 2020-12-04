@@ -1,10 +1,11 @@
-import React, {useState} from 'react'
+import React, {useState,useContext} from 'react'
 import {StyleSheet, View,Text, Button, Image, TextInput, SafeAreaView, ScrollView, FlatList, TouchableOpacity} from 'react-native'
 import ItemTopAuthors from '../Courses/Item/ItemTopAuthors'
 import ItemCourseHorizontal from '../Courses/Item/ItemCourseHorizontal'
 
 import { NavigationContainer} from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import {ThemeContext} from '../../App'
 
 const Stack = createStackNavigator();
 
@@ -26,19 +27,21 @@ const HomeTab = ({navigation}) =>{
   const renderItemAuthor = ({item}) =>(
     <ItemTopAuthors name ={item.name}/>
   );
+
+  const theme = useContext(ThemeContext);
     return (
           <NavigationContainer independent={true}>
           
           <SafeAreaView>
     <ScrollView>
-      <View style={styles.container}>
+    <View style={{...styles.container, backgroundColor: theme.background}}>
           <View style={styles.abView} >
             <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: '#fff'}}>Online Learning</Text>
           </View>
-         <View style={styles.containerBody}>
+          <View style={{...styles.containerBody, backgroundColor: theme.background}}>
             <View >
                 <View style={{flexDirection: 'row', justifyContent:'space-between', padding:5}}>
-                    <Text style={{ marginLeft: 10, marginTop: 20, color: '#fff',}}>Mới nhất</Text>
+                    <Text style={{ marginLeft: 10, marginTop: 20, color: '#424949',}}>Mới nhất</Text>
                     <View onStartShouldSetResponder={()=>{
                       navigation.navigate("NewCourse")
                     }} style={{flexDirection: 'row', marginTop:13,backgroundColor:"#424949", padding:10 ,borderRadius:30}}>
@@ -60,7 +63,7 @@ const HomeTab = ({navigation}) =>{
                     keyExtractor={item => item.id}/>
                 </SafeAreaView>
                 <View style={{flexDirection: 'row', justifyContent:'space-between', padding:5}}>
-                    <Text style={{ marginLeft: 10, marginTop: 20, color: '#fff',}}>Xu hướng</Text>
+                    <Text style={{ marginLeft: 10, marginTop: 20, color: '#424949',}}>Xu hướng</Text>
                     <View onStartShouldSetResponder={()=>{
                       navigation.navigate("TrendingCourse")
                     }} style={{flexDirection: 'row', marginTop:13,backgroundColor:"#424949", padding:10 ,borderRadius:30}}>
@@ -81,7 +84,7 @@ const HomeTab = ({navigation}) =>{
                     keyExtractor={item => item.id}/>
                 </SafeAreaView>
                 <View style={{flexDirection: 'row', justifyContent:'space-between', padding:5}}>
-                    <Text style={{ marginLeft: 10, marginTop: 20, color: '#fff',}}>Tác giả</Text>
+                    <Text style={{ marginLeft: 10, marginTop: 20, color: '#424949',}}>Tác giả</Text>
                 </View>
                 <SafeAreaView>
                   <FlatList horizontal= {true}
@@ -161,7 +164,6 @@ const styles = StyleSheet.create({
    },
   container: {
         flex: 1,
-        backgroundColor: '#000',
         alignItems: 'center',
         justifyContent: 'flex-start',
     },
