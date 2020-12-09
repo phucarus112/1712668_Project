@@ -3,7 +3,7 @@ import {StyleSheet, View,Text, Button, Image, TextInput,SafeAreaView, ScrollView
 import {ThemeContext} from '../../App'
 
 const ForgetPasswordScreen = ({navigation}) =>{
-    const theme = useContext(ThemeContext);
+    const {theme} = useContext(ThemeContext);
     return (
             <View style={{...styles.container, backgroundColor: theme.background}}>
                 <View style={styles.abView} >

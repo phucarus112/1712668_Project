@@ -4,7 +4,7 @@ import {ThemeContext} from '../../App'
 
 const ChooseAuthenticationScreen = ({navigation}) =>{
 
-  const theme = useContext(ThemeContext);
+  const {theme} = useContext(ThemeContext);
 
   function handleBackButtonClick() {
     navigation.goBack(null);

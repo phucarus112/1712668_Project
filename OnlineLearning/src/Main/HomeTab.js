@@ -6,6 +6,7 @@ import ItemCourseHorizontal from '../Courses/Item/ItemCourseHorizontal'
 import { NavigationContainer} from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import {ThemeContext} from '../../App'
+import {AuthenticationContext} from '../Provider/authentication-provider'
 
 const Stack = createStackNavigator();
 
@@ -28,8 +29,11 @@ const HomeTab = ({navigation}) =>{
     <ItemTopAuthors name ={item.name}/>
   );
 
-  const theme = useContext(ThemeContext);
-    return (
+  const {theme} = useContext(ThemeContext);
+  const {authentication} = useContext(AuthenticationContext);
+
+  return(
+    
           <NavigationContainer independent={true}>
           
           <SafeAreaView>
@@ -97,11 +101,8 @@ const HomeTab = ({navigation}) =>{
     </View>
     </ScrollView>
     </SafeAreaView>
-  
           </NavigationContainer>
-      
-   
-    )
+      )
 }
 
 const AUTHORS = [

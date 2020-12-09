@@ -1,5 +1,7 @@
-import React, {useState,useEffect} from 'react'
+import React, {useState,useEffect,useContext} from 'react'
 import {StyleSheet, View,Text, Button, BackHandler, Image, TextInput,SafeAreaView, ScrollView, TouchableOpacity} from 'react-native'
+import {ThemeContext} from '../../App'
+import {AuthenticationContext} from '../Provider/authentication-provider'
 
 const AccountScreen = ({navigation}) =>{
     function handleBackButtonClick() {
@@ -13,8 +15,13 @@ const AccountScreen = ({navigation}) =>{
           BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
         };
       },[]);
+
+      const {theme} = useContext(ThemeContext);
+      const {authentication} = useContext(AuthenticationContext);
+      console.log(authentication);
+
     return (
-            <View style={styles.container}>
+            <View style={{...styles.container, backgroundColor: theme.background}}>
                 <View style={styles.abView} >
                     <TouchableOpacity style={{ alignSelf: 'center'}} onPress={()=>{
                         navigation.goBack()
@@ -26,7 +33,7 @@ const AccountScreen = ({navigation}) =>{
                 </View>
                 <Image style={{ alignSelf: 'center', width: 150,height:150, borderRadius:75, marginTop:15}} source={require('../../assets/avt.png')} />
                 <View style={{flexDirection: 'row', justifyContent:'center', padding:5, }}>
-                        <Text style={{ marginTop: 15, color: '#424949', fontWeight: 'bold'}}>Huỳnh Phúc</Text>
+                        <Text style={{ marginTop: 15, color: '#424949', fontWeight: 'bold'}}>{authentication.user.fullname}</Text>
                         <TouchableOpacity onPress={()=>{
                             navigation.navigate("UpdateAccount")
                         }}>
@@ -79,13 +86,11 @@ const styles = StyleSheet.create({
    },
   container: {
         flex: 1,
-        backgroundColor: '#000',
         alignItems: 'center',
         justifyContent: 'flex-start',
     },
   containerBody: {
       alignSelf: "stretch",
-      backgroundColor: '#000',
   },
   abView:{
     flexDirection: 'row',

@@ -2,13 +2,15 @@ import React, {useState, useEffect, useContext} from 'react'
 import {StyleSheet, View,Text, Button, Image, TextInput, TouchableOpacity, Alert} from 'react-native'
 import {login} from '../Services/authentication-service'
 import {ThemeContext} from '../../App'
+import {AuthenticationContext} from '../Provider/authentication-provider'
 
 const LoginScreen = ({navigation}) =>{
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [status, setStatus] = useState(null);
-    const theme = useContext(ThemeContext);
+    const {theme} = useContext(ThemeContext);
+    const {setAuthentication} = useContext(AuthenticationContext);
 
     function renderAlertString(){
       if(status){
@@ -18,8 +20,14 @@ const LoginScreen = ({navigation}) =>{
     return '';
   }
 
-  return(
-          <View style={{...styles.container, backgroundColor: theme.background}}>
+    useEffect(()=>{
+      if(status && status.status === 200){
+        navigation.navigate("Main");
+      }
+    })
+
+          return(
+            <View style={{...styles.container, backgroundColor: theme.background}}>
               <View style={styles.abView} >
                 <TouchableOpacity style={{alignSelf: 'center'}} onPress={()=>{navigation.goBack()}}>
                 <Image style={{ alignSelf: 'center', width: 20,height:20, tintColor: 'white', marginLeft: 10}} source={require('../../assets/back.png')} />
@@ -45,12 +53,15 @@ const LoginScreen = ({navigation}) =>{
                 </View>
                 <View style={styles.container3} 
                 onStartShouldSetResponder={()=>{
-                  setStatus(login(username,password));
-                  if(status && status.status === 200)navigation.navigate("Main");
-                }}>
+                  setStatus(login(username,password))
+                  setAuthentication(login(username,password))
+              }}>
                   <Text style={{color: "#fff", fontWeight: 'bold', alignSelf: "center"}} 
-                        onPress={()=>{
-                                    setStatus(login(username,password)) }}>Đăng nhập</Text>
+                       onPress={()=>{
+                                   
+                                   setStatus(login(username,password)) }}
+                                   
+                           >Đăng nhập</Text>
                </View>
                <Text style={{color:"#42c5f5",alignSelf: 'center', fontSize: 12}} onPress={()=>{
                     navigation.navigate("ForgetPassword")
@@ -59,8 +70,11 @@ const LoginScreen = ({navigation}) =>{
             <View>
           </View>
         </View>
-        )
+          )
+     
 }
+
+
 
 const styles = StyleSheet.create({
   container2:{

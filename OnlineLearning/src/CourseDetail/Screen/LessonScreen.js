@@ -1,9 +1,10 @@
-import React, {useEffect} from 'react'
+import React, {useEffect,useContext} from 'react'
 import {StyleSheet,BackHandler, View,Text, Button, Image, TextInput,SafeAreaView, ScrollView, TouchableOpacity, FlatList,ImageBackground, Share} from 'react-native'
 import { Video } from 'expo-av';
 import { NavigationContainer } from '@react-navigation/native'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import ItemLesson from '../Item/ItemLesson'
+import {ThemeContext} from '../../../App'
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -32,11 +33,14 @@ const renderListLesson = ({ item }) => (
     );
 
 function Contents({navigation}){
+
+  const theme = useContext(ThemeContext);
+
     return(
       <SafeAreaView style={styles.container} >
      
-      <View style={styles.container}>
-            <View style={styles.containerBody}>
+       <View style={{...styles.container, backgroundColor: theme.background}}>
+          <View style={{...styles.containerBody, backgroundColor: theme.background}}>
                 <View style={{flexDirection: 'row', margin: 15, justifyContent:'space-between'}}>
                     <View style={{flexDirection: 'row'}}>
                         <ImageBackground source={require('../../../assets/img1.png')} style={{width: 115,height:60, justifyContent:"center"}}/>
@@ -66,9 +70,10 @@ function Contents({navigation}){
 }
 
 function Transcript({navigation}){
+  const theme = useContext(ThemeContext);
     return(
-      <View style={styles.noDataContainer}>
-            <Text style={{color: "#fff"}}>Không có dữ liệu</Text>
+      <View style={{...styles.noDataContainer, backgroundColor: theme.background}}>
+            <Text style={{color: "#424949"}}>Không có dữ liệu</Text>
     </View> 
     )
 }
@@ -85,9 +90,12 @@ const LessonScreen = ({navigation}) =>{
       BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
     };
   },[]);
+
+  const {theme} = useContext(ThemeContext);
+
     return (
         <NavigationContainer independent={true}>  
-            <View style={styles.containerBody2}>
+             <View style={{...styles.containerBody2, backgroundColor: theme.background}}>
                 <Video
                         source={{ uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4' }}
                         rate={1.0}
@@ -100,7 +108,7 @@ const LessonScreen = ({navigation}) =>{
             </View>
             <Tab.Navigator tabBarOptions={{
                                 labelStyle: { fontSize: 12 , color: '#fff'},
-                                style: { backgroundColor: '#000' },}}>
+                                style: { backgroundColor: '#424949' },}}>
                 <Tab.Screen name="Contents" component={Contents}/>
                 <Tab.Screen name="Transcript" component={Transcript} />
             </Tab.Navigator>
@@ -113,7 +121,6 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: "center",
         justifyContent: 'center',
-        backgroundColor: "#000"
     },
     textView:{
         textAlign: 'center',
@@ -126,25 +133,20 @@ const styles = StyleSheet.create({
          marginTop:30,
          marginLeft:15,
          marginRight:15,
-         backgroundColor:'#000',
          borderRadius:10,
          borderWidth: 1,
          borderColor: '#42c5f5',
        },
   container: {
         flex: 1,
-        backgroundColor: '#000',
-       
         justifyContent: 'flex-start',
     },
   containerBody: {
       alignSelf: "stretch",
-      backgroundColor: '#000',
   },
   containerBody2: {
     flexDirection: "row",
     alignSelf: "stretch",
-    backgroundColor: '#000',
 },
   label:{
       marginLeft: 15,

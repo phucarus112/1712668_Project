@@ -1,13 +1,17 @@
-import React, {useState} from 'react'
+import React, {useState,useContext} from 'react'
 import {StyleSheet, View,Text, Button, Image, TextInput,SafeAreaView, ScrollView, Switch} from 'react-native'
+import {ThemeContext} from '../../App'
 
 const SettingTab = ({navigation}) =>{
+    const {theme} = useContext(ThemeContext);
+    console.log("setting: ",theme);
     return (
-            <View style={styles.container}>
+        
+        <View style={{...styles.container, backgroundColor: theme.background}}>
                 <View style={styles.abView} >
                     <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: '#fff'}}>Setting</Text>
                 </View>
-                <View style={styles.containerBody}>
+                <View style={{...styles.containerBody, backgroundColor: theme.background}}>
                     <View onStartShouldSetResponder={()=>{
                         navigation.navigate("Account")
                     }} style={{flexDirection: 'row', justifyContent:'space-between', paddingBottom: 10, borderBottomWidth: 0.5, borderBottomColor: '#424949' }}>
@@ -36,7 +40,7 @@ const SettingTab = ({navigation}) =>{
                         <Text style={{ marginLeft: 15, marginTop: 20, color: '#424949',}}>Version</Text>
                         <Text style={{ marginRight: 15, marginTop: 20, color: '#424949',}}>1.0</Text>
                     </View>
-                    <View style={styles.container2}  
+                    <View style={{...styles.container2, backgroundColor: theme.background}}
                           onStartShouldSetResponder={()=>{
                                 navigation.goBack()
                                 navigation.goBack()
@@ -63,21 +67,18 @@ const styles = StyleSheet.create({
          marginTop:30,
          marginLeft:15,
          marginRight:15,
-         backgroundColor:'#000',
+         
          borderRadius:10,
          borderWidth: 1,
          borderColor: '#42c5f5',
        },
   container: {
         flex: 1,
-        backgroundColor: '#000',
         alignItems: 'center',
         justifyContent: 'flex-start',
     },
   containerBody: {
-     
       alignSelf: "stretch",
-      backgroundColor: '#000',
   },
   abView:{
     flexDirection: 'row',

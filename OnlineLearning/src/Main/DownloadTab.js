@@ -1,8 +1,11 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect,useContext} from 'react'
 import {StyleSheet,BackHandler, View,Text, Button, Image, TextInput, SafeAreaView, ScrollView, FlatList, TouchableOpacity} from 'react-native'
 import ItemCourseVertical from '../Courses/Item/ItemCourseVertical'
+import {ThemeContext} from '../../App'
 
 const DownloadTab = ({navigation}) =>{
+
+  const {theme} = useContext(ThemeContext);
 
   const renderItemNew = ({ item }) => (
     <TouchableOpacity onPress={()=>{navigation.navigate("CourseIntroduction")}}>
@@ -12,8 +15,8 @@ const DownloadTab = ({navigation}) =>{
     );
 
     return (
-     <SafeAreaView style={styles.container}>
-      <View  style={styles.container}>
+     <SafeAreaView  style={{...styles.container, backgroundColor: theme.background}}>
+      <View   style={{...styles.container, backgroundColor: theme.background}}>
           <View style={styles.abView} >
                     <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: '#fff'}}>Download</Text> 
           </View>
@@ -108,7 +111,6 @@ const styles = StyleSheet.create({
    },
   container: {
         flex: 1,
-        backgroundColor: '#000',
         alignItems: 'center',
         justifyContent: 'flex-start',
     },

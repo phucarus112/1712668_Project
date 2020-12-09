@@ -1,6 +1,7 @@
-import React, {useState} from 'react'
+import React, {useState,useContext} from 'react'
 import {StyleSheet, View,Text, Button, Image, ImageBackground, TextInput,SafeAreaView, ScrollView,FlatList, TouchableOpacity} from 'react-native'
 import ItemCourseHorizontal from '../Courses/Item/ItemCourseHorizontal'
+import {ThemeContext} from '../../App'
 
 const BrowseTab = ({navigation}) =>{
     const renderItemPath = ({ item }) => (
@@ -9,10 +10,13 @@ const BrowseTab = ({navigation}) =>{
                     totalComments = {item.totalComments} img={item.img} />
                     </TouchableOpacity>
       );
+
+    const {theme} = useContext(ThemeContext);
+
     return (
         <SafeAreaView>
             <ScrollView> 
-            <View style={styles.container}>
+            <View  style={{...styles.container, backgroundColor: theme.background}}>
                 <View style={styles.abView} >
                     <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: '#fff'}}>Browse</Text>
                 </View>
@@ -82,21 +86,18 @@ const styles = StyleSheet.create({
          marginTop:30,
          marginLeft:15,
          marginRight:15,
-         backgroundColor:'#000',
          borderRadius:10,
          borderWidth: 1,
          borderColor: '#42c5f5',
        },
   container: {
         flex: 1,
-        backgroundColor: '#000',
         alignItems: 'center',
         justifyContent: 'flex-start',
     },
   containerBody: {
      flexDirection:'column',
       alignSelf: "stretch",
-      backgroundColor: '#000',
   },
   abView:{
     flexDirection: 'row',

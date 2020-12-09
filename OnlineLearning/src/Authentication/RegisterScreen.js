@@ -3,7 +3,7 @@ import {StyleSheet, View,Text, Button, Image, TextInput,SafeAreaView, ScrollView
 import {ThemeContext} from '../../App'
 
 const RegisterScreen = ({navigation}) =>{
-    const theme = useContext(ThemeContext);
+    const {theme} = useContext(ThemeContext);
     return (
     <SafeAreaView>
         <ScrollView>

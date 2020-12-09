@@ -1,8 +1,11 @@
-import React, {useEffect} from 'react'
+import React, {useEffect,useContext} from 'react'
 import {StyleSheet,BackHandler, View,Text, Button, Image, TextInput,SafeAreaView, ScrollView, Switch, TouchableOpacity} from 'react-native'
 import { Video } from 'expo-av';
+import {ThemeContext} from '../../../App'
 
 const CourseIntroductionScreen = ({navigation}) =>{
+    
+  const {theme} = useContext(ThemeContext);
 
     function handleBackButtonClick() {
         navigation.goBack();
@@ -19,8 +22,8 @@ const CourseIntroductionScreen = ({navigation}) =>{
     return (
 <SafeAreaView >
     <ScrollView>
-        <View style={styles.container}>
-            <View style={styles.containerBody}>
+    <View style={{...styles.container, backgroundColor: theme.background}}>
+            <View style={{...styles.containerBody, backgroundColor: theme.background}}>
                     <Video
                         source={{ uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4' }}
                         rate={1.0}
@@ -119,13 +122,11 @@ const styles = StyleSheet.create({
        },
   container: {
         flex: 1,
-        backgroundColor: '#000',
         alignItems: 'center',
         justifyContent: 'flex-start',
     },
   containerBody: {
       alignSelf: "stretch",
-      backgroundColor: '#000',
   },
   label:{
       marginLeft: 15,

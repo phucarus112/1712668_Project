@@ -9,6 +9,8 @@ import VerifyPasswordScreen from './src/Authentication/VerifyPasswordScreen'
 import VerifyEmailScreen from './src/Authentication/VerifyEmailScreen'
 import MainScreen from './src/Main/MainScreen'
 
+import {AuthenticationProvider} from './src/Provider/authentication-provider'
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -31,6 +33,7 @@ export default function App() {
   
   return (
     <ThemeContext.Provider value={{theme,changeTheme}}>
+      <AuthenticationProvider>
       <NavigationContainer independent={true}>
         <Stack.Navigator>
           <Stack.Screen name="Splash" component={SplashScreen} options={{headerShown: false}}/>
@@ -43,6 +46,7 @@ export default function App() {
           <Stack.Screen name="Main" component={MainScreen} options={{headerShown: false}}/>
         </Stack.Navigator>
       </NavigationContainer>
+      </AuthenticationProvider>
     </ThemeContext.Provider>
   );
 }

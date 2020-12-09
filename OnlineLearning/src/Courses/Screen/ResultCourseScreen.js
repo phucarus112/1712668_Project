@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect,useContext} from 'react'
 import {BackHandler, StyleSheet, View,Text, Button, Image, TextInput, SafeAreaView, TouchableOpacity ,ScrollView, FlatList, VirtualizedList} from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
@@ -6,6 +6,7 @@ import ItemCourseVertical from '../Item/ItemCourseVertical'
 import { createStackNavigator } from '@react-navigation/stack';
 import CourseIntroductionScreen from '../../CourseDetail/Screen/CourseIntroductionScreen'
 import LessonScreen from '../../CourseDetail/Screen/LessonScreen'
+import {ThemeContext} from '../../../App'
 
 const Stack = createStackNavigator();
 const Tab = createMaterialTopTabNavigator();
@@ -19,11 +20,12 @@ const SearchAll = ({navigation}) =>{
                 totalComments = {item.totalComments} img={item.img} />
                 </TouchableOpacity>
     );
+    const {theme} = useContext(ThemeContext);
           return(
-            <SafeAreaView style={styles.container} >
+            <SafeAreaView style={{...styles.container, backgroundColor: theme.background}} >
            
-            <View style={styles.container}>
-                  <View style={styles.containerBody}>
+            <View style={{...styles.container, backgroundColor: theme.background}}>
+                  <View style={{...styles.containerBody, backgroundColor: theme.background}}>
                       <View style={{flexDirection: 'row', justifyContent:'flex-end', padding:5}}>
                           <Text style={{color: '#42c5f5',marginTop:13, marginRight:3, fontSize:12}}>3 kết quả</Text>
                       </View>
@@ -44,11 +46,12 @@ const SearchCourses = ({navigation}) =>{
                 totalComments = {item.totalComments} img={item.img} />
                 </TouchableOpacity>
     );
+    const {theme} = useContext(ThemeContext);
           return(
-            <SafeAreaView style={styles.container} >
-            
-            <View style={styles.container}>
-                  <View style={styles.containerBody}>
+            <SafeAreaView style={{...styles.container, backgroundColor: theme.background}} >
+           
+            <View style={{...styles.container, backgroundColor: theme.background}}>
+                  <View style={{...styles.containerBody, backgroundColor: theme.background}}>
                       <View style={{flexDirection: 'row', justifyContent:'flex-end', padding:5}}>
                           <Text style={{color: '#42c5f5',marginTop:13, marginRight:3, fontSize:12}}>4 kết quả</Text>
                       </View>
@@ -69,11 +72,12 @@ const  SearchPaths = ({navigation}) =>{
                 totalComments = {item.totalComments} img={item.img} />
                 </TouchableOpacity>
     );
+    const {theme} = useContext(ThemeContext);
             return(
-              <SafeAreaView style={styles.container} >
-            
-              <View style={styles.container}>
-                    <View style={styles.containerBody}>
+              <SafeAreaView style={{...styles.container, backgroundColor: theme.background}} >
+           
+              <View style={{...styles.container, backgroundColor: theme.background}}>
+                    <View style={{...styles.containerBody, backgroundColor: theme.background}}>
                         <View style={{flexDirection: 'row', justifyContent:'flex-end', padding:5}}>
                             <Text style={{color: '#42c5f5',marginTop:13, marginRight:3, fontSize:12}}>10 kết quả</Text>
                         </View>
@@ -94,11 +98,12 @@ const SearchAuthors = ({navigation}) =>{
                 totalComments = {item.totalComments} img={item.img} />
                 </TouchableOpacity>
     );
+    const {theme} = useContext(ThemeContext);
           return(
-            <SafeAreaView style={styles.container} >
-            
-            <View style={styles.container}>
-                  <View style={styles.containerBody}>
+            <SafeAreaView style={{...styles.container, backgroundColor: theme.background}} >
+           
+              <View style={{...styles.container, backgroundColor: theme.background}}>
+                    <View style={{...styles.containerBody, backgroundColor: theme.background}}>
                       <View style={{flexDirection: 'row', justifyContent:'flex-end', padding:5}}>
                           <Text style={{color: '#42c5f5',marginTop:13, marginRight:3, fontSize:12}}>101 kết quả</Text>
                       </View>
@@ -164,10 +169,12 @@ const ResultCourseScreen = ({navigation}) =>{
         BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
       };
     },[]);
+
+    const {theme} = useContext(ThemeContext);
     
     return (
     <NavigationContainer independent={true}>
-       <View style={styles.abView}>
+         <View style={{...styles.abView, backgroundColor: theme.background}}>
             <View style={styles.container2}>
                 <Image style={{ marginTop: -5, width: 15,height:20, padding: 13, tintColor: '#fff'}} source={require('../../../assets/loupe.png')} />
                 <TextInput placeholder="Search here" style={{color:"#fff" ,flex: 8, marginLeft: 10, marginRight: 10,}}></TextInput>
@@ -180,7 +187,7 @@ const ResultCourseScreen = ({navigation}) =>{
         </View>
         <Tab.Navigator tabBarOptions={{
                         labelStyle: { fontSize: 12 , color: '#fff'},
-                        style: { backgroundColor: '#000' }}}>
+                        style: { backgroundColor: '#424949' }}}>
             <Tab.Screen name="All" component={SearchAllStack}/>
             <Tab.Screen name="Courses" component={SearchCoursesStack} />
             <Tab.Screen name="Paths" component={SearchPathsStack} />
@@ -197,14 +204,11 @@ const styles = StyleSheet.create({
     flex: 8,
     alignSelf: "stretch",
      padding: 15,
-     backgroundColor:'#424949',
+     backgroundColor:'#c9c9c9',
      borderRadius:10,
-    
-     
    },
   container: {
         flex: 1,
-        backgroundColor: '#000',
         alignItems: 'center',
         justifyContent: 'flex-start',
     },
@@ -220,7 +224,6 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         paddingTop:10,
         paddingBottom:10,
-        backgroundColor:'#000',
   },
   textLabel:{
     marginTop:15, marginLeft: 15,
