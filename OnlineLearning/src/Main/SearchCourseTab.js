@@ -17,18 +17,22 @@ const SearchCourseTab= ({navigation}) =>{
   },[]);
 
   const {theme} = useContext(ThemeContext);
+  const [keyword,setKeyword] = useState('');
     
   return (
     <View style={{...styles.container, backgroundColor: theme.background}}>
         <View style={{...styles.abView, backgroundColor: theme.background}}>
           <View style={styles.container2}>
                 <Image style={{ marginTop: -5, width: 15,height:20, padding: 13, tintColor: '#fff'}} source={require('../../assets/loupe.png')} />
-                <TextInput placeholder="Search here"  style={{color:"#fff" ,flex: 8, marginLeft: 10, marginRight: 10,}}></TextInput>
+                <TextInput placeholder="Search here"  style={{color:"#fff" ,flex: 8, marginLeft: 10, marginRight: 10,}}
+                          onChangeText={(text) => setKeyword(text) } defaultValue={keyword} />
           </View>
-          <View style={styles.container3} onStartShouldSetResponder={()=>{
+          <View style={{...styles.container3, backgroundColor: theme.background}} onStartShouldSetResponder={()=>{
               navigation.navigate("ResultCourse")}} >
-              <Text style={{color: "#fff", alignSelf: "center"}} onPress={()=>{
-                navigation.navigate("ResultCourse")}} >Search</Text>
+              <Text style={{color: "#42c5f5", alignSelf: "center"}} onPress={()=>{
+                navigation.navigate("ResultCourse",{
+                    keyword: keyword
+                })}} >Search</Text>
           </View>
         </View>
         <View style={{...styles.noDataContainer, backgroundColor: theme.background}}>
@@ -50,11 +54,12 @@ const styles = StyleSheet.create({
     flex: 8,
     alignSelf: "stretch",
     padding: 15,
-    backgroundColor:'#c9c9c9',
+    backgroundColor:'#424949',
     borderRadius:10,
    },
   container3:{
-    backgroundColor: '#42c5f5',
+    borderWidth:1,
+    borderColor: '#42c5f5',
     alignSelf: "stretch",
     marginLeft:5,
     marginRight:5,

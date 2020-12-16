@@ -7,7 +7,7 @@ const ChooseAuthenticationScreen = ({navigation}) =>{
   const {theme} = useContext(ThemeContext);
 
   function handleBackButtonClick() {
-    navigation.goBack(null);
+    navigation.goBack();
     return true;
   }
 

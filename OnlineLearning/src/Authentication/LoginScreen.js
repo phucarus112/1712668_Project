@@ -58,10 +58,8 @@ const LoginScreen = ({navigation}) =>{
               }}>
                   <Text style={{color: "#fff", fontWeight: 'bold', alignSelf: "center"}} 
                        onPress={()=>{
-                                   
-                                   setStatus(login(username,password)) }}
-                                   
-                           >Đăng nhập</Text>
+                                   setStatus(login(username,password))
+                                   setAuthentication(login(username,password)) }}>Đăng nhập</Text>
                </View>
                <Text style={{color:"#42c5f5",alignSelf: 'center', fontSize: 12}} onPress={()=>{
                     navigation.navigate("ForgetPassword")

@@ -2,10 +2,13 @@ import React, {useEffect,useContext} from 'react'
 import {StyleSheet,BackHandler, View,Text, Button, Image, TextInput,SafeAreaView, ScrollView, Switch, TouchableOpacity} from 'react-native'
 import { Video } from 'expo-av';
 import {ThemeContext} from '../../../App'
+import {COURSES_LIST} from '../../Global/data-sampling'
 
-const CourseIntroductionScreen = ({navigation}) =>{
+const CourseIntroductionScreen = ({route,navigation}) =>{
     
   const {theme} = useContext(ThemeContext);
+  const {idCourse} = route.params;
+  const index = COURSES_LIST.findIndex((item) => item.id === idCourse);
 
     function handleBackButtonClick() {
         navigation.goBack();
@@ -25,27 +28,28 @@ const CourseIntroductionScreen = ({navigation}) =>{
     <View style={{...styles.container, backgroundColor: theme.background}}>
             <View style={{...styles.containerBody, backgroundColor: theme.background}}>
                     <Video
+                
                         source={{ uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4' }}
                         rate={1.0}
                         useNativeControls
-                   shoul
+                      
                         volume={4.0}
                         isLooping
                         isMuted={false}
                         resizeMode="contain"
                         style={{ height: 200 }}/>
                     <View style={{flexDirection: 'row', justifyContent:'space-between', padding:5, }}>
-                        <Text style={{  marginTop: 15, color: '#424949', fontSize: 18}}>BIG BUCK FUNNY Trailer</Text>
+                        <Text style={{ padding: 5, fontWeight: 'bold', marginTop: 15, color: '#424949', fontSize: 18}}>{COURSES_LIST[index].title}</Text>
                     </View>
                     <View style={{flexDirection: 'row', padding:5}}>
-                        <Text style={{color: '#424949',marginLeft:7}}>Beginner</Text>
-                        <Text style={{color: '#424949'}}> - 27s</Text>
-                        <Text style={{color: '#424949',marginLeft:7}}>Bình luận: (5)</Text>
+                        <Text style={{color: '#424949',marginLeft:7}}>{COURSES_LIST[index].level}</Text>
+                        <Text style={{color: '#424949'}}> - {COURSES_LIST[index].totalHours}</Text>
+                        <Text style={{color: '#424949',marginLeft:7}}>Bình luận: ({COURSES_LIST[index].totalComments})</Text>
                     </View>
                     <View style={{padding:5, flexDirection:'row', justifyContent:'space-between'}}>
                         <View style={{flexDirection: 'row', marginTop:8,backgroundColor:"#424949", padding:10 ,borderRadius:30}}>
                                 <Image style={{ marginLeft:3, marginRight:5,width: 26,height:26, tintColor:'red'}} source={require('../../../assets/check.png')} />
-                                <Text style={{color: '#fff', marginRight:3}}>SBS Entertainment</Text>
+                                <Text style={{color: '#fff', marginRight:3}}>{COURSES_LIST[index].author}</Text>
                         </View>
                         <View></View>
                     </View>
@@ -77,25 +81,25 @@ const CourseIntroductionScreen = ({navigation}) =>{
                         style={{color: '#424949', margin: 15, fontSize:12}}
                         value="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum"/>    
                      <View  style={styles.container3} onStartShouldSetResponder={()=>{
-                         navigation.navigate("Lesson")
+                         navigation.navigate("Lesson",{index: index})
                      }} >
                          <TouchableOpacity onPress={()=>{
-                             navigation.navigate("Lesson")
+                             navigation.navigate("Lesson",{index: index})
                          }}>
                             <Image style={{tintColor: 'white', width: 20, height: 20, marginRight: 5,}} source={require('../../../assets/launch.png')} />
                          </TouchableOpacity>
                         <Text onPress={()=>{
-                             navigation.navigate("Lesson")
+                             navigation.navigate("Lesson",{index: index})
                          }} style={{color: "#fff", fontWeight: 'bold', alignSelf: "center", marginLeft: 5, fontSize: 12}} >Bắt đầu học</Text>
                     </View>
-                    <View  style={styles.container3} >
+                    {/* <View  style={styles.container3} >
                         <Image style={{tintColor: 'white', width: 20, height: 20, marginRight: 5,}} source={require('../../../assets/test.png')} />
                         <Text style={{color: "#fff", fontWeight: 'bold', alignSelf: "center", marginLeft: 5, fontSize: 12}} >Bắt đầu kiểm tra</Text>
                     </View>
                     <View  style={styles.container3} >
                         <Image style={{tintColor: 'white', width: 20, height: 20, marginRight: 5,}} source={require('../../../assets/relation.png')} />
                         <Text style={{color: "#fff", fontWeight: 'bold', alignSelf: "center", marginLeft: 5, fontSize: 12}} >Các khoá học liên quan</Text>
-                    </View>
+                    </View> */}
                </View>
            </View>
     </ScrollView>

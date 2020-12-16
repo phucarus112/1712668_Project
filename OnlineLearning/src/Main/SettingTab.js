@@ -42,8 +42,7 @@ const SettingTab = ({navigation}) =>{
                     </View>
                     <View style={{...styles.container2, backgroundColor: theme.background}}
                           onStartShouldSetResponder={()=>{
-                                navigation.goBack()
-                                navigation.goBack()
+                                navigation.navigate("Login");
                     }}>
                         <Text style={styles.textView} >Đăng xuất</Text>
                     </View>

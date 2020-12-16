@@ -120,20 +120,20 @@ const SearchAuthors = ({navigation}) =>{
 const SearchAllStack = ({navigation}) =>{
   return(
     <Stack.Navigator>
-        <Stack.Screen name="All" component={SearchAll} options={{headerShown: false}}/>
-        <Stack.Screen name="CourseIntroduction" component={CourseIntroductionScreen} options={{headerShown: false}}/>
-        <Stack.Screen name="Lesson" component={LessonScreen} options={{headerShown: false}}/>
-    </Stack.Navigator>
+    <Stack.Screen name="All" component={SearchAll}options={{headerShown: false }}/>
+  
+</Stack.Navigator>
   )
 }
 
 const SearchCoursesStack = ({navigation}) =>{
   return(
     <Stack.Navigator>
-        <Stack.Screen name="Courses" component={SearchCourses} options={{headerShown: false}}/>
-        <Stack.Screen name="CourseIntroduction" component={CourseIntroductionScreen} options={{headerShown: false}}/>
-        <Stack.Screen name="Lesson" component={LessonScreen} options={{headerShown: false}}/>
-    </Stack.Navigator>
+    <Stack.Screen name="Courses" component={SearchCourses} options={{headerShown: false }}/>
+    <Stack.Screen name="CourseIntroduction" component={CourseIntroductionScreen} options={{headerShown: false}}/>
+    <Stack.Screen name="Lesson" component={LessonScreen} options={{headerShown: false}}/>
+</Stack.Navigator>
+   
   )
 }
 
@@ -157,7 +157,7 @@ const SearchAuthorsStack = ({navigation}) =>{
   )
 }
 
-const ResultCourseScreen = ({navigation}) =>{
+const ResultCourseScreen = ({route, navigation}) =>{
   function handleBackButtonClick() {
     navigation.goBack();
     return true;
@@ -171,30 +171,31 @@ const ResultCourseScreen = ({navigation}) =>{
     },[]);
 
     const {theme} = useContext(ThemeContext);
+    const {keyword} = route.params;
     
     return (
-    <NavigationContainer independent={true}>
+      <NavigationContainer independent={true}>
+      
          <View style={{...styles.abView, backgroundColor: theme.background}}>
             <View style={styles.container2}>
                 <Image style={{ marginTop: -5, width: 15,height:20, padding: 13, tintColor: '#fff'}} source={require('../../../assets/loupe.png')} />
-                <TextInput placeholder="Search here" style={{color:"#fff" ,flex: 8, marginLeft: 10, marginRight: 10,}}></TextInput>
-                <Image style={{ marginTop: -5, width: 10,height:10, padding: 13, tintColor: '#fff'}} source={require('../../../assets/cancel.png')} />
+                <TextInput placeholder="Search here" style={{color:"#fff" ,flex: 8, marginLeft: 10, marginRight: 10,}} defaultValue={keyword}></TextInput>
+               
             </View>
-            <Text style={{ alignSelf: 'center',textAlign: 'center', paddingBottom: 15, paddingRight: 15, paddingTop: 15, paddingLeft: 8, color: '#424949', flex: 2, fontSize: 13}}
+            <Text style={{ alignSelf: 'center',textAlign: 'center', paddingBottom: 15, paddingRight: 15, paddingTop: 15, paddingLeft: 8, color: '#42c5f5', flex: 2, fontSize: 13}}
               onPress={()=>{
                 navigation.goBack()
               }}>Cancel</Text>
         </View>
         <Tab.Navigator tabBarOptions={{
-                        labelStyle: { fontSize: 12 , color: '#fff'},
-                        style: { backgroundColor: '#424949' }}}>
+        labelStyle: { fontSize: 12 , color: '#fff'},
+        style: { backgroundColor: '#424949' }}}>
             <Tab.Screen name="All" component={SearchAllStack}/>
-            <Tab.Screen name="Courses" component={SearchCoursesStack} />
-            <Tab.Screen name="Paths" component={SearchPathsStack} />
-            <Tab.Screen name="Authors" component={SearchAuthorsStack} />
+            <Tab.Screen name="Courses" component={SearchCourses} />
+            <Tab.Screen name="Paths" component={SearchPaths} />
+            <Tab.Screen name="Authors" component={SearchAuthors} />
       </Tab.Navigator>
-    </NavigationContainer>
-    
+      </NavigationContainer>
     )
 }
 
@@ -204,7 +205,7 @@ const styles = StyleSheet.create({
     flex: 8,
     alignSelf: "stretch",
      padding: 15,
-     backgroundColor:'#c9c9c9',
+     backgroundColor:'#424949',
      borderRadius:10,
    },
   container: {

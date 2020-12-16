@@ -13,6 +13,9 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import NewCourseScreen from '../Courses/Screen/NewCourseScreen'
 import TrendingCourseScreen from '../Courses/Screen/TrendingCourseScreen'
+import RecommendCourseScreen from '../Courses/Screen/RecommendCourseScreen'
+import BasicPathScreen from '../Courses/Screen/BasicPathScreen'
+import TrendingPathScreen from '../Courses/Screen/TrendingPathScreen'
 import CourseIntroductionScreen from '../CourseDetail/Screen/CourseIntroductionScreen'
 import LessonScreen from '../CourseDetail/Screen/LessonScreen'
 import AccountScreen from '../AccountManagement/AccountScreen'
@@ -84,6 +87,11 @@ useEffect(()=>{
   return (
     <Stack.Navigator>
       <Stack.Screen name="BrowseTab" component={BrowseTab}options={{headerShown: false}} />
+      <Stack.Screen name="BasicPath" component={BasicPathScreen} options={{headerShown: false}}/>
+      <Stack.Screen name="TrendingPath" component={TrendingPathScreen} options={{headerShown: false}}/>
+      <Stack.Screen name="NewCourse" component={NewCourseScreen} options={{headerShown: false}}/>
+      <Stack.Screen name="TrendingCourse" component={TrendingCourseScreen} options={{headerShown: false}}/>
+      <Stack.Screen name="RecommendCourse" component={RecommendCourseScreen} options={{headerShown: false}}/>
       <Stack.Screen name="CourseIntroduction" component={CourseIntroductionScreen} options={{headerShown: false}}/>
       <Stack.Screen name="Lesson" component={LessonScreen} options={{headerShown: false}}/>
     </Stack.Navigator>
@@ -106,6 +114,8 @@ useEffect(()=>{
     <Stack.Navigator>
       <Stack.Screen name="SearchCourseTab" component={SearchCourseTab} options={{headerShown: false}}/>
       <Stack.Screen name="ResultCourse" component={ResultCourseScreen} options={{headerShown: false}}/>
+      <Stack.Screen name="CourseIntroduction" component={CourseIntroductionScreen} options={{headerShown: false}}/>
+      <Stack.Screen name="Lesson" component={LessonScreen} options={{headerShown: false}}/>
   </Stack.Navigator>
  
   );
@@ -129,7 +139,6 @@ useEffect(()=>{
       <Stack.Screen name="Account" component={AccountScreen} options={{headerShown: false}}/>
       <Stack.Screen name="UpdateAccount" component={UpdateAccountScreen} options={{headerShown: false}}/>
       <Stack.Screen name="ChangeTheme" component={ChangeThemeScreen} options={{headerShown: false}}/>
-      <Stack.Screen name="Login" component={LoginScreen} options={{headerShown: false}}/>
     </Stack.Navigator>
   );
 }

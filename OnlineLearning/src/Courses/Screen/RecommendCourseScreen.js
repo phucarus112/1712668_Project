@@ -1,10 +1,10 @@
 import React, {useState,useEffect,useContext} from 'react'
-import {StyleSheet, BackHandler, View,Text, Button, Image, TextInput, SafeAreaView, ScrollView, FlatList, TouchableOpacity} from 'react-native'
+import {StyleSheet,BackHandler, View,Text, Button, Image, TextInput, SafeAreaView, ScrollView, FlatList, TouchableOpacity} from 'react-native'
 import ItemCourseVertical from '../Item/ItemCourseVertical'
 import {ThemeContext} from '../../../App'
-import {TRENDING_COURSES} from '../../Global/data-sampling'
+import {COURSES_LIST} from '../../Global/data-sampling'
 
-const TrendingCourseScreen = ({navigation}) =>{
+const RecommendCourseScreen = ({navigation}) =>{
 
   const {theme} = useContext(ThemeContext);
 
@@ -23,35 +23,36 @@ const TrendingCourseScreen = ({navigation}) =>{
   const renderItemNew = ({ item }) => (
     <TouchableOpacity onPress={()=>{navigation.navigate("CourseIntroduction")}}>
     <ItemCourseVertical title={item.title} level ={item.level} author={item.author} totalHours = {item.totalHours}
-                totalComments = {item.totalComments} img={item.img}  released={item.released} rating={item.rating} />
+                totalComments = {item.totalComments} img={item.img} released={item.released} rating={item.rating}  />
                 </TouchableOpacity>
     );
 
     return (
-      <SafeAreaView  style={{...styles.container, backgroundColor: theme.background}}> 
+    <SafeAreaView  style={{...styles.container, backgroundColor: theme.background}}> 
    
       <View style={{...styles.container, backgroundColor: theme.background}}>
           <View style={styles.abView} >
-          <TouchableOpacity style={{ alignSelf: 'center'}} onPress={()=>{
+             <TouchableOpacity style={{ alignSelf: 'center'}} onPress={()=>{
                 navigation.goBack()
              }}>
              <Image style={{ alignSelf: 'center', width: 20,height:20, tintColor: 'white', marginLeft: 10}} source={require('../../../assets/back.png')} />
              </TouchableOpacity>
                    
-                    <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: '#fff'}}>Xu hướng</Text>
+                    <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: '#fff'}}>Recommend For You</Text>
                     <Text>          </Text>
           </View>
           <View style={styles.containerBody}>
+               
                 <SafeAreaView>
-                  <FlatList 
-                    style={{marginBottom: 80}} 
-                     data={TRENDING_COURSES}
+                  <FlatList
+                  style={{marginBottom: 80}} 
+                    data={COURSES_LIST}
                     renderItem={renderItemNew}
                     keyExtractor={item => item.id}/>
                 </SafeAreaView>
           </View>
     </View>
-    
+   
     </SafeAreaView>
     )
 }
@@ -67,7 +68,6 @@ const styles = StyleSheet.create({
    },
   container: {
         flex: 1,
-       
         alignItems: 'center',
         justifyContent: 'flex-start',
     },
@@ -89,4 +89,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TrendingCourseScreen;
+export default RecommendCourseScreen;

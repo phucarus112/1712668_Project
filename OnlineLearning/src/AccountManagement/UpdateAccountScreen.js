@@ -2,29 +2,19 @@ import React, {useState,useEffect,useContext} from 'react'
 import {StyleSheet, View,Text,BackHandler, Button, Image, TextInput,SafeAreaView, ScrollView, TouchableOpacity} from 'react-native'
 import {ThemeContext} from '../../App'
 import {AuthenticationContext} from '../Provider/authentication-provider'
-import {update} from '../Services/update-profile-service'
+import {checkData} from '../Services/authentication-service'
 
 const UpdateAccountScreen = ({navigation}) =>{
 
     function handleBackButtonClick() {
         navigation.goBack();
         return true;
-      }
-    
-      useEffect(()=>{
-        if(status && status.status === 200){
-            navigation.goBack();
-          }
-          BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
-        return () => {
-          BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
-        };
-      },[]);
+      } 
 
       const {theme} = useContext(ThemeContext);
       const {authentication, setAuthentication} = useContext(AuthenticationContext);
 
-      const [token,setToken] = useState(authentication.user.token);
+      const [token] = useState(authentication.user.token);
       const [username, setUsername] = useState(authentication.user.username);
       const [password, setPassword] = useState(authentication.user.password);
       const [fullname, setFullname] = useState(authentication.user.fullname);
@@ -34,12 +24,26 @@ const UpdateAccountScreen = ({navigation}) =>{
       const [status, setStatus] = useState(null);
 
       function renderAlertString(){
-        if(status){
-          if(status.status != 200)
+        if(status && status.status != 200)
             return status.errorString;
+        return '';
       }
-      return '';
-    }
+
+      useEffect(()=>{
+        if(status && status.status === 200){
+            navigation.goBack();
+        }
+      });
+
+    useEffect(()=>{
+      BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
+     
+    };
+  },[]);
+
+    
 
     return (
     <SafeAreaView>
@@ -89,14 +93,13 @@ const UpdateAccountScreen = ({navigation}) =>{
                 </View>
                 <View  style={styles.container3} 
                     onStartShouldSetResponder={()=>{
-                        
-                        setStatus(update(token,username,password,fullname,dob,email,phone))
-                       
+                        setStatus(checkData(username,password,fullname,dob,email,phone))
+                        setAuthentication({status: 200, user: {token: token, username: username, password: password, fullname: fullname, dob: dob, email: email, phone: phone }});
                 }}>
                 <Text style={{color: "#fff", fontWeight: 'bold', alignSelf: "center"}} 
                       onPress={()=>{
-                        setStatus(update(token,username,password,fullname,dob,email,phone))
-                       
+                        setStatus(checkData(username,password,fullname,dob,email,phone))
+                        setAuthentication({status: 200, user: {token: token, username: username, password: password, fullname: fullname, dob: dob, email: email, phone: phone }});
                 }}>Cập nhật</Text>
                 </View>
                 </View>

@@ -5,22 +5,24 @@ import { StyleSheet, Text, View ,SafeAreaView, FlatList, Image} from 'react-nati
 const ItemLesson = (props) =>{
    return(
     <View style={styles.item}> 
-        <View style={{width: 10, height: 10, borderRadius: 15, marginRight: 15, marginLeft: 15, marginTop: 15,backgroundColor: "#00ff00",}} />
-        <Text style={{color: '#424949',fontSize:12, marginLeft:7,  marginTop: 8}}>{props.nameLesson}</Text>
+            <Image style={{ alignSelf: 'center', width: 110,height:80}} source={props.thumbnail} />
+            <View style={{marginLeft:7,  marginTop: 8,marginRight: 15}}>
+                <Text style={{color: '#424949',fontSize:12, marginLeft:7,  marginTop: 8,marginRight: 15, maxWidth: 220}}>{props.title}</Text>
+                <Text style={{color: '#424949',fontSize:12, marginLeft:7,  marginTop: 8,marginRight: 15}}>{props.duration}</Text>
+            </View>
     </View>
    )
 }
 
 const styles = StyleSheet.create({
     item: {
-        
+        padding: 10,
         justifyContent: "flex-start",
-        height: 50,
+        height: 130,
         flexDirection: 'row',
        borderTopWidth: 0.5,
        borderTopColor : "#424949",
-        paddingTop: 8,
-        paddingRight: 8,
+        
     }
   });
 
