@@ -14,12 +14,14 @@ const DownloadTab = ({navigation}) =>{
   console.log(change.index);
   console.log(change.status);
   if(change.index != -1){
+    let i = 0;
+    for (i = 0; i< COURSES_LIST.length ; i++) {
+      if(COURSES_LIST[i].download === 1)downloadList.push(COURSES_LIST[i]);
+    }
+    const temp = downloadList.findIndex((item) => item.id === COURSES_LIST[change.index].id);
     if(change.status === true){
-      downloadList.unshift(COURSES_LIST[change.index]);
-    }else{
-      const temp = downloadList.findIndex((item) => item.id === COURSES_LIST[change.index].id);
-      console.log(temp);
       downloadList.splice(temp,1);
+      downloadList.unshift(COURSES_LIST[change.index]);
     }
   }else{
     let i = 0;
@@ -27,6 +29,7 @@ const DownloadTab = ({navigation}) =>{
       if(COURSES_LIST[i].download === 1)downloadList.push(COURSES_LIST[i]);
     }
   }
+  
 
   const renderItemNew = ({ item }) => (
     <TouchableOpacity onPress={()=>{navigation.navigate("CourseIntroduction", {idCourse: item.id})}}>
