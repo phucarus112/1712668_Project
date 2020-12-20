@@ -13,6 +13,7 @@ import {AuthenticationProvider} from './src/Provider/authentication-provider'
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { ChangeStatusProvider } from './src/Provider/change-status-provider';
 
 const Stack = createStackNavigator();
 
@@ -34,6 +35,7 @@ export default function App() {
   return (
     <ThemeContext.Provider value={{theme,changeTheme}}>
       <AuthenticationProvider>
+        <ChangeStatusProvider>
       <NavigationContainer independent={true}>
         <Stack.Navigator>
           <Stack.Screen name="Splash" component={SplashScreen} options={{headerShown: false}}/>
@@ -46,6 +48,7 @@ export default function App() {
           <Stack.Screen name="Main" component={MainScreen} options={{headerShown: false}}/>
         </Stack.Navigator>
       </NavigationContainer>
+      </ChangeStatusProvider>
       </AuthenticationProvider>
     </ThemeContext.Provider>
   );

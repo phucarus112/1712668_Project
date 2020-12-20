@@ -21,10 +21,10 @@ const TrendingPathScreen = ({navigation}) =>{
   },[]);
 
   const renderItemNew = ({ item }) => (
-    <TouchableOpacity onPress={()=>{navigation.navigate("CourseIntroduction")}}>
-    <ItemCourseVertical title={item.title} level ={item.level} author={item.author} totalHours = {item.totalHours}
+    <TouchableOpacity onPress={()=>{navigation.navigate("CourseIntroduction", {idCourse: item.id})}}>
+      <ItemCourseVertical title={item.title} level ={item.level} author={item.author} totalHours = {item.totalHours}
                 totalComments = {item.totalComments} img={item.img}  released={item.released} rating={item.rating} />
-                </TouchableOpacity>
+    </TouchableOpacity>
     );
 
     return (

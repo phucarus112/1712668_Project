@@ -2,37 +2,57 @@ import React, {useState, useEffect,useContext} from 'react'
 import {StyleSheet,BackHandler, View,Text, Button, Image, TextInput, SafeAreaView, ScrollView, FlatList, TouchableOpacity} from 'react-native'
 import ItemCourseVertical from '../Courses/Item/ItemCourseVertical'
 import {ThemeContext} from '../../App'
-import {DOWNLOAD_COURSES} from '../Global/data-sampling'
+import {COURSES_LIST, DOWNLOAD_COURSES, getDownloadCourses} from '../Global/data-sampling'
+import {ChangeStatusContext} from '../Provider/change-status-provider'
 
 const DownloadTab = ({navigation}) =>{
 
   const {theme} = useContext(ThemeContext);
+  const downloadList = [];
+  const {change,setChange} = useContext(ChangeStatusContext);
+
+  console.log(change.index);
+  console.log(change.status);
+  if(change.index != -1){
+    if(change.status === true){
+      downloadList.unshift(COURSES_LIST[change.index]);
+    }else{
+      const temp = downloadList.findIndex((item) => item.id === COURSES_LIST[change.index].id);
+      console.log(temp);
+      downloadList.splice(temp,1);
+    }
+  }else{
+    let i = 0;
+    for (i = 0; i< COURSES_LIST.length ; i++) {
+      if(COURSES_LIST[i].download === 1)downloadList.push(COURSES_LIST[i]);
+    }
+  }
 
   const renderItemNew = ({ item }) => (
-    <TouchableOpacity onPress={()=>{navigation.navigate("CourseIntroduction")}}>
-    <ItemCourseVertical title={item.title} level ={item.level} author={item.author} totalHours = {item.totalHours}
+    <TouchableOpacity onPress={()=>{navigation.navigate("CourseIntroduction", {idCourse: item.id})}}>
+      <ItemCourseVertical title={item.title} level ={item.level} author={item.author} totalHours = {item.totalHours}
                 totalComments = {item.totalComments} img={item.img} released={item.released} rating={item.rating} showOptipon="show" />
     </TouchableOpacity>
     );
 
     return (
-     <SafeAreaView  style={{...styles.container, backgroundColor: theme.background}}>
-      <View   style={{...styles.container, backgroundColor: theme.background}}>
+     
+      <View style={{...styles.container, backgroundColor: theme.background}}>
           <View style={styles.abView} >
                     <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: '#fff'}}>Download</Text> 
           </View>
           <View style={styles.containerBody}>
-          <View style={{flexDirection: 'row', justifyContent:'flex-end', padding:5}}>
-                 <Text style={{color: '#42c5f5',marginTop:13, marginRight:3, fontSize:12}}>Xoá tất cả</Text> 
-          </View>
+         
+          <SafeAreaView>
           <FlatList 
            style={{marginBottom: 80}} 
-                    data={DOWNLOAD_COURSES}
+                    data={downloadList}
                     renderItem={renderItemNew}
                     keyExtractor={item => item.id}/>  
+                    </SafeAreaView>
           </View>
     </View>
-    </SafeAreaView>
+    
     )
 }
 

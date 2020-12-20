@@ -1,19 +1,25 @@
-import React, {useEffect,useContext} from 'react'
+import React, {useState, useEffect,useContext} from 'react'
 import {StyleSheet,BackHandler, View,Text, Button, Image, TextInput,SafeAreaView, ScrollView, Switch, TouchableOpacity} from 'react-native'
 import { Video } from 'expo-av';
 import {ThemeContext} from '../../../App'
-import {COURSES_LIST} from '../../Global/data-sampling'
+import {COURSES_LIST, getDownloadCourses} from '../../Global/data-sampling'
+import {ChangeStatusContext} from '../../Provider/change-status-provider'
 
 const CourseIntroductionScreen = ({route,navigation}) =>{
     
   const {theme} = useContext(ThemeContext);
+  const {change,setChange} = useContext(ChangeStatusContext);
   const {idCourse} = route.params;
   const index = COURSES_LIST.findIndex((item) => item.id === idCourse);
+  const [favorite,setFavorite] = useState(COURSES_LIST[index].favorite);
+  const [download,setDownload] = useState(COURSES_LIST[index].download);
 
     function handleBackButtonClick() {
         navigation.goBack();
         return true;
       }
+
+      
     
       useEffect(()=>{
           BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
@@ -56,19 +62,41 @@ const CourseIntroductionScreen = ({route,navigation}) =>{
                     <View style={{flexDirection: 'row', padding:5, justifyContent:"space-around"}}>
                             <View style={{flexDirection: 'column', justifyContent:"center", padding:5}}>
                                <View style={{backgroundColor:"#424949", padding:15 ,borderRadius:30, width: 60, height: 60}}>
-                                    <Image style={{tintColor: 'white', width: 30, height: 30}} source={require('../../../assets/bookmark.png')} />
+                                   <TouchableOpacity onPress={()=>{
+                                       if(favorite === 1){
+                                            COURSES_LIST[index].favorite = 0;
+                                            setFavorite(0);
+                                       }else {
+                                            COURSES_LIST[index].favorite = 1;
+                                            setFavorite(1);
+                                       } 
+                                   }}>
+                                        <Image style={{tintColor: (favorite === 1) ? '#42c5f5' : '#fff', width: 30, height: 30}} source={require('../../../assets/bookmark.png')} />
+                                   </TouchableOpacity>
                                 </View>
-                                <Text style={{color: '#424949', fontSize: 10, marginTop: 10, marginLeft:5}}>Bookmark</Text>
+                                <Text style={{color: '#424949', fontSize: 10, marginTop: 10, marginLeft:5}}>Favorite</Text>
                             </View>
-                            <View style={{flexDirection: 'column', justifyContent:"center",padding:5}}>
+                            {/* <View style={{flexDirection: 'column', justifyContent:"center",padding:5}}>
                                <View style={{backgroundColor:"#424949", padding:15 ,borderRadius:30, width: 60, height: 60}}>
                                     <Image style={{tintColor: 'white', width: 30, height: 30}} source={require('../../../assets/radio.png')} />
                                 </View>
                                 <Text style={{color: '#424949', fontSize: 10, marginTop: 10,marginLeft:-5}}>Add to channel</Text>
-                            </View>
+                            </View> */}
                             <View style={{flexDirection: 'column',justifyContent:"center", padding:5}}>
                                <View style={{backgroundColor:"#424949", padding:15 ,borderRadius:30, width: 60, height: 60}}>
-                                    <Image style={{tintColor: 'white', width: 30, height: 30}} source={require('../../../assets/download.png')} />
+                                     <TouchableOpacity onPress={()=>{
+                                        if(download === 1){
+                                             COURSES_LIST[index].download = 0;
+                                             setDownload(0);
+                                             setChange({index: index, status: false});
+                                        }else {
+                                             COURSES_LIST[index].download = 1;
+                                             setDownload(1);
+                                             setChange({index: index, status: true});
+                                        } 
+                                    }}>
+                                    <Image style={{tintColor: (download === 1) ? '#42c5f5' : '#fff' , width: 30, height: 30}} source={require('../../../assets/download.png')} />
+                                </TouchableOpacity>
                                 </View>
                                 <Text style={{color: '#424949', fontSize: 10, marginTop: 10,marginLeft:5}}>Download</Text>
                             </View>

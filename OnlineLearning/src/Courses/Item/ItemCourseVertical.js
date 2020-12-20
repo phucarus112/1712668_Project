@@ -23,7 +23,7 @@ const ItemCourseVertical = (props) =>{
         </View>
     
             <Image style={{ alignSelf: 'center', width: 20,height:20, tintColor: '#424949', marginRight: 5}} 
-            source={(props.showOptipon === "show") ? require('../../../assets/option.png') : ''} />
+            source={ ''} />
     
         
        

@@ -37,16 +37,14 @@ const renderListLesson = ({ item }) => (
 
 function Contents({route, navigation}){
 
-  const theme = useContext(ThemeContext);
+  const {theme} = useContext(ThemeContext);
   const {index} = route.params;
   const [selected,setSelected] = useState(0);
-  console.log(theme);
-
 
     return(
       <SafeAreaView style={{...styles.container, backgroundColor: theme.background}} >
        <View style={{...styles.container, backgroundColor: theme.background}}>
-          <View style={{...styles.containerBody, backgroundColor: theme.background}}>
+         
                 {/* <View style={{flexDirection: 'row', margin: 15, justifyContent:'space-between'}}>
                     <View style={{flexDirection: 'row'}}>
                         <ImageBackground source={require('../../../assets/img1.png')} style={{width: 115,height:60, justifyContent:"center"}}/>
@@ -68,7 +66,7 @@ function Contents({route, navigation}){
                 <SafeAreaView style={{backgroundColor: theme.background}}>
                   <FlatList style={{backgroundColor: theme.background}}  data={COURSES_LIST[index].content} renderItem={renderListLesson} keyExtractor={item => item.id}/>
                   </SafeAreaView>
-           </View>
+           
            </View>
      
      </SafeAreaView>
@@ -76,7 +74,7 @@ function Contents({route, navigation}){
 }
 
 function Transcript({navigation}){
-  const theme = useContext(ThemeContext);
+  const {theme} = useContext(ThemeContext);
     return(
       <View style={{...styles.noDataContainer, backgroundColor: theme.background}}>
             <Text style={{color: "#424949"}}>Không có dữ liệu</Text>
@@ -99,7 +97,6 @@ const LessonScreen = ({route,navigation}) =>{
 
   const {theme} = useContext(ThemeContext);
   const {index} = route.params;
-  
     return (
         <NavigationContainer independent={true}>  
              <View >

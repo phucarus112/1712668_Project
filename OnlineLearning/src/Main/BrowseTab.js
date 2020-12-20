@@ -6,13 +6,13 @@ import {BASIC_PATH, TRENDING_PATH} from '../Global/data-sampling'
 
 const BrowseTab = ({navigation}) =>{
     const renderItemPath = ({ item }) => (
-        <TouchableOpacity onPress={()=>{navigation.navigate("CourseIntroduction")}}>
+        <TouchableOpacity onPress={()=>{navigation.navigate("CourseIntroduction",{idCourse: item.id})}}>
         <ItemCourseHorizontal title={item.title} level ={item.level} author={item.author} totalHours = {item.totalHours}
                     totalComments = {item.totalComments} img={item.img} released={item.released} rating={item.rating}/>
                     </TouchableOpacity>
       );
       const renderItemPathTrending = ({ item }) => (
-        <TouchableOpacity onPress={()=>{navigation.navigate("CourseIntroduction")}}>
+        <TouchableOpacity onPress={()=>{navigation.navigate("CourseIntroduction",{idCourse: item.id})}}>
         <ItemCourseHorizontal title={item.title} level ={item.level} author={item.author} totalHours = {item.totalHours}
                     totalComments = {item.totalComments} img={item.img} released={item.released} rating={item.rating}/>
                     </TouchableOpacity>

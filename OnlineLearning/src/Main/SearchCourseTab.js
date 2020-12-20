@@ -18,7 +18,7 @@ const SearchCourseTab= ({navigation}) =>{
 
   const {theme} = useContext(ThemeContext);
   const [keyword,setKeyword] = useState('');
-    
+ 
   return (
     <View style={{...styles.container, backgroundColor: theme.background}}>
         <View style={{...styles.abView, backgroundColor: theme.background}}>
@@ -27,6 +27,7 @@ const SearchCourseTab= ({navigation}) =>{
                 <TextInput placeholder="Search here"  style={{color:"#fff" ,flex: 8, marginLeft: 10, marginRight: 10,}}
                           onChangeText={(text) => setKeyword(text) } defaultValue={keyword} />
           </View>
+      
           <View style={{...styles.container3, backgroundColor: theme.background}} onStartShouldSetResponder={()=>{
               navigation.navigate("ResultCourse")}} >
               <Text style={{color: "#42c5f5", alignSelf: "center"}} onPress={()=>{
