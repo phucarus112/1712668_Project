@@ -1,101 +1,63 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect,useContext} from 'react'
 import {StyleSheet,BackHandler, View,Text, Button, Image, TextInput, SafeAreaView, ScrollView, FlatList, TouchableOpacity} from 'react-native'
 import ItemCourseVertical from '../Courses/Item/ItemCourseVertical'
+import {ThemeContext} from '../../App'
+import {COURSES_LIST, DOWNLOAD_COURSES, getDownloadCourses} from '../Global/data-sampling'
+import {ChangeStatusContext} from '../Provider/change-status-provider'
 
 const DownloadTab = ({navigation}) =>{
 
+  const {theme} = useContext(ThemeContext);
+  const downloadList = [];
+  const {change,setChange} = useContext(ChangeStatusContext);
+
+  console.log(change.index);
+  console.log(change.status);
+  if(change.index != -1){
+    let i = 0;
+    for (i = 0; i< COURSES_LIST.length ; i++) {
+      if(COURSES_LIST[i].download === 1)downloadList.push(COURSES_LIST[i]);
+    }
+    const temp = downloadList.findIndex((item) => item.id === COURSES_LIST[change.index].id);
+    if(change.status === true){
+      downloadList.splice(temp,1);
+      downloadList.unshift(COURSES_LIST[change.index]);
+    }
+  }else{
+    let i = 0;
+    for (i = 0; i< COURSES_LIST.length ; i++) {
+      if(COURSES_LIST[i].download === 1)downloadList.push(COURSES_LIST[i]);
+    }
+  }
+  
+
   const renderItemNew = ({ item }) => (
-    <TouchableOpacity onPress={()=>{navigation.navigate("CourseIntroduction")}}>
-    <ItemCourseVertical title={item.title} level ={item.level} author={item.author} totalHours = {item.totalHours}
-                totalComments = {item.totalComments} img={item.img} />
+    <TouchableOpacity onPress={()=>{navigation.navigate("CourseIntroduction", {idCourse: item.id})}}>
+      <ItemCourseVertical title={item.title} level ={item.level} author={item.author} totalHours = {item.totalHours}
+                totalComments = {item.totalComments} img={item.img} released={item.released} rating={item.rating} showOptipon="show" />
     </TouchableOpacity>
     );
 
     return (
-     <SafeAreaView style={styles.container}>
-      <View  style={styles.container}>
+     
+      <View style={{...styles.container, backgroundColor: theme.background}}>
           <View style={styles.abView} >
                     <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: '#fff'}}>Download</Text> 
           </View>
           <View style={styles.containerBody}>
-          <View style={{flexDirection: 'row', justifyContent:'flex-end', padding:5}}>
-                 <Text style={{color: '#42c5f5',marginTop:13, marginRight:3, fontSize:12}}>Xoá tất cả</Text> 
-          </View>
+         
+          <SafeAreaView>
           <FlatList 
-                    data={DATA}
+           style={{marginBottom: 80}} 
+                    data={downloadList}
                     renderItem={renderItemNew}
                     keyExtractor={item => item.id}/>  
+                    </SafeAreaView>
           </View>
     </View>
-    </SafeAreaView>
+    
     )
 }
-
-const DATA = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'Basic React Native',
-    author: "Hyram",
-    level: "Intermediate",
-    totalHours: 5,
-    totalComments: 213,
-    img: require('../../assets/img1.png')
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f64',
-    title: 'How to build app with Flutter',
-    author: "James Weigh",
-    level: "Average",
-    totalHours: 3,
-    totalComments: 99,
-    img: require('../../assets/img2.jpg')
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f65',
-    title: 'Build application with NodeJS (Advanced)',
-    author: "Liah Yoo",
-    level: "Advanced",
-    totalHours: 2,
-    totalComments: 10,
-    img: require('../../assets/img3.jpg')
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f69',
-    title: 'Build application with NodeJS (Advanced)',
-    author: "Liah Yoo",
-    level: "Advanced",
-    totalHours: 2,
-    totalComments: 10,
-    img: require('../../assets/img3.jpg')
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f68',
-    title: 'Build application with NodeJS (Advanced)',
-    author: "Liah Yoo",
-    level: "Advanced",
-    totalHours: 2,
-    totalComments: 10,
-    img: require('../../assets/img3.jpg')
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f66',
-    title: 'Build application with NodeJS (Advanced)',
-    author: "Liah Yoo",
-    level: "Advanced",
-    totalHours: 2,
-    totalComments: 10,
-    img: require('../../assets/img3.jpg')
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f67',
-    title: 'Build application with NodeJS (Advanced)',
-    author: "Liah Yoo",
-    level: "Advanced",
-    totalHours: 2,
-    totalComments: 10,
-    img: require('../../assets/img3.jpg')
-  },
-];
 
 const styles = StyleSheet.create({
   container2:{
@@ -108,7 +70,6 @@ const styles = StyleSheet.create({
    },
   container: {
         flex: 1,
-        backgroundColor: '#000',
         alignItems: 'center',
         justifyContent: 'flex-start',
     },
@@ -131,3 +92,7 @@ const styles = StyleSheet.create({
 });
 
 export default DownloadTab ;
+
+
+
+

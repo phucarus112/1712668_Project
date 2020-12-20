@@ -1,11 +1,40 @@
-import React, {useState} from 'react'
+import React, {useState,useContext, useEffect} from 'react'
 import {StyleSheet, View,Text, Button, Image, TextInput,SafeAreaView, ScrollView, TouchableOpacity} from 'react-native'
+import {ThemeContext} from '../../App'
+import {checkData} from '../Services/authentication-service'
+import {AuthenticationContext} from '../Provider/authentication-provider'
 
 const RegisterScreen = ({navigation}) =>{
+
+    const {theme} = useContext(ThemeContext);
+    const {authentication, setAuthentication} = useContext(AuthenticationContext);
+
+    const [token] = useState('');
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [fullname, setFullname] = useState('');
+    const [dob, setDob] = useState('');
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
+    const [status, setStatus] = useState(null);
+
+    function renderAlertString(){
+        if(status && status.status == 404){
+            return status.errorString;
+        }
+      }
+
+      useEffect(()=>{
+        if(status && status.status === 200){
+            navigation.goBack();
+            navigation.navigate("Login");
+        }
+      });
+
     return (
     <SafeAreaView>
         <ScrollView>
-            <View style={styles.container}>
+            <View style={{...styles.container, backgroundColor: theme.background}}>
                 <View style={styles.abView} >
                     <TouchableOpacity style={{ alignSelf: 'center'}} onPress={()=>{
                         navigation.goBack()
@@ -16,36 +45,39 @@ const RegisterScreen = ({navigation}) =>{
                     <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: '#fff'}}>Register</Text>
                     <Text>          </Text>
                 </View>
-                <View style={styles.containerBody}>
+                <View style={{...styles.containerBody, backgroundColor: theme.background}}>
+                <Text style={{marginLeft: 15, marginTop:20, fontSize: 12, color: 'red', alignSelf:'center'}}>{renderAlertString()}</Text>
                     <Text style={{ marginLeft: 15, marginTop: 20, color: '#424949',}}>Tên đăng nhập</Text>
                 <View style={styles.container2}>
-                    <TextInput placeholder="" ></TextInput>
+                    <TextInput placeholder="" defaultValue={username} onChangeText={(text) => setUsername(text)}></TextInput>
                 </View>
                 <Text style={styles.label}>Mật khẩu</Text>
                 <View style={styles.container2}>
-                    <TextInput placeholder="" ></TextInput>
+                    <TextInput placeholder="" defaultValue={password} onChangeText={(text) => setPassword(text)}></TextInput>
                 </View>
                 <Text style={styles.label}>Họ và Tên</Text>
                 <View style={styles.container2}>
-                    <TextInput placeholder="" ></TextInput>
+                    <TextInput placeholder="" defaultValue={fullname} onChangeText={(text) => setFullname(text)}></TextInput>
                 </View>
                 <Text style={styles.label}>Ngày tháng năm sinh</Text>
                 <View style={styles.container2}>
-                    <TextInput placeholder="" ></TextInput>
+                    <TextInput placeholder="" defaultValue={dob} onChangeText={(text) => setDob(text)}></TextInput>
                 </View>
                 <Text style={styles.label}>Email</Text>
                 <View style={styles.container2}>
-                    <TextInput placeholder="" ></TextInput>
+                    <TextInput placeholder="" defaultValue={email} onChangeText={(text) => setEmail(text)}></TextInput>
                 </View>
                 <Text style={styles.label}>Số điện thoại</Text>
                 <View style={styles.container2}>
-                    <TextInput placeholder="" ></TextInput>
+                    <TextInput placeholder="" defaultValue={phone} onChangeText={(text) => setPhone(text)}></TextInput>
                 </View>
-                <View  style={styles.container3}  onStartShouldSetResponder={()=>{
-                navigation.navigate("Main")
+                <View  style={styles.container3}  
+                        onStartShouldSetResponder={()=>{
+                               setStatus(checkData(username,password,fullname,dob,email,phone))
                 }}>
-                <Text style={{color: "#fff", fontWeight: 'bold', alignSelf: "center"}} onPress={()=>{
-                        navigation.navigate("Main")
+                <Text style={{color: "#fff", fontWeight: 'bold', alignSelf: "center"}} 
+                        onPress={()=>{
+                            setStatus(checkData(username,password,fullname,dob,email,phone))
                 }}>Đăng ký</Text>
                 </View>
                 </View>
@@ -69,13 +101,13 @@ const styles = StyleSheet.create({
    },
   container: {
         flex: 1,
-        backgroundColor: '#000',
+      
         alignItems: 'center',
         justifyContent: 'space-between',
     },
   containerBody: {
       alignSelf: "stretch",
-      backgroundColor: '#000',
+     
   },
   abView:{
     flexDirection: 'row',

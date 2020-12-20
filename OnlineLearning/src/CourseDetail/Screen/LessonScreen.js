@@ -1,9 +1,11 @@
-import React, {useEffect} from 'react'
+import React, {useState,useEffect,useContext} from 'react'
 import {StyleSheet,BackHandler, View,Text, Button, Image, TextInput,SafeAreaView, ScrollView, TouchableOpacity, FlatList,ImageBackground, Share} from 'react-native'
 import { Video } from 'expo-av';
 import { NavigationContainer } from '@react-navigation/native'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import ItemLesson from '../Item/ItemLesson'
+import {ThemeContext} from '../../../App'
+import {COURSES_LIST} from '../../Global/data-sampling'
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -28,37 +30,43 @@ const onShare = async () => {
   }
 
 const renderListLesson = ({ item }) => (
-    <ItemLesson nameLesson={item.nameLesson} />
+  <TouchableOpacity onPress={console.log(item.id)}>
+    <ItemLesson title ={item.title} duration={item.duration} thumbnail={item.thumbnail} />
+    </TouchableOpacity>
     );
 
-function Contents({navigation}){
+function Contents({route, navigation}){
+
+  const {theme} = useContext(ThemeContext);
+  const {index} = route.params;
+  const [selected,setSelected] = useState(0);
+
     return(
-      <SafeAreaView style={styles.container} >
-     
-      <View style={styles.container}>
-            <View style={styles.containerBody}>
-                <View style={{flexDirection: 'row', margin: 15, justifyContent:'space-between'}}>
+      <SafeAreaView style={{...styles.container, backgroundColor: theme.background}} >
+       <View style={{...styles.container, backgroundColor: theme.background}}>
+         
+                {/* <View style={{flexDirection: 'row', margin: 15, justifyContent:'space-between'}}>
                     <View style={{flexDirection: 'row'}}>
                         <ImageBackground source={require('../../../assets/img1.png')} style={{width: 115,height:60, justifyContent:"center"}}/>
                 
                         <View>
-                            <Text style={{color: '#fff',fontSize:12, margin: 7, maxWidth: 200, fontWeight: 'bold'}}>Getting Started</Text>
-                            <Text style={{color: '#fff',fontSize:10, marginLeft: 7}}>01:30</Text>
+                            <Text style={{color: '#424949',fontSize:12, margin: 7, maxWidth: 200, fontWeight: 'bold'}}>{COURSES_LIST[index].content[0].title}</Text>
+                            <Text style={{color: '#424949',fontSize:10, marginLeft: 7}}>{COURSES_LIST[index].content[0].duration}</Text>
                         </View>
-                    </View>
-                    <View style={{flexDirection: 'row'}}>
-                    <TouchableOpacity activeOpacity = { .5 } onPress={onShare} style={{marginTop: 20}}>
-                      <Image style={{ alignSelf: 'center', width: 15,height:15, tintColor: 'white', marginRight: 15}} source={require('../../../assets/share.png')} />
-                       </TouchableOpacity>
-                        <Image style={{ alignSelf: 'center', width: 15,height:15, tintColor: 'white', marginRight: 15}} source={require('../../../assets/download.png')} />
-                        <Image style={{ alignSelf: 'center', width: 15,height:15, tintColor: 'white'}} source={require('../../../assets/option.png')} />
-                    </View>
-                </View>
+                    </View> */}
+                    {/* <View style={{flexDirection: 'row'}}> */}
+                    {/* <TouchableOpacity activeOpacity = { .5 } onPress={onShare} style={{marginTop: 20}}>
+                      <Image style={{ alignSelf: 'center', width: 15,height:15, tintColor: '#424949', marginRight: 15}} source={require('../../../assets/share.png')} />
+                       </TouchableOpacity> */}
+                        {/* <Image style={{ alignSelf: 'center', width: 15,height:15, tintColor: '#424949', marginRight: 15}} source={require('../../../assets/download.png')} />
+                        <Image style={{ alignSelf: 'center',  width: 15,height:15, tintColor: '#424949'}} source={require('../../../assets/option.png')} /> */}
+                    {/* </View> */}
+                {/* </View> */}
                
-                <SafeAreaView>
-                  <FlatList data={DATA} renderItem={renderListLesson} keyExtractor={item => item.id}/>
+                <SafeAreaView style={{backgroundColor: theme.background}}>
+                  <FlatList style={{backgroundColor: theme.background}}  data={COURSES_LIST[index].content} renderItem={renderListLesson} keyExtractor={item => item.id}/>
                   </SafeAreaView>
-           </View>
+           
            </View>
      
      </SafeAreaView>
@@ -66,14 +74,15 @@ function Contents({navigation}){
 }
 
 function Transcript({navigation}){
+  const {theme} = useContext(ThemeContext);
     return(
-      <View style={styles.noDataContainer}>
-            <Text style={{color: "#fff"}}>Không có dữ liệu</Text>
+      <View style={{...styles.noDataContainer, backgroundColor: theme.background}}>
+            <Text style={{color: "#424949"}}>Không có dữ liệu</Text>
     </View> 
     )
 }
 
-const LessonScreen = ({navigation}) =>{
+const LessonScreen = ({route,navigation}) =>{
   function handleBackButtonClick() {
     navigation.goBack();
     return true;
@@ -85,23 +94,25 @@ const LessonScreen = ({navigation}) =>{
       BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
     };
   },[]);
+
+  const {theme} = useContext(ThemeContext);
+  const {index} = route.params;
     return (
         <NavigationContainer independent={true}>  
-            <View style={styles.containerBody2}>
+             <View >
                 <Video
                         source={{ uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4' }}
                         rate={1.0}
                         useNativeControls 
-                        shouldPlay
                         volume={4.0}
-                        isLooping
                         isMuted={false}
-                        style={{ height: 200 }}/>
+                        resizeMode="contain"
+                        style={{...styles.containerBody2, backgroundColor: theme.background, height:200}} />
             </View>
             <Tab.Navigator tabBarOptions={{
                                 labelStyle: { fontSize: 12 , color: '#fff'},
-                                style: { backgroundColor: '#000' },}}>
-                <Tab.Screen name="Contents" component={Contents}/>
+                                style: { backgroundColor: '#424949' },}}>
+                <Tab.Screen name="Contents" component={Contents} initialParams={{index: index}}/>
                 <Tab.Screen name="Transcript" component={Transcript} />
             </Tab.Navigator>
         </NavigationContainer>
@@ -113,7 +124,6 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: "center",
         justifyContent: 'center',
-        backgroundColor: "#000"
     },
     textView:{
         textAlign: 'center',
@@ -126,25 +136,20 @@ const styles = StyleSheet.create({
          marginTop:30,
          marginLeft:15,
          marginRight:15,
-         backgroundColor:'#000',
          borderRadius:10,
          borderWidth: 1,
          borderColor: '#42c5f5',
        },
   container: {
         flex: 1,
-        backgroundColor: '#000',
-       
         justifyContent: 'flex-start',
     },
   containerBody: {
       alignSelf: "stretch",
-      backgroundColor: '#000',
   },
   containerBody2: {
     flexDirection: "row",
     alignSelf: "stretch",
-    backgroundColor: '#000',
 },
   label:{
       marginLeft: 15,
@@ -167,67 +172,5 @@ const styles = StyleSheet.create({
  
 });
 
-const DATA = [
-    {
-      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba1',
-      nameLesson: 'Getting Started',
-    },
-    {
-        id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba2',
-        nameLesson: 'Overview React Native',
-      },
-      {
-        id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba3',
-        nameLesson: 'Components, Styling & Layout',
-      },
-      {
-        id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba4',
-        nameLesson: 'Navigation with React Navigation',
-      },
-      {
-        id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba5',
-        nameLesson: 'State Management & Redux',
-      },
-      {
-        id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba6',
-        nameLesson: 'Debugging & Developer Tools',
-      },
-      {
-        id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba7',
-        nameLesson: 'Putting In All Together - Itedu',
-      },
-      {
-        id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba8',
-        nameLesson: 'HTTP Request & Back-end',
-      },
-      {
-        id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba9',
-        nameLesson: 'Authentication',
-      },
-      {
-        id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba10',
-        nameLesson: 'Advanced Navigation',
-      },
-      {
-        id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba11',
-        nameLesson: 'Using Location & Map',
-      },
-      {
-        id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba12',
-        nameLesson: 'Using Camera/Video Component',
-      },
-      {
-        id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba13',
-        nameLesson: 'Public App Store & Google Play Store',
-      },
-      {
-        id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba14',
-        nameLesson: 'Marketing Mobile App',
-      },
-      {
-        id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba15',
-        nameLesson: 'Conclusion',
-      },
-  ];
 
 export default LessonScreen;

@@ -2,9 +2,9 @@ import React, {useState,useEffect,useContext} from 'react'
 import {StyleSheet, BackHandler, View,Text, Button, Image, TextInput, SafeAreaView, ScrollView, FlatList, TouchableOpacity} from 'react-native'
 import ItemCourseVertical from '../Item/ItemCourseVertical'
 import {ThemeContext} from '../../../App'
-import {TRENDING_COURSES} from '../../Global/data-sampling'
+import {TRENDING_PATH} from '../../Global/data-sampling'
 
-const TrendingCourseScreen = ({navigation}) =>{
+const TrendingPathScreen = ({navigation}) =>{
 
   const {theme} = useContext(ThemeContext);
 
@@ -22,9 +22,9 @@ const TrendingCourseScreen = ({navigation}) =>{
 
   const renderItemNew = ({ item }) => (
     <TouchableOpacity onPress={()=>{navigation.navigate("CourseIntroduction", {idCourse: item.id})}}>
-    <ItemCourseVertical title={item.title} level ={item.level} author={item.author} totalHours = {item.totalHours}
+      <ItemCourseVertical title={item.title} level ={item.level} author={item.author} totalHours = {item.totalHours}
                 totalComments = {item.totalComments} img={item.img}  released={item.released} rating={item.rating} />
-                </TouchableOpacity>
+    </TouchableOpacity>
     );
 
     return (
@@ -38,14 +38,14 @@ const TrendingCourseScreen = ({navigation}) =>{
              <Image style={{ alignSelf: 'center', width: 20,height:20, tintColor: 'white', marginLeft: 10}} source={require('../../../assets/back.png')} />
              </TouchableOpacity>
                    
-                    <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: '#fff'}}>Xu hướng</Text>
+                    <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: '#fff'}}>Trending Path</Text>
                     <Text>          </Text>
           </View>
           <View style={styles.containerBody}>
                 <SafeAreaView>
                   <FlatList 
-                    style={{marginBottom: 80}} 
-                     data={TRENDING_COURSES}
+                  style={{marginBottom: 80}}
+                     data={TRENDING_PATH}
                     renderItem={renderItemNew}
                     keyExtractor={item => item.id}/>
                 </SafeAreaView>
@@ -89,4 +89,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TrendingCourseScreen;
+export default TrendingPathScreen;

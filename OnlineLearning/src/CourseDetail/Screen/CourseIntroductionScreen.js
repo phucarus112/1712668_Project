@@ -1,13 +1,25 @@
-import React, {useEffect} from 'react'
+import React, {useState, useEffect,useContext} from 'react'
 import {StyleSheet,BackHandler, View,Text, Button, Image, TextInput,SafeAreaView, ScrollView, Switch, TouchableOpacity} from 'react-native'
 import { Video } from 'expo-av';
+import {ThemeContext} from '../../../App'
+import {COURSES_LIST, getDownloadCourses} from '../../Global/data-sampling'
+import {ChangeStatusContext} from '../../Provider/change-status-provider'
 
-const CourseIntroductionScreen = ({navigation}) =>{
+const CourseIntroductionScreen = ({route,navigation}) =>{
+    
+  const {theme} = useContext(ThemeContext);
+  const {change,setChange} = useContext(ChangeStatusContext);
+  const {idCourse} = route.params;
+  const index = COURSES_LIST.findIndex((item) => item.id === idCourse);
+  const [favorite,setFavorite] = useState(COURSES_LIST[index].favorite);
+  const [download,setDownload] = useState(COURSES_LIST[index].download);
 
     function handleBackButtonClick() {
         navigation.goBack();
         return true;
       }
+
+      
     
       useEffect(()=>{
           BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
@@ -19,79 +31,103 @@ const CourseIntroductionScreen = ({navigation}) =>{
     return (
 <SafeAreaView >
     <ScrollView>
-        <View style={styles.container}>
-            <View style={styles.containerBody}>
+    <View style={{...styles.container, backgroundColor: theme.background}}>
+            <View style={{...styles.containerBody, backgroundColor: theme.background}}>
                     <Video
+                
                         source={{ uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4' }}
                         rate={1.0}
                         useNativeControls
-                   shoul
+                      
                         volume={4.0}
                         isLooping
                         isMuted={false}
                         resizeMode="contain"
                         style={{ height: 200 }}/>
                     <View style={{flexDirection: 'row', justifyContent:'space-between', padding:5, }}>
-                        <Text style={{  marginTop: 15, color: '#fff', fontSize: 18}}>BIG BUCK FUNNY Trailer</Text>
+                        <Text style={{ padding: 5, fontWeight: 'bold', marginTop: 15, color: '#424949', fontSize: 18}}>{COURSES_LIST[index].title}</Text>
                     </View>
                     <View style={{flexDirection: 'row', padding:5}}>
-                        <Text style={{color: '#fff',marginLeft:7}}>Beginner</Text>
-                        <Text style={{color: '#fff'}}> - 27s</Text>
-                        <Text style={{color: '#fff',marginLeft:7}}>Bình luận: (5)</Text>
+                        <Text style={{color: '#424949',marginLeft:7}}>{COURSES_LIST[index].level}</Text>
+                        <Text style={{color: '#424949'}}> - {COURSES_LIST[index].totalHours}</Text>
+                        <Text style={{color: '#424949',marginLeft:7}}>Bình luận: ({COURSES_LIST[index].totalComments})</Text>
                     </View>
                     <View style={{padding:5, flexDirection:'row', justifyContent:'space-between'}}>
                         <View style={{flexDirection: 'row', marginTop:8,backgroundColor:"#424949", padding:10 ,borderRadius:30}}>
                                 <Image style={{ marginLeft:3, marginRight:5,width: 26,height:26, tintColor:'red'}} source={require('../../../assets/check.png')} />
-                                <Text style={{color: '#fff', marginRight:3}}>SBS Entertainment</Text>
+                                <Text style={{color: '#fff', marginRight:3}}>{COURSES_LIST[index].author}</Text>
                         </View>
                         <View></View>
                     </View>
                     <View style={{flexDirection: 'row', padding:5, justifyContent:"space-around"}}>
                             <View style={{flexDirection: 'column', justifyContent:"center", padding:5}}>
                                <View style={{backgroundColor:"#424949", padding:15 ,borderRadius:30, width: 60, height: 60}}>
-                                    <Image style={{tintColor: 'white', width: 30, height: 30}} source={require('../../../assets/bookmark.png')} />
+                                   <TouchableOpacity onPress={()=>{
+                                       if(favorite === 1){
+                                            COURSES_LIST[index].favorite = 0;
+                                            setFavorite(0);
+                                       }else {
+                                            COURSES_LIST[index].favorite = 1;
+                                            setFavorite(1);
+                                       } 
+                                   }}>
+                                        <Image style={{tintColor: (favorite === 1) ? '#42c5f5' : '#fff', width: 30, height: 30}} source={require('../../../assets/bookmark.png')} />
+                                   </TouchableOpacity>
                                 </View>
-                                <Text style={{color: '#fff', fontSize: 10, marginTop: 10, marginLeft:5}}>Bookmark</Text>
+                                <Text style={{color: '#424949', fontSize: 10, marginTop: 10, marginLeft:5}}>Favorite</Text>
                             </View>
-                            <View style={{flexDirection: 'column', justifyContent:"center",padding:5}}>
+                            {/* <View style={{flexDirection: 'column', justifyContent:"center",padding:5}}>
                                <View style={{backgroundColor:"#424949", padding:15 ,borderRadius:30, width: 60, height: 60}}>
                                     <Image style={{tintColor: 'white', width: 30, height: 30}} source={require('../../../assets/radio.png')} />
                                 </View>
-                                <Text style={{color: '#fff', fontSize: 10, marginTop: 10,marginLeft:-5}}>Add to channel</Text>
-                            </View>
+                                <Text style={{color: '#424949', fontSize: 10, marginTop: 10,marginLeft:-5}}>Add to channel</Text>
+                            </View> */}
                             <View style={{flexDirection: 'column',justifyContent:"center", padding:5}}>
                                <View style={{backgroundColor:"#424949", padding:15 ,borderRadius:30, width: 60, height: 60}}>
-                                    <Image style={{tintColor: 'white', width: 30, height: 30}} source={require('../../../assets/download.png')} />
+                                     <TouchableOpacity onPress={()=>{
+                                        if(download === 1){
+                                             COURSES_LIST[index].download = 0;
+                                             setDownload(0);
+                                             setChange({index: index, status: false});
+                                        }else {
+                                             COURSES_LIST[index].download = 1;
+                                             setDownload(1);
+                                             setChange({index: index, status: true});
+                                        } 
+                                    }}>
+                                    <Image style={{tintColor: (download === 1) ? '#42c5f5' : '#fff' , width: 30, height: 30}} source={require('../../../assets/download.png')} />
+                                </TouchableOpacity>
                                 </View>
-                                <Text style={{color: '#fff', fontSize: 10, marginTop: 10,marginLeft:5}}>Download</Text>
+                                <Text style={{color: '#424949', fontSize: 10, marginTop: 10,marginLeft:5}}>Download</Text>
                             </View>
                     </View>
                     <TextInput
+                
                     autogrow
                     multiline
                     editable={false}
-                        style={{color: '#fff', margin: 15, fontSize:12}}
+                        style={{color: '#424949', margin: 15, fontSize:12}}
                         value="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum"/>    
                      <View  style={styles.container3} onStartShouldSetResponder={()=>{
-                         navigation.navigate("Lesson")
+                         navigation.navigate("Lesson",{index: index})
                      }} >
                          <TouchableOpacity onPress={()=>{
-                             navigation.navigate("Lesson")
+                             navigation.navigate("Lesson",{index: index})
                          }}>
                             <Image style={{tintColor: 'white', width: 20, height: 20, marginRight: 5,}} source={require('../../../assets/launch.png')} />
                          </TouchableOpacity>
                         <Text onPress={()=>{
-                             navigation.navigate("Lesson")
+                             navigation.navigate("Lesson",{index: index})
                          }} style={{color: "#fff", fontWeight: 'bold', alignSelf: "center", marginLeft: 5, fontSize: 12}} >Bắt đầu học</Text>
                     </View>
-                    <View  style={styles.container3} >
+                    {/* <View  style={styles.container3} >
                         <Image style={{tintColor: 'white', width: 20, height: 20, marginRight: 5,}} source={require('../../../assets/test.png')} />
                         <Text style={{color: "#fff", fontWeight: 'bold', alignSelf: "center", marginLeft: 5, fontSize: 12}} >Bắt đầu kiểm tra</Text>
                     </View>
                     <View  style={styles.container3} >
                         <Image style={{tintColor: 'white', width: 20, height: 20, marginRight: 5,}} source={require('../../../assets/relation.png')} />
                         <Text style={{color: "#fff", fontWeight: 'bold', alignSelf: "center", marginLeft: 5, fontSize: 12}} >Các khoá học liên quan</Text>
-                    </View>
+                    </View> */}
                </View>
            </View>
     </ScrollView>
@@ -118,13 +154,11 @@ const styles = StyleSheet.create({
        },
   container: {
         flex: 1,
-        backgroundColor: '#000',
         alignItems: 'center',
         justifyContent: 'flex-start',
     },
   containerBody: {
       alignSelf: "stretch",
-      backgroundColor: '#000',
   },
   label:{
       marginLeft: 15,
