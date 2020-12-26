@@ -3,6 +3,8 @@ import {StyleSheet, View,Text, Button, Image, TextInput, TouchableOpacity, Alert
 import {login} from '../Services/authentication-service'
 import {ThemeContext} from '../../App'
 import {AuthenticationContext} from '../Provider/authentication-provider'
+import axios from 'axios'
+import {URL} from '../Global/APIClient'
 
 const LoginScreen = ({navigation}) =>{
 

@@ -3,6 +3,8 @@ import {StyleSheet, View,Text, Button, Image, TextInput,SafeAreaView, ScrollView
 import {ThemeContext} from '../../App'
 import {checkData} from '../Services/authentication-service'
 import {AuthenticationContext} from '../Provider/authentication-provider'
+import axios from 'axios'
+import {URL} from '../Global/APIClient'
 
 const RegisterScreen = ({navigation}) =>{
 
@@ -18,6 +20,8 @@ const RegisterScreen = ({navigation}) =>{
     const [phone, setPhone] = useState('');
     const [status, setStatus] = useState(null);
 
+    const url = URL + "/instructor";;
+
     function renderAlertString(){
         if(status && status.status == 404){
             return status.errorString;
@@ -26,9 +30,32 @@ const RegisterScreen = ({navigation}) =>{
 
       useEffect(()=>{
         if(status && status.status === 200){
+            fetch(url,{
+                method: 'POST',
+                headers: {
+                  Accept: 'application/json',
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    username: "string",
+                    email: "string",
+                    phone: "string",
+                    password: "string"
+                })
+            })
+                .then((response) => {
+                    response.json()
+                   
+                })
+                .then((json) => console.log(json.payload))
+                .catch((error) => console.error(error))
+                .finally(()=>{
+
+                });
             navigation.goBack();
             navigation.navigate("Login");
         }
+
       });
 
     return (
