@@ -1,3 +1,12 @@
+function generateDays(){
+  var list = [];
+  let i = 1;
+  for (i = 1; i<= 31 ; i++) {
+    list.push({number: i});
+  }
+  return list;
+}
+
 export const AUTHORS = [
     {
       id: '001',
@@ -1839,3 +1848,5 @@ export const DOWNLOAD_COURSES = getDownloadCourses();
 export const BASIC_PATH = getBasicPath();
 
 export const TRENDING_PATH = COURSES_LIST.slice(4,9);
+
+export const DAY_ARRAY = generateDays();

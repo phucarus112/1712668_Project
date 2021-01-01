@@ -18,7 +18,9 @@ const UpdateAccountScreen = ({navigation}) =>{
       const [username, setUsername] = useState(authentication.user.username);
       const [password, setPassword] = useState(authentication.user.password);
       const [fullname, setFullname] = useState(authentication.user.fullname);
-      const [dob, setDob] = useState(authentication.user.dob);
+      const [day, setDay] = useState('1');
+      const [month, setMonth] = useState('1');
+      const [year, setYear] = useState('1970');
       const [email, setEmail] = useState(authentication.user.email);
       const [phone, setPhone] = useState(authentication.user.phone);
       const [status, setStatus] = useState(null);
@@ -77,10 +79,18 @@ const UpdateAccountScreen = ({navigation}) =>{
                    
                 </View>
                 <Text style={styles.label}>Ngày tháng năm sinh</Text>
-                <View style={styles.container2}>
-                    <TextInput placeholder="" defaultValue={dob} onChangeText={(text) => setDob(text)} />
+                    <View style={{flexDirection: 'row'}}>
+                    <View style={{...styles.container2, width: 70, height: 50}}>
+                            <TextInput keyboardType={'numeric'} placeholder="" defaultValue={day} onChangeText={(text) => setDay(text)}></TextInput>
                     
-                </View>
+                        </View>
+                        <View style={{...styles.container2, width: 50}}>
+                            <TextInput keyboardType={'numeric'} placeholder="" defaultValue={month} onChangeText={(text) => setMonth(text)}></TextInput>
+                        </View>
+                        <View style={{...styles.container2, width: 100}}>
+                            <TextInput keyboardType={'numeric'} placeholder="" defaultValue={year} onChangeText={(text) => setYear(text)}></TextInput>
+                        </View>
+                    </View>
                 <Text style={styles.label}>Email</Text>
                 <View style={styles.container2}>
                     <TextInput placeholder="" defaultValue={email} onChangeText={(text) => setEmail(text)}/>
@@ -93,12 +103,12 @@ const UpdateAccountScreen = ({navigation}) =>{
                 </View>
                 <View  style={styles.container3} 
                     onStartShouldSetResponder={()=>{
-                        setStatus(checkData(username,password,fullname,dob,email,phone))
+                        setStatus(checkData(password,password,fullname,email,phone))
                         setAuthentication({status: 200, user: {token: token, username: username, password: password, fullname: fullname, dob: dob, email: email, phone: phone }});
                 }}>
                 <Text style={{color: "#fff", fontWeight: 'bold', alignSelf: "center"}} 
                       onPress={()=>{
-                        setStatus(checkData(username,password,fullname,dob,email,phone))
+                        setStatus(checkData(password,password,fullname,email,phone))
                         setAuthentication({status: 200, user: {token: token, username: username, password: password, fullname: fullname, dob: dob, email: email, phone: phone }});
                 }}>Cập nhật</Text>
                 </View>
@@ -113,50 +123,47 @@ const UpdateAccountScreen = ({navigation}) =>{
 
 const styles = StyleSheet.create({
   container2:{
-      justifyContent:'space-between',
+    justifyContent:'space-between',
     flexDirection: 'row',
     alignSelf: "stretch",
-     margin: 15,
-     padding: 10,
-     backgroundColor:'#424949',
-     borderRadius:10,
-     borderWidth: 1,
-     borderColor: '#c9c9c9',
+    margin: 15,
+    padding: 10,
+    backgroundColor:'#424949',
+    borderRadius:10,
+    borderWidth: 1,
+    borderColor: '#c9c9c9',
    },
   container: {
-        flex: 1,
-    
-        alignItems: 'center',
-        justifyContent: 'space-between',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'space-between',
     },
   containerBody: {
-      alignSelf: "stretch",
-    
+    alignSelf: "stretch",
   },
   abView:{
     flexDirection: 'row',
     justifyContent:'space-between',
-        alignSelf: "stretch",
-        marginTop: 15,
-        paddingTop: 5,
-        paddingBottom: 5,
-        backgroundColor:'#424949',
+    alignSelf: "stretch",
+    marginTop: 15,
+    paddingTop: 5,
+    paddingBottom: 5,
+    backgroundColor:'#424949',
   },
   label:{
-      marginLeft: 15,
-      color: '#424949',
+    marginLeft: 15,
+    color: '#424949',
   },
   abImg: {
-        width: 50,
-        height: 50,
+    width: 50,
+    height: 50,
   },
   container3:{
     backgroundColor: '#42c5f5',
     alignSelf: "stretch",
-     margin: 15,
-     padding: 15,
+    margin: 15,
+    padding: 15,
    },
- 
 });
 
 export default  UpdateAccountScreen;
