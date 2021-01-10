@@ -1,9 +1,11 @@
 import React, {useState,useContext} from 'react'
-import {StyleSheet, View,Text, Button, Image, TextInput,SafeAreaView, ScrollView, Switch} from 'react-native'
+import {StyleSheet, View,Text, Button, AsyncStorage, Image, TextInput,SafeAreaView, ScrollView, Switch, Alert} from 'react-native'
 import {ThemeContext} from '../../App'
+import {vietnam} from '../Global/strings'
 
 const SettingTab = ({navigation}) =>{
     const {theme} = useContext(ThemeContext);
+    const vietnamStrings = JSON.parse(vietnam);
     console.log("setting: ",theme);
     return (
         
@@ -42,7 +44,30 @@ const SettingTab = ({navigation}) =>{
                     </View>
                     <View style={{...styles.container2, backgroundColor: theme.background}}
                           onStartShouldSetResponder={()=>{
-                                navigation.navigate("Login");
+                            Alert.alert(
+                                vietnamStrings.noti,
+                                vietnamStrings.noti_logout,
+                                [
+                                  { 
+                                    text: "Cancel", 
+                                    onPress: console.log("OK Pressed"),
+                                  },
+                                  { 
+                                    text: "OK", 
+                                    onPress: () => {
+                                        //clear data info login
+                                        let dataLogin = {  
+                                            isLogined: "false",  
+                                            email: "",  
+                                            password: "",  
+                                        };
+                                        AsyncStorage.setItem("dataLogin",JSON.stringify(dataLogin));
+                                        navigation.navigate("ChooseAuthentication");
+                                    }
+                                  }
+                                ],
+                              );
+                               
                     }}>
                         <Text style={styles.textView} >Đăng xuất</Text>
                     </View>

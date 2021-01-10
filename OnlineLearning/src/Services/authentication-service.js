@@ -50,12 +50,16 @@ export const checkData = (password, confirm, fullname, email, phone) =>{
     //     return {status: 404, errorString: "Tên đăng nhập phải lớn hơn 6 ký tự"};
     // else if(username.length > 20)
     //     return {status: 404, errorString: "Tên đăng nhập phải tối đa 20 ký tự"};
-    else if(password.length < 6)
-        return {status: 404, errorString: "Mật khẩu phải lớn hơn 6 ký tự"};
+    else if(password.length < 8 || password.length > 20)
+        return {status: 404, errorString: "Mật khẩu phải lớn hơn 8 và nhỏ hơn 20 ký tự"};
     else if(password != confirm)
         return {status: 404, errorString: "Xác nhận mật khẩu không trùng khớp"};
     // else if(isValidDate(parseInt(day),parseInt(month),parseInt(year)) === 0)
     //     return {status: 404, errorString: "Ngày tháng năm sinh không hợp lệ"};
     else 
         return {status: 200};
+}
+
+export const isEmptyInput = (input) =>{
+    return (input === '')?{status: 404, msg: "Email không được để trống"} : {status: 200, msg: ""} ;
 }

@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext} from 'react'
-import {StyleSheet, View,Text, Button, Image, TextInput, TouchableOpacity, Alert} from 'react-native'
+import {StyleSheet, View,Text, Button, Image, TextInput, TouchableOpacity, Alert, AsyncStorage } from 'react-native'
 import {login} from '../Services/authentication-service'
 import {ThemeContext} from '../../App'
 import {AuthenticationContext} from '../Provider/authentication-provider'
@@ -23,6 +23,12 @@ const LoginScreen = ({navigation}) =>{
     return '';
   }
 
+  let dataLogin = {  
+    isLogined: 'true',  
+    email: email,  
+    password: password,  
+  }  
+
     useEffect(()=>{
       if(status && status.status === 200){
         fetch(API_LOGIN,{
@@ -40,14 +46,17 @@ const LoginScreen = ({navigation}) =>{
           .then(json => {
             console.log(json);
             if(json.message === "OK"){
+              //save async storage
+                  AsyncStorage.setItem("dataLogin",JSON.stringify(dataLogin));
                   setAuthentication(setData(json));
                   navigation.navigate("Main");
                   setEmail("");
-                  setPassword("");
+                  setPassword("");              
             }else setStatus({status: 404, errorString: json.message});
           })
           .catch((error) => console.error(error))
           .finally(()=>{
+
           });
       }
     })
@@ -58,7 +67,7 @@ const LoginScreen = ({navigation}) =>{
               <TouchableOpacity style={{alignSelf: 'center'}} onPress={()=>{navigation.goBack()}}>
                   <Image style={{ alignSelf: 'center', width: 20,height:20, tintColor:  COLORS_LIST[3].hex, marginLeft: 10}} source={require('../../assets/back.png')} />
                 </TouchableOpacity>
-                <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: COLORS_LIST[3].hex }}>Login</Text>
+                <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: COLORS_LIST[3].hex }}>Đăng nhập</Text>
                 <Text>          </Text>
           </View> 
           <View style={{...styles.containerBody, backgroundColor: theme.background}}>

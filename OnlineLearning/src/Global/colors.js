@@ -12,7 +12,11 @@ export const COLORS_LIST = [
         hex: '#42c5f5'
     },
     {
-        name: "WHITE_TEXT",
+        name: "WHITE",
         hex: '#FFF'
+    },
+    {
+        name: "BLACK",
+        hex: '#000'
     },
 ]

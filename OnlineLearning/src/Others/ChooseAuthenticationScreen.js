@@ -1,17 +1,58 @@
 import React, {useState, useEffect, useContext} from 'react'
-import {StyleSheet,BackHandler, View,Text, Button, Image} from 'react-native'
+import {StyleSheet,BackHandler, View,Text, Button, Image, AsyncStorage} from 'react-native'
 import {ThemeContext} from '../../App'
+import {API_LOGIN} from '../Global/APIClient'
+import {AuthenticationContext} from '../Provider/authentication-provider'
 
 const ChooseAuthenticationScreen = ({navigation}) =>{
 
   const {theme} = useContext(ThemeContext);
+  const {setAuthentication} = useContext(AuthenticationContext);
+  const [data, setData] = useState(null);
 
   function handleBackButtonClick() {
     navigation.goBack();
     return true;
   }
+  
+  const getLocalData = async ()=>{  
+    try{  
+      let data = await AsyncStorage.getItem('dataLogin');  
+      let dataLogin = JSON.parse(data);  
+      console.log(dataLogin);
+      if(dataLogin.isLogined === "true"){
+        fetch(API_LOGIN,{
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          }, 
+          body: JSON.stringify({
+              email: dataLogin.email,
+              password: dataLogin.password,
+          })
+      })
+          .then(response => response.json())
+          .then(json => {
+            console.log(json);
+            if(json.message === "OK"){
+                  setAuthentication(setData(json));
+                
+                  navigation.navigate("Main");
+            }
+          })
+          .catch((error) => console.error(error))
+          .finally(()=>{
+          });
+      }
+    }  
+    catch(error){  
+      alert(error)  
+    }  
+  }  
 
   useEffect(()=>{
+      getLocalData();
       BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
     return () => {
       BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);

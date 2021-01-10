@@ -78,7 +78,7 @@ const RegisterScreen = ({navigation}) =>{
                         }}>
                         <Image style={{ alignSelf: 'center', width: 20,height:20, tintColor:  COLORS_LIST[3].hex, marginLeft: 10}} source={require('../../assets/back.png')} />
                     </TouchableOpacity>
-                    <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color:  COLORS_LIST[3].hex}}>Register</Text>
+                    <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color:  COLORS_LIST[3].hex}}>Đăng ký</Text>
                     <Text>          </Text>
                 </View>
                 <View style={{...styles.containerBody, backgroundColor: theme.background}}>
