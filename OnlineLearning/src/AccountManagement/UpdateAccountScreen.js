@@ -3,6 +3,8 @@ import {StyleSheet, View,Text,BackHandler, Button, Image, TextInput,SafeAreaView
 import {ThemeContext} from '../../App'
 import {AuthenticationContext} from '../Provider/authentication-provider'
 import {checkData} from '../Services/authentication-service'
+import { vietnam } from '../Global/strings'
+import { COLORS_LIST } from '../Global/colors'
 
 const UpdateAccountScreen = ({navigation}) =>{
 
@@ -13,16 +15,16 @@ const UpdateAccountScreen = ({navigation}) =>{
 
       const {theme} = useContext(ThemeContext);
       const {authentication, setAuthentication} = useContext(AuthenticationContext);
-
-      const [token] = useState(authentication.user.token);
-      const [username, setUsername] = useState(authentication.user.username);
-      const [password, setPassword] = useState(authentication.user.password);
-      const [fullname, setFullname] = useState(authentication.user.fullname);
-      const [day, setDay] = useState('1');
-      const [month, setMonth] = useState('1');
-      const [year, setYear] = useState('1970');
-      const [email, setEmail] = useState(authentication.user.email);
-      const [phone, setPhone] = useState(authentication.user.phone);
+      const vietnamStrings = JSON.parse(vietnam);
+      // const [token] = useState(authentication.user.token);
+      // const [username, setUsername] = useState("");
+      // const [password, setPassword] = useState(authentication.user.password);
+      const [fullname, setFullname] = useState("");
+      // const [day, setDay] = useState('1');
+      // const [month, setMonth] = useState('1');
+      // const [year, setYear] = useState('1970');
+      const [email, setEmail] = useState("");
+      const [phone, setPhone] = useState("");
       const [status, setStatus] = useState(null);
 
       function renderAlertString(){
@@ -48,9 +50,8 @@ const UpdateAccountScreen = ({navigation}) =>{
     
 
     return (
-    <SafeAreaView>
-        <ScrollView>
-           <View style={{...styles.container, backgroundColor: theme.background}}>
+  
+                <View style={{...styles.container, backgroundColor: theme.background}}>
                 <View style={styles.abView} >
                     <TouchableOpacity style={{ alignSelf: 'center'}} onPress={()=>{
                             navigation.goBack()
@@ -61,24 +62,19 @@ const UpdateAccountScreen = ({navigation}) =>{
                     <Text>          </Text>
                 </View>
                 <View style={styles.containerBody}>
-                <Text style={{marginLeft: 15, marginTop:20, fontSize: 12, color: 'red', alignSelf:'center'}}>{renderAlertString()}</Text>
+                {/* <Text style={{marginLeft: 15, marginTop:20, fontSize: 12, color: 'red', alignSelf:'center'}}>{renderAlertString()}</Text>
                     <Text style={{ marginLeft: 15, marginTop: 20, color: '#424949',}}>Tên đăng nhập</Text>
                    
                 <View style={styles.container2}>
                     <TextInput placeholder="" defaultValue={username} onChangeText={(text) => setUsername(text)} />
                     
-                </View>
-                <Text style={styles.label}>Mật khẩu</Text>
-                <View style={styles.container2}>
-                    <TextInput placeholder="" secureTextEntry defaultValue={password} onChangeText={(text) => setPassword(text)}/>
-                   
-                </View>
-                <Text style={styles.label}>Họ và Tên</Text>
+                </View> */}
+                <Text style={styles.label}>{vietnamStrings.name}</Text>
                 <View style={styles.container2}>
                     <TextInput placeholder="" defaultValue={fullname} onChangeText={(text) => setFullname(text)} />
                    
                 </View>
-                <Text style={styles.label}>Ngày tháng năm sinh</Text>
+                {/* <Text style={styles.label}>Ngày tháng năm sinh</Text>
                     <View style={{flexDirection: 'row'}}>
                     <View style={{...styles.container2, width: 70, height: 50}}>
                             <TextInput keyboardType={'numeric'} placeholder="" defaultValue={day} onChangeText={(text) => setDay(text)}></TextInput>
@@ -90,34 +86,37 @@ const UpdateAccountScreen = ({navigation}) =>{
                         <View style={{...styles.container2, width: 100}}>
                             <TextInput keyboardType={'numeric'} placeholder="" defaultValue={year} onChangeText={(text) => setYear(text)}></TextInput>
                         </View>
-                    </View>
+                    </View> */}
                 <Text style={styles.label}>Email</Text>
                 <View style={styles.container2}>
                     <TextInput placeholder="" defaultValue={email} onChangeText={(text) => setEmail(text)}/>
                     
                 </View>
-                <Text style={styles.label}>Số điện thoại</Text>
+                <Text style={styles.label}>{vietnamStrings.phone}</Text>
                 <View style={styles.container2}>
                     <TextInput placeholder="" defaultValue={phone} onChangeText={(text) => setPhone(text)}/>
                   
                 </View>
                 <View  style={styles.container3} 
                     onStartShouldSetResponder={()=>{
-                        setStatus(checkData(password,password,fullname,email,phone))
-                        setAuthentication({status: 200, user: {token: token, username: username, password: password, fullname: fullname, dob: dob, email: email, phone: phone }});
+                        // setStatus(checkData(password,password,fullname,email,phone))
+                        // setAuthentication({status: 200, user: {token: token, username: username, password: password, fullname: fullname, dob: dob, email: email, phone: phone }});
                 }}>
                 <Text style={{color: "#fff", fontWeight: 'bold', alignSelf: "center"}} 
                       onPress={()=>{
-                        setStatus(checkData(password,password,fullname,email,phone))
-                        setAuthentication({status: 200, user: {token: token, username: username, password: password, fullname: fullname, dob: dob, email: email, phone: phone }});
-                }}>Cập nhật</Text>
+                        // setStatus(checkData(password,password,fullname,email,phone))
+                        // setAuthentication({status: 200, user: {token: token, username: username, password: password, fullname: fullname, dob: dob, email: email, phone: phone }});
+                }}>{vietnamStrings.update}</Text>
                 </View>
+                <Text style={{ color: COLORS_LIST[2].hex, alignSelf: 'center', fontSize: 12, marginTop: 8 }} onPress={() => {
+                
+              }}>{vietnamStrings.changePass}</Text>
                 </View>
                 <View>
                 </View>
             </View>
-        </ScrollView>
-    </SafeAreaView>
+    
+   
     )
 }
 

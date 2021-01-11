@@ -9,3 +9,10 @@ export const API_FORGET_PASS_SEND_EMAIL = URL +"/user/forget-pass/send-email";
 export const API_FORGET_PASS_TOKEN = URL +"/user/forget-pass/jwt/{token}";
 export const API_RESET_PASSWORD = URL +"/user/reset-password";
 export const API_CHANGE_PASSWORD = URL +"/user/change-password";
+
+export const API_ALL_CATEGORIES = URL + "/category/all";
+export const API_COURSE_SEARCH = URL + "/course/search";
+export const API_TOP_NEW = URL + "/course/top-new";
+export const API_TOP_SELL = URL + "/course/top-sell";
+export const API_TOP_RATE = URL + "/course/top-rate";
+export const API_RECOMMEND = URL +"/user/recommend-course";

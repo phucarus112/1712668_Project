@@ -2,7 +2,7 @@ import React, {useState,useContext} from 'react'
 import {StyleSheet, View,Text, Button, Image, TextInput, SafeAreaView, ScrollView, FlatList, TouchableOpacity} from 'react-native'
 import ItemTopAuthors from '../Courses/Item/ItemTopAuthors'
 import ItemCourseHorizontal from '../Courses/Item/ItemCourseHorizontal'
-
+import {vietnam} from '../Global/strings'
 import { NavigationContainer} from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import {ThemeContext} from '../../App'
@@ -13,19 +13,19 @@ import {NEW_COURSES, TRENDING_COURSES, AUTHORS} from '../Global/data-sampling'
 const Stack = createStackNavigator();
 
 const HomeTab = ({navigation}) =>{
-  const renderItemNew = ({ item }) => (
-    <TouchableOpacity onPress={()=>{navigation.navigate("CourseIntroduction", {idCourse: item.id})}}>
-        <ItemCourseHorizontal title={item.title} level ={item.level} author={item.author} totalHours = {item.totalHours}
-                totalComments = {item.totalComments} img={item.img} released={item.released} rating={item.rating} />
-    </TouchableOpacity>  
-  );
+  // const renderItemNew = ({ item }) => (
+  //   <TouchableOpacity onPress={()=>{navigation.navigate("CourseIntroduction", {idCourse: item.id})}}>
+  //       <ItemCourseHorizontal title={item.title} level ={item.level} author={item.author} totalHours = {item.totalHours}
+  //               totalComments = {item.totalComments} img={item.img} released={item.released} rating={item.rating} />
+  //   </TouchableOpacity>  
+  // );
   
-  const renderItemTrending = ({ item }) => (
-    <TouchableOpacity onPress={()=>{navigation.navigate("CourseIntroduction",{idCourse: item.id})}}>
-        <ItemCourseHorizontal title={item.title} level ={item.level} author={item.author} totalHours = {item.totalHours}
-                totalComments = {item.totalComments} img={item.img} released={item.released} rating={item.rating}/>
-    </TouchableOpacity>
-  );
+  // const renderItemTrending = ({ item }) => (
+  //   <TouchableOpacity onPress={()=>{navigation.navigate("CourseIntroduction",{idCourse: item.id})}}>
+  //       <ItemCourseHorizontal title={item.title} level ={item.level} author={item.author} totalHours = {item.totalHours}
+  //               totalComments = {item.totalComments} img={item.img} released={item.released} rating={item.rating}/>
+  //   </TouchableOpacity>
+  // );
 
   const renderItemAuthor = ({item}) =>(
     <ItemTopAuthors name ={item.name}/>
@@ -38,7 +38,7 @@ const HomeTab = ({navigation}) =>{
           <NavigationContainer independent={true}>
           <SafeAreaView>
     <ScrollView>
-    <View style={{...styles.container, backgroundColor: theme.background}}>
+    {/* <View style={{...styles.container, backgroundColor: theme.background}}>
           <View style={styles.abView} >
             <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: '#fff'}}>Online Learning</Text>
           </View>
@@ -98,7 +98,7 @@ const HomeTab = ({navigation}) =>{
                 </SafeAreaView>
             </View>  
           </View>
-    </View>
+    </View> */}
     </ScrollView>
     </SafeAreaView>
           </NavigationContainer>

@@ -3,7 +3,6 @@ import {StyleSheet,BackHandler, View,Text, Button, Image, TextInput,SafeAreaView
 import { Video } from 'expo-av';
 import {ThemeContext} from '../../../App'
 import {COURSES_LIST, getDownloadCourses} from '../../Global/data-sampling'
-import {ChangeStatusContext} from '../../Provider/change-status-provider'
 
 const CourseIntroductionScreen = ({route,navigation}) =>{
     

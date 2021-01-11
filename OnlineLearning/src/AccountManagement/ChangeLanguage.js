@@ -4,16 +4,14 @@ import {ThemeContext, themeList} from '../../App'
 import { vietnam } from '../Global/strings'
 import { COLORS_LIST } from '../Global/colors'
 
-const ChangeThemeScreen = ({navigation}) =>{
+const ChangeLanguage = ({navigation}) =>{
 
-  const vietnamStrings = JSON.parse(vietnam);
+    const vietnamStrings = JSON.parse(vietnam);
 
     function handleBackButtonClick() {
         navigation.goBack();
         return true;
       }
-    
-     
 
       const {theme,changeTheme} = useContext(ThemeContext);
 
@@ -52,7 +50,7 @@ const ChangeThemeScreen = ({navigation}) =>{
                       <Text style={{ marginLeft: 15, marginTop: 20, color: '#424949'}}
                       onPress={()=>{
                         changeTheme(themeList.light);
-                      }}>{vietnamStrings.light}</Text>
+                      }}>{vietnamStrings.vietnam}</Text>
                       <ShowCheckedIcon color={"#fff"} /> 
                   </View>
                   <View style={{flexDirection: 'row', justifyContent:'space-between', padding:5, borderColor: theme.background, borderWidth:2}}
@@ -62,7 +60,7 @@ const ChangeThemeScreen = ({navigation}) =>{
                       <Text style={{ marginLeft: 15, marginTop: 20, color: '#424949',}}
                        onPress={()=>{
                         changeTheme(themeList.light);
-                      }}>{vietnamStrings.dark}</Text>
+                      }}>{vietnamStrings.english}</Text>
                       <ShowCheckedIcon color={"#000"} /> 
                   </View> 
               </View>
@@ -123,4 +121,4 @@ const styles = StyleSheet.create({
  
 });
 
-export default ChangeThemeScreen;
+export default ChangeLanguage ;

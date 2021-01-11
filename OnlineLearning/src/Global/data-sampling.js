@@ -1850,3 +1850,4 @@ export const BASIC_PATH = getBasicPath();
 export const TRENDING_PATH = COURSES_LIST.slice(4,9);
 
 export const DAY_ARRAY = generateDays();
+

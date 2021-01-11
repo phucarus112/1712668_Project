@@ -13,7 +13,7 @@ export const COLORS_LIST = [
     },
     {
         name: "WHITE",
-        hex: '#FFF'
+        hex: '#fff'
     },
     {
         name: "BLACK",
