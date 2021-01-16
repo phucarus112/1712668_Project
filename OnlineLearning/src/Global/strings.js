@@ -10,6 +10,7 @@ const stringsVietnam = {
     "rating": "Đánh giá",
     "totalHours": "Thời lượng",
     "noData": "Không có dữ liệu",
+    "noCourse": "Không có khoá học nào",
     "hour": "giờ",
     "recommendCourses": "Gợi ý cho bạn",
     "topNew": "Mới nhất",
@@ -29,6 +30,14 @@ const stringsVietnam = {
     "vietnam": "Tiếng Việt",
     "light": "Tươi sáng",
     "dark": "Bóng tối",
+    "instructor": "Giảng viên",
+    "placeholderSearch": "Nhập ở đây...",
+    "viewAll": "Xem tất cả",
+    "viewMore": "Xem thêm",
+    "download": "Khoá học đã tải",
+    "browse": "Cộng đồng",
+    "setting": "Cài đặt",
+    "search": "Tìm kiếm",
 }
 
 const stringsEnglish = {
@@ -43,6 +52,7 @@ const stringsEnglish = {
     "rating": "Rating",
     "totalHours": "Total Hours",
     "noData": "No data display",
+    "noCourse": "No course display",
     "hour": "hour",
     "recommendCourses": "Recommend for you",
     "topNew": "Top New",
@@ -62,6 +72,14 @@ const stringsEnglish = {
     "vietnam": "Vietnamese",
     "light": "Light",
     "dark": "Dark",
+    "instructor": "Instructors",
+    "placeholderSearch": "Type something...",
+    "viewAll": "See all",
+    "viewMore": "See more",
+    "download": "Download",
+    "browse": "Browser",
+    "setting": "Setting",
+    "search": "Search",
 }
 
 const vietnam = JSON.stringify(stringsVietnam);

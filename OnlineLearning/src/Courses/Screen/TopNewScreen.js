@@ -5,6 +5,7 @@ import {ThemeContext} from '../../../App'
 import {NEW_COURSES} from '../../Global/data-sampling'
 import { API_TOP_NEW } from '../../Global/APIClient'
 import { vietnam } from '../../Global/strings'
+import {formatRating} from '../../Services/format-service'
 
 const TopNewScreen = ({navigation}) =>{
 
@@ -18,6 +19,9 @@ const TopNewScreen = ({navigation}) =>{
   }
 
   function getListCourse() {
+    if (list != null && list.length > 0) {
+
+    } else {
     fetch(API_TOP_NEW, {
       method: 'POST',
       headers: {
@@ -32,13 +36,17 @@ const TopNewScreen = ({navigation}) =>{
       .then(response => response.json())
       .then(json => {
         setList(json.payload);
+        
+      
       })
       .catch((error) => console.error(error))
       .finally(() => {
       });
+    }
   }
 
   getListCourse();
+  console.log(list);
 
   useEffect(()=>{
       BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
@@ -50,7 +58,7 @@ const TopNewScreen = ({navigation}) =>{
   const renderItemNew = ({ item }) => (
     <TouchableOpacity onPress={() => { navigation.navigate("CourseIntroduction", { idCourse: item.id }) }}>
       <ItemCourseVertical title={item.title} price={item.price} name={item.name} totalHours={item.totalHours}
-        imageUrl={item.imageUrl} ratedNumber={item.ratedNumber} updatedAt={item.updatedAt} />
+        imageUrl={item.imageUrl} ratedNumber={formatRating(item.ratedNumber)} updatedAt={item.updatedAt} />
     </TouchableOpacity>
   );
 

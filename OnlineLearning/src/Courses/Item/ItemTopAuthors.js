@@ -5,7 +5,7 @@ import { StyleSheet, Text, View ,SafeAreaView, FlatList, Image} from 'react-nati
 const ItemTopAuthors = (props) =>{
    return(
       <View style={styles.item}>
-          <Image style={{ alignSelf: 'center', width: 100,height:100, borderRadius:50}} source={require('../../../assets/avt.png')} />
+          <Image style={{ alignSelf: 'center', width: 100,height:100, borderRadius:50}} source={{ uri: props.avatar }}/>
          <Text style={{alignSelf:'center', color: '#424949',fontSize:10, marginLeft:7, marginTop:5}}>{props.name}</Text>
       </View>
    )

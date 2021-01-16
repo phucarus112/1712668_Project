@@ -5,6 +5,7 @@ import { ThemeContext } from '../../../App'
 import { BASIC_PATH } from '../../Global/data-sampling'
 import { API_COURSE_SEARCH } from '../../Global/APIClient'
 import { vietnam } from '../../Global/strings'
+import {formatRating} from '../../Services/format-service'
 
 const CoursesBasedOnCategory = ({ route, navigation }) => {
 
@@ -19,6 +20,9 @@ const CoursesBasedOnCategory = ({ route, navigation }) => {
   }
 
   function getListCoursesBasedOnCategory() {
+    if(list != null && list.length > 0 ){
+
+    }else{
     fetch(API_COURSE_SEARCH, {
       method: 'POST',
       headers: {
@@ -70,6 +74,7 @@ const CoursesBasedOnCategory = ({ route, navigation }) => {
       .catch((error) => console.error(error))
       .finally(() => {
       });
+    }
   }
 
   getListCoursesBasedOnCategory();
@@ -84,7 +89,7 @@ const CoursesBasedOnCategory = ({ route, navigation }) => {
   const renderItemNew = ({ item }) => (
     <TouchableOpacity onPress={() => { navigation.navigate("CourseIntroduction", { idCourse: item.id }) }}>
       <ItemCourseVertical title={item.title} price={item.price} name={item.name} totalHours={item.totalHours}
-        imageUrl={item.imageUrl} ratedNumber={item.ratedNumber} updatedAt={item.updatedAt} />
+        imageUrl={item.imageUrl} ratedNumber={formatRating(item.ratedNumber)} updatedAt={item.updatedAt} />
     </TouchableOpacity>
   );
 
@@ -94,6 +99,7 @@ const CoursesBasedOnCategory = ({ route, navigation }) => {
     <View style={{ ...styles.container, backgroundColor: theme.background }}>
       <View style={styles.abView} >
         <TouchableOpacity style={{ alignSelf: 'center' }} onPress={() => {
+          console.log("clicked");
           navigation.goBack()
         }}>
           <Image style={{ alignSelf: 'center', width: 20, height: 20, tintColor: 'white', marginLeft: 10 }} source={require('../../../assets/back.png')} />

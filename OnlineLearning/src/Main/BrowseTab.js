@@ -21,17 +21,21 @@ const BrowseTab = ({ navigation }) => {
     // );
 
     function getAllCategories() {
-        fetch(API_ALL_CATEGORIES, {
-            method: 'GET',
-        })
-            .then(response => response.json())
-            .then(json => {
-                setList(json.payload);
-            })
-            .catch((error) => console.error(error))
-            .finally(() => {
+        if(list != null && list.length > 0 ){
 
-            });
+        }else{
+            fetch(API_ALL_CATEGORIES, {
+                method: 'GET',
+            })
+                .then(response => response.json())
+                .then(json => {
+                    setList(json.payload);
+                })
+                .catch((error) => console.error(error))
+                .finally(() => {
+    
+                });
+        }
     }
 
     const { theme } = useContext(ThemeContext);
@@ -45,7 +49,7 @@ const BrowseTab = ({ navigation }) => {
             <ScrollView>
                 <View style={{ ...styles.container, backgroundColor: theme.background }}>
                     <View style={styles.abView} >
-                        <Text style={{ alignSelf: 'center', textAlign: 'center', padding: 15, color: '#fff' }}>Browse</Text>
+                        <Text style={{ alignSelf: 'center', textAlign: 'center', padding: 15, color: '#fff' }}>{vietnamStrings.browse}</Text>
                     </View>
                     <View style={styles.containerBody}>
                         <ImageBackground source={require('../../assets/main.jpg')} style={{ borderWidth: 1, borderColor: '#424949', height: 150, margin: 5, justifyContent: "center" }} />
@@ -100,7 +104,7 @@ const BrowseTab = ({ navigation }) => {
                                     (list.length > 0) ?
                                         list.map((item) => {
                                             return (
-                                                <View style={{ flexDirection: 'row', marginTop: 8, backgroundColor: "#424949", padding: 10, borderRadius: 30, marginRight: 10 }}
+                                                <View key={item.id} style={{ flexDirection: 'row', marginTop: 8, backgroundColor: "#424949", padding: 10, borderRadius: 30, marginRight: 10 }}
                                                     onStartShouldSetResponder={() => {
                                                         navigation.navigate("CoursesBasedOnCategory", { catName: item.name, catId: item.id });
                                                     }}>

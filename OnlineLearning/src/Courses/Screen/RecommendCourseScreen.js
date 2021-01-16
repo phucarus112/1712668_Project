@@ -6,6 +6,7 @@ import {AuthenticationContext} from '../../Provider/authentication-provider'
 import {COURSES_LIST} from '../../Global/data-sampling'
 import { API_RECOMMEND } from '../../Global/APIClient'
 import { vietnam } from '../../Global/strings'
+import {formatRating} from '../../Services/format-service'
 
 const RecommendCourseScreen = ({navigation}) =>{
 
@@ -16,10 +17,12 @@ const RecommendCourseScreen = ({navigation}) =>{
   const [id,setId] = useState(0);
 
   const getLocalData = async ()=>{  
+    if(id === 0){
       let data = await AsyncStorage.getItem('dataLogin');  
       let dataLogin = JSON.parse(data);
       setId(dataLogin.id);
       console.log(id);
+    }
   }  
 
   getLocalData();
@@ -30,6 +33,9 @@ const RecommendCourseScreen = ({navigation}) =>{
   }
 
   function getListCourse() {
+    if (list != null && list.length > 0) {
+
+    } else {
     fetch(API_RECOMMEND + "/"+ id +"/100/1", {
       method: 'GET'
     })
@@ -40,6 +46,7 @@ const RecommendCourseScreen = ({navigation}) =>{
       .catch((error) => console.error(error))
       .finally(() => {
       });
+    }
   }
 
   getListCourse();
@@ -54,7 +61,7 @@ const RecommendCourseScreen = ({navigation}) =>{
   const renderItemNew = ({ item }) => (
     <TouchableOpacity onPress={() => { navigation.navigate("CourseIntroduction", { idCourse: item.id }) }}>
       <ItemCourseVertical title={item.title} price={item.price} name={item.name} totalHours={item.totalHours}
-        imageUrl={item.imageUrl} ratedNumber={item.ratedNumber} updatedAt={item.updatedAt} />
+        imageUrl={item.imageUrl} ratedNumber={formatRating(item.ratedNumber)} updatedAt={item.updatedAt} />
     </TouchableOpacity>
   );
     return (

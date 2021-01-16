@@ -5,6 +5,7 @@ import {ThemeContext} from '../../../App'
 import {NEW_COURSES} from '../../Global/data-sampling'
 import { API_TOP_RATE } from '../../Global/APIClient'
 import { vietnam } from '../../Global/strings'
+import {formatRating} from '../../Services/format-service'
 
 const TopRatingScreen = ({navigation}) =>{
 
@@ -18,6 +19,9 @@ const TopRatingScreen = ({navigation}) =>{
   }
 
   function getListCourse() {
+    if (list != null && list.length > 0) {
+
+    } else {
     fetch(API_TOP_RATE, {
       method: 'POST',
       headers: {
@@ -36,6 +40,7 @@ const TopRatingScreen = ({navigation}) =>{
       .catch((error) => console.error(error))
       .finally(() => {
       });
+    }
   }
 
   getListCourse();
@@ -50,7 +55,7 @@ const TopRatingScreen = ({navigation}) =>{
   const renderItemNew = ({ item }) => (
     <TouchableOpacity onPress={() => { navigation.navigate("CourseIntroduction", { idCourse: item.id }) }}>
       <ItemCourseVertical title={item.title} price={item.price} name={item.name} totalHours={item.totalHours}
-        imageUrl={item.imageUrl} ratedNumber={item.ratedNumber} updatedAt={item.updatedAt} />
+        imageUrl={item.imageUrl} ratedNumber={formatRating(item.ratedNumber)} updatedAt={item.updatedAt} />
     </TouchableOpacity>
   );
 

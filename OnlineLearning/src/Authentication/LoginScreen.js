@@ -48,6 +48,8 @@ const LoginScreen = ({ navigation }) => {
               id: json.userInfo.id
             }
             AsyncStorage.setItem("dataLogin", JSON.stringify(dataLogin));
+            AsyncStorage.setItem("token", JSON.stringify(json.token));
+            console.log("login: ", json.token);
             setData(json)
             setAuthentication(json.userInfo);
             navigation.navigate("Main");

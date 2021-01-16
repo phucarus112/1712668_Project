@@ -11,11 +11,11 @@ import SearchCourseTab from './SearchCourseTab'
 import SettingTab from './SettingTab'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
+import ProcessCourseScreen from '../Courses/Screen/ProcessCourseScreen'
+import FavoriteCourseScreen from '../Courses/Screen/FavoriteCourseScreen'
 import TopNewScreen from '../Courses/Screen/TopNewScreen'
 import TopSellScreen from '../Courses/Screen/TopSellScreen'
 import TopRatingScreen from '../Courses/Screen/TopRatingScreen'
-import NewCourseScreen from '../Courses/Screen/NewCourseScreen'
-import TrendingCourseScreen from '../Courses/Screen/TrendingCourseScreen'
 import RecommendCourseScreen from '../Courses/Screen/RecommendCourseScreen'
 import CoursesBasedOnCategoryScreen from '../Courses/Screen/CoursesBasedOnCategory'
 import CourseIntroductionScreen from '../CourseDetail/Screen/CourseIntroductionScreen'
@@ -45,8 +45,8 @@ const HomeStack = ({ navigation }) => {
   return (
     <Stack.Navigator initialRouteName="HomeTab">
       <Stack.Screen name="HomeTab" component={HomeTab} options={{ headerShown: false }} />
-      <Stack.Screen name="NewCourse" component={NewCourseScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="TrendingCourse" component={TrendingCourseScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="ProcessCourse" component={ProcessCourseScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="FavoriteCourse" component={FavoriteCourseScreen} options={{ headerShown: false }} />
       <Stack.Screen name="CourseIntroduction" component={CourseIntroductionScreen} options={{ headerShown: false }} />
       <Stack.Screen name="Lesson" component={LessonScreen} options={{ headerShown: false }} />
     </Stack.Navigator>

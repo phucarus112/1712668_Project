@@ -36,6 +36,8 @@ const ChooseAuthenticationScreen = ({ navigation }) => {
             if (json.message === "OK") {
               setData(json);
               setAuthentication(json.userInfo);
+              AsyncStorage.setItem("token", JSON.stringify(json.token));
+              console.log("choose: ", json.token);
               console.log(authentication);
               navigation.navigate("Main");
 

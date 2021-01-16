@@ -16,3 +16,9 @@ export const API_TOP_NEW = URL + "/course/top-new";
 export const API_TOP_SELL = URL + "/course/top-sell";
 export const API_TOP_RATE = URL + "/course/top-rate";
 export const API_RECOMMEND = URL +"/user/recommend-course";
+export const API_MY_FAVORITE_COURSES = URL + "/user/get-favorite-courses";
+export const API_MY_PROCESS_COURSES = URL + "/user/get-process-courses";
+export const API_LIKE_COURSE = URL + "/user/like-course";
+
+export const API_INSTRUCTOR = URL + "/instructor";
+export const API_DETAIL_INSTRUCTOR = URL + "/instructor/detail/";

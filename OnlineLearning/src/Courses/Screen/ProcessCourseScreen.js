@@ -1,12 +1,18 @@
 import React, {useState,useEffect,useContext} from 'react'
-import {StyleSheet, BackHandler, View,Text, Button, Image, TextInput, SafeAreaView, ScrollView, FlatList, TouchableOpacity} from 'react-native'
+import {StyleSheet,BackHandler, View,Text, Button, Image, TextInput, SafeAreaView, ScrollView, FlatList, TouchableOpacity} from 'react-native'
 import ItemCourseVertical from '../Item/ItemCourseVertical'
 import {ThemeContext} from '../../../App'
-import {TRENDING_COURSES} from '../../Global/data-sampling'
+import {NEW_COURSES} from '../../Global/data-sampling'
+import { API_TOP_NEW } from '../../Global/APIClient'
+import { vietnam } from '../../Global/strings'
+import {formatRating} from '../../Services/format-service'
 
-const TrendingCourseScreen = ({navigation}) =>{
+const ProcessCourseScreen = ({route,navigation}) =>{
 
   const {theme} = useContext(ThemeContext);
+  const {res} = route.params;
+  const [list, setList] = useState(res);
+  const vietnamStrings = JSON.parse(vietnam);
 
   function handleBackButtonClick() {
     navigation.goBack();
@@ -21,38 +27,37 @@ const TrendingCourseScreen = ({navigation}) =>{
   },[]);
 
   const renderItemNew = ({ item }) => (
-    <TouchableOpacity onPress={()=>{navigation.navigate("CourseIntroduction", {idCourse: item.id})}}>
-    <ItemCourseVertical title={item.title} level ={item.level} author={item.author} totalHours = {item.totalHours}
-                totalComments = {item.totalComments} img={item.img}  released={item.released} rating={item.rating} />
-                </TouchableOpacity>
-    );
+    <TouchableOpacity onPress={() => { navigation.navigate("CourseIntroduction", { idCourse: item.id }) }}>
+      <ItemCourseVertical title={item.courseTitle} price={item.coursePrice} name={item.instructorName}
+        imageUrl={item.courseImage} ratedNumber={formatRating(item.courseAveragePoint)} />
+    </TouchableOpacity>
+  );
 
     return (
-      <SafeAreaView  style={{...styles.container, backgroundColor: theme.background}}> 
-   
       <View style={{...styles.container, backgroundColor: theme.background}}>
           <View style={styles.abView} >
-          <TouchableOpacity style={{ alignSelf: 'center'}} onPress={()=>{
+             <TouchableOpacity style={{ alignSelf: 'center'}} onPress={()=>{
                 navigation.goBack()
              }}>
              <Image style={{ alignSelf: 'center', width: 20,height:20, tintColor: 'white', marginLeft: 10}} source={require('../../../assets/back.png')} />
              </TouchableOpacity>
                    
-                    <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: '#fff'}}>Xu hướng</Text>
+                    <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: '#fff'}}>{vietnamStrings.processCourses}</Text>
                     <Text>          </Text>
           </View>
-          <View style={styles.containerBody}>
-                <SafeAreaView>
-                  <FlatList 
-                    style={{marginBottom: 80}} 
-                     data={TRENDING_COURSES}
-                    renderItem={renderItemNew}
-                    keyExtractor={item => item.id}/>
-                </SafeAreaView>
-          </View>
+        
+          <SafeAreaView style={{ ...styles.container, backgroundColor: theme.background }}>
+            <View style={styles.containerBody}>
+              <SafeAreaView>
+                <FlatList
+                  data={list}
+                  renderItem={renderItemNew}
+                  keyExtractor={item => item.id} />
+              </SafeAreaView>
+            </View>
+          </SafeAreaView>
+     
     </View>
-    
-    </SafeAreaView>
     )
 }
 
@@ -67,7 +72,6 @@ const styles = StyleSheet.create({
    },
   container: {
         flex: 1,
-       
         alignItems: 'center',
         justifyContent: 'flex-start',
     },
@@ -89,4 +93,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TrendingCourseScreen;
+export default ProcessCourseScreen;

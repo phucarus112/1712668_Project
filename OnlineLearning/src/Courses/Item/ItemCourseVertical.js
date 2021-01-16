@@ -15,8 +15,8 @@ const ItemCourseVertical = (props) =>{
                 <Text style={{color: '#424949',fontSize:12, margin: 7, maxWidth: 200, fontWeight: 'bold'}}>{props.title}</Text>
                 <Text style={{color: '#424949',fontSize:10, marginLeft:7}}>{vietnamStrings.author}: {props.name}</Text>
                 <Text style={{color: '#424949',fontSize:10, marginLeft:7}}>{vietnamStrings.price}: {props.price} VNĐ</Text>
-                <Text style={{color: '#424949',fontSize:10, marginLeft:7}}>{vietnamStrings.updatedAt}: {props.updatedAt.slice(0,10)}</Text>
-                <Text style={{color: '#424949',fontSize:10, marginLeft:7}}>{vietnamStrings.totalHours}: {props.totalHours} {vietnamStrings.hour}</Text>
+                {/* <Text style={{color: '#424949',fontSize:10, marginLeft:7}}>{vietnamStrings.updatedAt}: {props.updatedAt.slice(0,10)}</Text> */}
+                {/* <Text style={{color: '#424949',fontSize:10, marginLeft:7}}>{vietnamStrings.totalHours}: {props.totalHours} {vietnamStrings.hour}</Text> */}
                 {/* <View style={{flexDirection: 'row'}}> */}
                 {/* <Text style={{color: '#424949',fontSize:10, marginLeft:7}}>Bình luận: ({props.totalComments})</Text> */}
                 <Text style={{color: '#424949',fontSize:10, marginLeft:7}}>{vietnamStrings.rating}: ({props.ratedNumber})</Text>
