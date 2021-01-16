@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { StyleSheet, View, Text, BackHandler, Button, Image, TextInput, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, Text, AsyncStorage, BackHandler, Alert, Button, Image, TextInput, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native'
 import { ThemeContext } from '../../App'
 import { AuthenticationContext } from '../Provider/authentication-provider'
-import { checkData } from '../Services/authentication-service'
+import { checkDataUpdateProfile } from '../Services/authentication-service'
 import { vietnam } from '../Global/strings'
 import { COLORS_LIST } from '../Global/colors'
+import {API_UPDATE_PROFILE} from '../Global/APIClient'
 
 const UpdateAccountScreen = ({ navigation }) => {
 
@@ -19,13 +20,23 @@ const UpdateAccountScreen = ({ navigation }) => {
   // const [token] = useState(authentication.user.token);
   // const [username, setUsername] = useState("");
   // const [password, setPassword] = useState(authentication.user.password);
-  const [fullname, setFullname] = useState("");
+  const [fullname, setFullname] = useState(authentication.name);
   // const [day, setDay] = useState('1');
   // const [month, setMonth] = useState('1');
   // const [year, setYear] = useState('1970');
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState(authentication.email);
+  const [phone, setPhone] = useState(authentication.phone);
   const [status, setStatus] = useState(null);
+  const [token, setToken] = useState("");
+
+  const getToken = async () => {
+    if (token === "") {
+      var t = await AsyncStorage.getItem("token");
+      setToken(t);
+    }
+  }
+
+  getToken();
 
   function renderAlertString() {
     if (status && status.status != 200)
@@ -35,7 +46,44 @@ const UpdateAccountScreen = ({ navigation }) => {
 
   useEffect(() => {
     if (status && status.status === 200) {
-      navigation.goBack();
+      console.log("TOKEN",token);
+      fetch(API_UPDATE_PROFILE, {
+        method: 'PUT',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': "Bearer " + token.slice(1, token.length - 1),
+        },
+        body: JSON.stringify({
+            name: fullname,
+            avatar: authentication.avatar,
+            phone: phone
+        })
+      })
+        .then(response => response.json())
+        .then(json => {
+          console.log(json);
+          if (json.message === "OK") {
+            setAuthentication(json.payload);
+            Alert.alert(
+              vietnamStrings.noti,
+              vietnamStrings.updateYes,
+              [
+                {
+                  text: "OK",
+                  onPress: () => {
+      
+                  }
+                }
+              ],
+            );
+            navigation.goBack();
+          } else setStatus({ status: 404, errorString: json.message });
+        })
+        .catch((error) => console.error(error))
+        .finally(() => {
+
+        });
     }
   });
 
@@ -47,8 +95,6 @@ const UpdateAccountScreen = ({ navigation }) => {
     };
   }, []);
 
-
-
   return (
 
     <View style={{ ...styles.container, backgroundColor: theme.background }}>
@@ -58,11 +104,12 @@ const UpdateAccountScreen = ({ navigation }) => {
         }}>
           <Image style={{ alignSelf: 'center', width: 20, height: 20, tintColor: 'white', marginLeft: 10 }} source={require('../../assets/back.png')} />
         </TouchableOpacity>
-        <Text style={{ alignSelf: 'center', textAlign: 'center', padding: 15, color: '#fff' }}>Update Account</Text>
+        <Text style={{ alignSelf: 'center', textAlign: 'center', padding: 15, color: '#fff' }}>{vietnamStrings.updateAcc}</Text>
         <Text>          </Text>
       </View>
       <View style={styles.containerBody}>
-        {/* <Text style={{marginLeft: 15, marginTop:20, fontSize: 12, color: 'red', alignSelf:'center'}}>{renderAlertString()}</Text>
+        <Text style={{ marginLeft: 15, marginTop: 20, fontSize: 12, color: 'red', alignSelf: 'center' }}>{renderAlertString()}</Text>
+        {/* 
                     <Text style={{ marginLeft: 15, marginTop: 20, color: '#424949',}}>Tên đăng nhập</Text>
                    
                 <View style={styles.container2}>
@@ -88,8 +135,21 @@ const UpdateAccountScreen = ({ navigation }) => {
                         </View>
                     </View> */}
         <Text style={styles.label}>Email</Text>
-        <View style={styles.container2}>
-          <TextInput placeholder="" defaultValue={email} onChangeText={(text) => setEmail(text)} />
+        <View style={styles.container2} onStartShouldSetResponder={() => {
+          Alert.alert(
+            vietnamStrings.noti,
+            vietnamStrings.banned,
+            [
+              {
+                text: "OK",
+                onPress: () => {
+
+                }
+              }
+            ],
+          );
+        }}>
+          <TextInput editable={false} placeholder="" defaultValue={email} onChangeText={(text) => setEmail(text)} />
 
         </View>
         <Text style={styles.label}>{vietnamStrings.phone}</Text>
@@ -99,24 +159,22 @@ const UpdateAccountScreen = ({ navigation }) => {
         </View>
         <View style={styles.container3}
           onStartShouldSetResponder={() => {
-            // setStatus(checkData(password,password,fullname,email,phone))
-            // setAuthentication({status: 200, user: {token: token, username: username, password: password, fullname: fullname, dob: dob, email: email, phone: phone }});
+            setStatus(checkDataUpdateProfile(fullname,phone));
+            
           }}>
           <Text style={{ color: "#fff", fontWeight: 'bold', alignSelf: "center" }}
             onPress={() => {
-              // setStatus(checkData(password,password,fullname,email,phone))
-              // setAuthentication({status: 200, user: {token: token, username: username, password: password, fullname: fullname, dob: dob, email: email, phone: phone }});
+              setStatus(checkDataUpdateProfile(fullname,phone));
+              
             }}>{vietnamStrings.update}</Text>
         </View>
         <Text style={{ color: COLORS_LIST[2].hex, alignSelf: 'center', fontSize: 12, marginTop: 8 }} onPress={() => {
-
+          navigation.navigate("VerifyPassword");
         }}>{vietnamStrings.changePass}</Text>
       </View>
       <View>
       </View>
     </View>
-
-
   )
 }
 

@@ -25,6 +25,9 @@ import ChangeThemeScreen from '../AccountManagement/ChangeThemeScreen'
 import ChangeLanguage from '../AccountManagement/ChangeLanguage'
 import UpdateAccountScreen from '../AccountManagement/UpdateAccountScreen'
 import ResultCourseScreen from '../Courses/Screen/ResultCourseScreen'
+import VerifyPasswordScreen from '../Authentication/VerifyPasswordScreen'
+
+import {vietnam} from '../Global/strings'
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -142,6 +145,7 @@ const SettingStack = ({ navigation }) => {
       <Stack.Screen name="UpdateAccount" component={UpdateAccountScreen} options={{ headerShown: false }} />
       <Stack.Screen name="ChangeTheme" component={ChangeThemeScreen} options={{ headerShown: false }} />
       <Stack.Screen name="ChangeLanguage" component={ChangeLanguage} options={{ headerShown: false }} />
+      <Stack.Screen name="VerifyPassword" component={VerifyPasswordScreen} options={{ headerShown: false }} />
     </Stack.Navigator>
   );
 }
@@ -152,6 +156,8 @@ const MainScreen = ({ navigation }) => {
     console.log("chay vao main screen");
     return true;
   }
+
+  const vietnamStrings = JSON.parse(vietnam);
 
   useEffect(() => {
     BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
@@ -164,15 +170,15 @@ const MainScreen = ({ navigation }) => {
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
-          if (route.name === 'Home') {
+          if (route.name === 'Home' || route.name === 'Trang chủ') {
             iconName = focused ? 'ios-home' : 'ios-home';
-          } else if (route.name === 'Download') {
+          } else if (route.name === 'Download' || route.name === 'Tải xuống') {
             iconName = focused ? 'ios-cloud-download' : 'ios-cloud-download';
-          } else if (route.name === 'Browse') {
+          } else if (route.name === 'Browse' || route.name === 'Khám phá') {
             iconName = focused ? 'ios-browsers' : 'ios-browsers';
-          } else if (route.name === 'Search') {
+          } else if (route.name === 'Search' || route.name === 'Tìm kiếm') {
             iconName = focused ? 'md-search' : 'md-search';
-          } else if (route.name === 'Setting') {
+          } else if (route.name === 'Setting' || route.name === 'Cài đặt') {
             iconName = focused ? 'ios-settings' : 'ios-settings';
           }
 
@@ -188,11 +194,11 @@ const MainScreen = ({ navigation }) => {
           borderTopColor: '#424949',
         }
       }}>
-      <Tab.Screen name="Home" component={HomeStack} options={{ tabBarBadge: 10 }} />
-      <Tab.Screen name="Download" component={DownloadStack} />
-      <Tab.Screen name="Browse" component={BrowseStack} />
-      <Tab.Screen name="Search" component={SearchStack} />
-      <Tab.Screen name="Setting" component={SettingStack} />
+      <Tab.Screen name={vietnamStrings.home} component={HomeStack} options={{ tabBarBadge: 10 }} />
+      <Tab.Screen name={vietnamStrings.download} component={DownloadStack} />
+      <Tab.Screen name={vietnamStrings.browse} component={BrowseStack} />
+      <Tab.Screen name={vietnamStrings.search} component={SearchStack} />
+      <Tab.Screen name={vietnamStrings.setting}component={SettingStack} />
     </Tab.Navigator>
   )
 }

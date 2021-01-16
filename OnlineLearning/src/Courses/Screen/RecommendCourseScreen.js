@@ -60,7 +60,7 @@ const RecommendCourseScreen = ({navigation}) =>{
 
   const renderItemNew = ({ item }) => (
     <TouchableOpacity onPress={() => { navigation.navigate("CourseIntroduction", { idCourse: item.id }) }}>
-      <ItemCourseVertical title={item.title} price={item.price} name={item.name} totalHours={item.totalHours}
+      <ItemCourseVertical title={item.title} price={item.price} name={item["instructor.user.name"]} totalHours={item.totalHours}
         imageUrl={item.imageUrl} ratedNumber={formatRating(item.ratedNumber)} updatedAt={item.updatedAt} />
     </TouchableOpacity>
   );
