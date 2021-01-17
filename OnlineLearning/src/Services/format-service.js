@@ -6,6 +6,8 @@ export const formatRating = (oldStr)=>{
 
         if(oldStr.length === 1)
           newStr = oldStr+".00";
+        else if(oldStr.length === 4)
+          newStr = oldStr;
         else if(oldStr.length === 3)
           newStr = oldStr+"0";
         else if(oldStr.length > 4)

@@ -64,7 +64,7 @@ const CoursesBasedOnCategory = ({ route, navigation }) => {
           ]
         },
         "limit": 1000,
-        "offset": 1
+        "offset": 0
       })
     })
       .then(response => response.json())

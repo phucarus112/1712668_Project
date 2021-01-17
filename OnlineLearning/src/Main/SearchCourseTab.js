@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { BackHandler, Alert, StyleSheet, View, Text, AsyncStorage, Button, Image, TextInput, SafeAreaView, TouchableOpacity, ScrollView, FlatList, VirtualizedList } from 'react-native'
+import { BackHandler,Alert, StyleSheet, View, Text, AsyncStorage, Button, Image, TextInput, SafeAreaView, TouchableOpacity, ScrollView, FlatList, VirtualizedList } from 'react-native'
 import { ThemeContext } from '../../App'
 import { vietnam } from '../Global/strings'
 import { API_SEARCH_HISTORY } from '../Global/APIClient'
@@ -78,6 +78,10 @@ const SearchCourseTab = ({ navigation }) => {
         </View>
 
         <View style={{ ...styles.container3, backgroundColor: theme.background }} onStartShouldSetResponder={() => {
+          let key={
+            "word": keyword,
+          }
+          AsyncStorage.setItem("tempKeyword", JSON.stringify(key));
           navigation.navigate("ResultCourse", {
             keyword: keyword
           })
@@ -96,6 +100,10 @@ const SearchCourseTab = ({ navigation }) => {
                 ],
             );
             }else{
+              let key={
+                "word": keyword
+              }
+              AsyncStorage.setItem("tempKeyword", JSON.stringify(key));
               navigation.navigate("ResultCourse", {
                 keyword: keyword
               })
@@ -115,17 +123,20 @@ const SearchCourseTab = ({ navigation }) => {
                   data={historyList}
                   renderItem={({ item }) => (
                     <View style={{ flexDirection: 'row', padding: 10 }} onStartShouldSetResponder={() => {
-                      setKeyword(item.key);
+                      let key={
+                        "word": item.content
+                      }
+                      AsyncStorage.setItem("tempKeyword", JSON.stringify(key));
                       navigation.navigate("ResultCourse", {
-                        keyword: item.key
+                        keyword: item.content
                       })
                     }}>
                       <Image style={{ marginLeft: 3, marginRight: 3, width: 15, height: 15, tintColor: 'red' }} source={require('../../assets/check.png')} />
-                      <Text style={{ marginLeft: 8 }}>{item.key}</Text>
+                      <Text style={{ marginLeft: 8 }}>{item.content}</Text>
                     </View>
 
                   )}
-                  keyExtractor={item => item.key} />
+                  keyExtractor={item => item.id} />
               </SafeAreaView>
             </View>
             :
