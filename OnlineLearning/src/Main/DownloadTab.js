@@ -3,7 +3,6 @@ import {StyleSheet,BackHandler, View,Text, Button, Image, TextInput, SafeAreaVie
 import ItemCourseVertical from '../Courses/Item/ItemCourseVertical'
 import {ThemeContext} from '../../App'
 import {COURSES_LIST, DOWNLOAD_COURSES, getDownloadCourses} from '../Global/data-sampling'
-import {ChangeStatusContext} from '../Provider/change-status-provider'
 
 const DownloadTab = ({navigation}) =>{
 

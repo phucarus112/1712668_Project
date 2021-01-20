@@ -1,12 +1,18 @@
 import React, {useState,useEffect,useContext} from 'react'
 import {StyleSheet,BackHandler, View,Text, Button, Image, TextInput, SafeAreaView, ScrollView, FlatList, TouchableOpacity} from 'react-native'
-import ItemCourseVertical from '../Item/ItemCourseVertical'
 import {ThemeContext} from '../../../App'
-import {BASIC_PATH} from '../../Global/data-sampling'
+import {NEW_COURSES} from '../../Global/data-sampling'
+import { API_TOP_NEW,API_MY_FAVORITE_COURSES } from '../../Global/APIClient'
+import { vietnam } from '../../Global/strings'
+import {formatRating} from '../../Services/format-service'
+import {LanguageContext} from '../../Provider/language-provider'
 
-const BasicPathScreen = ({navigation}) =>{
+const ExerciseScreen = ({route,navigation}) =>{
 
   const {theme} = useContext(ThemeContext);
+  const {sections,id,title} = route.params;
+  const [list, setList] = useState(sections);
+  const vietnamStrings = JSON.parse(vietnam);
 
   function handleBackButtonClick() {
     navigation.goBack();
@@ -20,16 +26,14 @@ const BasicPathScreen = ({navigation}) =>{
     };
   },[]);
 
-  const renderItemNew = ({ item }) => (
-    <TouchableOpacity onPress={()=>{navigation.navigate("CourseIntroduction", {idCourse: item.id})}}>
-    <ItemCourseVertical title={item.title} level ={item.level} author={item.author} totalHours = {item.totalHours}
-                totalComments = {item.totalComments} img={item.img} released={item.released} rating={item.rating}  />
-                </TouchableOpacity>
-    );
+//   const renderItemNew = ({ item }) => (
+//     <TouchableOpacity onPress={() => { navigation.navigate("CourseIntroduction", { idCourse: item.id }) }}>
+//       <ItemCourseVertical title={item.courseTitle} price={item.coursePrice} name={item.instructorName}
+//         imageUrl={item.courseImage} ratedNumber={formatRating(item.courseAveragePoint)} />
+//     </TouchableOpacity>
+//   );
 
     return (
-    <SafeAreaView  style={{...styles.container, backgroundColor: theme.background}}> 
-   
       <View style={{...styles.container, backgroundColor: theme.background}}>
           <View style={styles.abView} >
              <TouchableOpacity style={{ alignSelf: 'center'}} onPress={()=>{
@@ -38,22 +42,22 @@ const BasicPathScreen = ({navigation}) =>{
              <Image style={{ alignSelf: 'center', width: 20,height:20, tintColor: 'white', marginLeft: 10}} source={require('../../../assets/back.png')} />
              </TouchableOpacity>
                    
-                    <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: '#fff'}}>Basic Path for Beginners</Text>
+                    <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: '#fff'}}>{title}</Text>
                     <Text>          </Text>
           </View>
-          <View style={styles.containerBody}>
-               
-                <SafeAreaView>
-                  <FlatList
-                  style={{marginBottom: 80}} 
-                    data={BASIC_PATH}
-                    renderItem={renderItemNew}
-                    keyExtractor={item => item.id}/>
-                </SafeAreaView>
-          </View>
+        
+          {/* <SafeAreaView style={{ ...styles.container, backgroundColor: theme.background }}>
+            <View style={styles.containerBody}>
+              <SafeAreaView>
+                <FlatList
+                  data={list}
+                  renderItem={renderItemNew}
+                  keyExtractor={item => item.id} />
+              </SafeAreaView>
+            </View>
+          </SafeAreaView> */}
+     
     </View>
-   
-    </SafeAreaView>
     )
 }
 
@@ -89,4 +93,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default BasicPathScreen;
+export default ExerciseScreen ;

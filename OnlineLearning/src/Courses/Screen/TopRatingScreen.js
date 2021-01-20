@@ -1,34 +1,20 @@
 import React, {useState,useEffect,useContext} from 'react'
-import {StyleSheet,BackHandler, View,Text, Button, Image, TextInput, SafeAreaView, ScrollView, FlatList, TouchableOpacity, AsyncStorage} from 'react-native'
+import {StyleSheet,BackHandler, View,Text, Button, Image, TextInput, SafeAreaView, ScrollView, FlatList, TouchableOpacity} from 'react-native'
 import ItemCourseVertical from '../Item/ItemCourseVertical'
 import {ThemeContext} from '../../../App'
-import {AuthenticationContext} from '../../Provider/authentication-provider'
-import {COURSES_LIST} from '../../Global/data-sampling'
-import { API_RECOMMEND } from '../../Global/APIClient'
+import {NEW_COURSES} from '../../Global/data-sampling'
+import { API_TOP_RATE } from '../../Global/APIClient'
 import { vietnam } from '../../Global/strings'
 import {formatRating} from '../../Services/format-service'
 import {LanguageContext} from '../../Provider/language-provider'
 
-const RecommendCourseScreen = ({navigation}) =>{
+const TopRatingScreen = ({navigation}) =>{
 
   const {theme} = useContext(ThemeContext);
   const [list, setList] = useState(null);
   const vietnamStrings = JSON.parse(vietnam);
-  const {authentication} = useContext(AuthenticationContext);
-  const [id,setId] = useState(0);
   const {lan} = useContext(LanguageContext);
 
-  const getLocalData = async ()=>{  
-    if(id === 0){
-      let data = await AsyncStorage.getItem('dataLogin');  
-      let dataLogin = JSON.parse(data);
-      setId(dataLogin.id);
-      console.log(id);
-    }
-  }  
-
-  getLocalData();
-  
   function handleBackButtonClick() {
     navigation.goBack();
     return true;
@@ -38,8 +24,16 @@ const RecommendCourseScreen = ({navigation}) =>{
     if (list != null && list.length > 0) {
 
     } else {
-    fetch(API_RECOMMEND + "/"+ id +"/100/1", {
-      method: 'GET'
+    fetch(API_TOP_RATE, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        "limit": 100,
+        "page": 1
+      })
     })
       .then(response => response.json())
       .then(json => {
@@ -66,6 +60,7 @@ const RecommendCourseScreen = ({navigation}) =>{
         imageUrl={item.imageUrl} ratedNumber={formatRating((item.contentPoint + item.formalityPoint + item.presentationPoint) / 3)} updatedAt={item.updatedAt} />
     </TouchableOpacity>
   );
+
     return (
    
    
@@ -77,9 +72,11 @@ const RecommendCourseScreen = ({navigation}) =>{
              <Image style={{ alignSelf: 'center', width: 20,height:20, tintColor: 'white', marginLeft: 10}} source={require('../../../assets/back.png')} />
              </TouchableOpacity>
                    
-                    <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: '#fff'}}>{lan.recommendCourses}</Text>
+                    <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: '#fff'}}>{lan.topRate} </Text>
                     <Text>          </Text>
           </View>
+         
+       
           <SafeAreaView style={{ ...styles.container, backgroundColor: theme.background }}>
             <View style={styles.containerBody}>
               <SafeAreaView>
@@ -90,9 +87,10 @@ const RecommendCourseScreen = ({navigation}) =>{
               </SafeAreaView>
             </View>
           </SafeAreaView>
+    
     </View>
    
-   
+    
     )
 }
 
@@ -128,4 +126,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RecommendCourseScreen;
+export default TopRatingScreen;
