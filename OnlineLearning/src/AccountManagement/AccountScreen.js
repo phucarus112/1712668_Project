@@ -4,6 +4,7 @@ import { ThemeContext } from '../../App'
 import { AuthenticationContext } from '../Provider/authentication-provider'
 import { vietnam } from '../Global/strings'
 import { COLORS_LIST } from '../Global/colors'
+import {LanguageContext} from '../Provider/language-provider'
 
 const AccountScreen = ({ navigation }) => {
     const vietnamStrings = JSON.parse(vietnam);
@@ -11,6 +12,8 @@ const AccountScreen = ({ navigation }) => {
         navigation.goBack();
         return true;
     }
+
+    const {lan} = useContext(LanguageContext);
 
     useEffect(() => {
         BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
@@ -31,14 +34,14 @@ const AccountScreen = ({ navigation }) => {
                 }}>
                     <Image style={{ alignSelf: 'center', width: 20, height: 20, tintColor: 'white', marginLeft: 10 }} source={require('../../assets/back.png')} />
                 </TouchableOpacity>
-                <Text style={{ alignSelf: 'center', textAlign: 'center', padding: 15, color: '#fff' }}>{vietnamStrings.viewAcc}</Text>
+                <Text style={{ alignSelf: 'center', textAlign: 'center', padding: 15, color: '#fff' }}>{lan.viewAcc}</Text>
                 <Text>          </Text>
             </View>
 
             <Image style={{ alignSelf: 'center', width: 150, height: 150, borderRadius: 75, marginTop: 15 }} source={{ uri: authentication.avatar }} />
             <Text style={{ color: COLORS_LIST[2].hex, alignSelf: 'center', fontSize: 12, marginTop: 8 }} onPress={() => {
                 
-            }}>{vietnamStrings.changeAvt}</Text>
+            }}>{lan.changeAvt}</Text>
             <View style={{ flexDirection: 'row', justifyContent: 'center', padding: 5, }}>
                 <Text style={{ marginTop: 15, color: '#424949', fontWeight: 'bold' }}>{authentication.name === null ? "NULL" : authentication.name}</Text>
                 <TouchableOpacity onPress={() => {
@@ -70,11 +73,11 @@ const AccountScreen = ({ navigation }) => {
                */}
             <View style={styles.containerBody}>
                 <View style={{ flexDirection: 'row', marginTop: 20, justifyContent: 'space-between' }}>
-                    <Text style={{ marginLeft: 15, color: '#424949', }}>{vietnamStrings.point}</Text>
+                    <Text style={{ marginLeft: 15, color: '#424949', }}>{lan.point}</Text>
                     <Text style={{ marginRight: 15, color: '#424949', }}>{authentication.point}</Text>
                 </View>
                 <View style={{ flexDirection: 'row', marginTop: 20, justifyContent: 'space-between' }}>
-                    <Text style={{ marginLeft: 15, color: '#424949', }}>{vietnamStrings.type}</Text>
+                    <Text style={{ marginLeft: 15, color: '#424949', }}>{lan.type}</Text>
                     <Text style={{ marginRight: 15, color: '#424949', }}>{authentication.type}</Text>
                 </View>
             </View>

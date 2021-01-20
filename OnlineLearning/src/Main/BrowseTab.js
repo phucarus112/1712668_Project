@@ -5,6 +5,7 @@ import { ThemeContext } from '../../App'
 import { BASIC_PATH, TRENDING_PATH } from '../Global/data-sampling'
 import { vietnam } from '../Global/strings'
 import { API_ALL_CATEGORIES } from '../Global/APIClient'
+import {LanguageContext} from '../Provider/language-provider'
 
 const BrowseTab = ({ navigation }) => {
     // const renderItemPath = ({ item }) => (
@@ -41,6 +42,7 @@ const BrowseTab = ({ navigation }) => {
     const { theme } = useContext(ThemeContext);
     const vietnamStrings = JSON.parse(vietnam);
     const [list, setList] = useState([]);
+    const {lan} = useContext(LanguageContext);
 
     getAllCategories();
 
@@ -49,7 +51,7 @@ const BrowseTab = ({ navigation }) => {
             <ScrollView>
                 <View style={{ ...styles.container, backgroundColor: theme.background }}>
                     <View style={styles.abView} >
-                        <Text style={{ alignSelf: 'center', textAlign: 'center', padding: 15, color: '#fff' }}>{vietnamStrings.browse}</Text>
+                        <Text style={{ alignSelf: 'center', textAlign: 'center', padding: 15, color: '#fff' }}>{lan.browse}</Text>
                     </View>
                     <View style={styles.containerBody}>
                         <ImageBackground source={require('../../assets/main.jpg')} style={{ borderWidth: 1, borderColor: '#424949', height: 150, margin: 5, justifyContent: "center" }} />
@@ -60,7 +62,7 @@ const BrowseTab = ({ navigation }) => {
                                 <Text style={{ alignSelf: 'center', textAlign: 'center', padding: 15, fontSize: 20, fontWeight: 'bold', color: '#fff' }}
                                     onPress={() => {
                                         navigation.navigate("RecommendCourse");
-                                    }}>{vietnamStrings.recommendCourses}</Text>
+                                    }}>{lan.recommendCourses}</Text>
                             </ImageBackground>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={()=>{
@@ -70,7 +72,7 @@ const BrowseTab = ({ navigation }) => {
                             <Text style={{ alignSelf: 'center', textAlign: 'center', padding: 15, fontSize: 20, fontWeight:'bold', color: '#fff'}}
                                 onPress={()=>{
                                     navigation.navigate("TopNew");
-                                }}>{vietnamStrings.topNew} </Text>
+                                }}>{lan.topNew} </Text>
                         </ImageBackground>
                         </TouchableOpacity>
                             <ScrollView>
@@ -82,7 +84,7 @@ const BrowseTab = ({ navigation }) => {
                             <Text style={{ alignSelf: 'center', textAlign: 'center', padding: 15, fontSize: 20, fontWeight:'bold', color: '#fff'}}
                             onPress={()=>{
                                 navigation.navigate("TopSell");
-                            }}>{vietnamStrings.topSell}</Text>
+                            }}>{lan.topSell}</Text>
                         </ImageBackground>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={()=>{
@@ -92,13 +94,13 @@ const BrowseTab = ({ navigation }) => {
                             <Text style={{ alignSelf: 'center', textAlign: 'center', padding: 15, fontSize: 20, fontWeight:'bold', color: '#fff'}}
                             onPress={()=>{
                                 navigation.navigate("TopRating");
-                            }}>{vietnamStrings.topRate}</Text>
+                            }}>{lan.topRate}</Text>
                         </ImageBackground>
                         </TouchableOpacity>
                         </View>
                         </ScrollView>
                         <View style={{ flexDirection: 'column', justifyContent: 'space-between', padding: 5, }}>
-                            <Text style={{ marginLeft: 10, marginTop: 10, color: '#424949', }}>{vietnamStrings.category}</Text>
+                            <Text style={{ marginLeft: 10, marginTop: 10, color: '#424949', }}>{lan.category}</Text>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-around', padding: 5, flexWrap: "wrap" }}>
                                 {
                                     (list.length > 0) ?

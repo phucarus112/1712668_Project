@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect , useContext} from 'react'
 import { BackHandler, StyleSheet, View, Text, Button, Image, TextInput, SafeAreaView, Dimensions, ScrollView, FlatList, VirtualizedList } from 'react-native'
 import { NavigationContainer, TabRouter } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -20,12 +20,15 @@ import RecommendCourseScreen from '../Courses/Screen/RecommendCourseScreen'
 import CoursesBasedOnCategoryScreen from '../Courses/Screen/CoursesBasedOnCategory'
 import CourseIntroductionScreen from '../CourseDetail/Screen/CourseIntroductionScreen'
 import LessonScreen from '../CourseDetail/Screen/LessonScreen'
+import SectionScreen from '../CourseDetail/Screen/SectionScreen'
+import ExerciseScreen from '../CourseDetail/Screen/ExerciseScreen'
 import AccountScreen from '../AccountManagement/AccountScreen'
 import ChangeThemeScreen from '../AccountManagement/ChangeThemeScreen'
-import ChangeLanguage from '../AccountManagement/ChangeLanguage'
+import ChangeLanguage from '../AccountManagement/ChangeLanguageScreen'
 import UpdateAccountScreen from '../AccountManagement/UpdateAccountScreen'
 import ResultCourseScreen from '../Courses/Screen/ResultCourseScreen'
 import VerifyPasswordScreen from '../Authentication/VerifyPasswordScreen'
+import {LanguageContext} from '../Provider/language-provider'
 
 import {vietnam} from '../Global/strings'
 
@@ -52,6 +55,8 @@ const HomeStack = ({ navigation }) => {
       <Stack.Screen name="FavoriteCourse" component={FavoriteCourseScreen} options={{ headerShown: false }} />
       <Stack.Screen name="CourseIntroduction" component={CourseIntroductionScreen} options={{ headerShown: false }} />
       <Stack.Screen name="Lesson" component={LessonScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="Section" component={SectionScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="Exercise" component={ExerciseScreen} options={{ headerShown: false }} />
     </Stack.Navigator>
   );
 }
@@ -73,6 +78,8 @@ const DownloadStack = ({ navigation }) => {
       <Stack.Screen name="DownloadTab" component={DownloadTab} options={{ headerShown: false }} />
       <Stack.Screen name="CourseIntroduction" component={CourseIntroductionScreen} options={{ headerShown: false }} />
       <Stack.Screen name="Lesson" component={LessonScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="Section" component={SectionScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="Exercise" component={ExerciseScreen} options={{ headerShown: false }} />
     </Stack.Navigator>
   );
 }
@@ -99,6 +106,8 @@ const BrowseStack = ({ navigation }) => {
       <Stack.Screen name="RecommendCourse" component={RecommendCourseScreen} options={{ headerShown: false }} />
       <Stack.Screen name="CourseIntroduction" component={CourseIntroductionScreen} options={{ headerShown: false }} />
       <Stack.Screen name="Lesson" component={LessonScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="Section" component={SectionScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="Exercise" component={ExerciseScreen} options={{ headerShown: false }} />
     </Stack.Navigator>
   );
 }
@@ -121,6 +130,8 @@ const SearchStack = ({ navigation }) => {
       <Stack.Screen name="ResultCourse" component={ResultCourseScreen} options={{ headerShown: false }} />
       <Stack.Screen name="CourseIntroduction" component={CourseIntroductionScreen} options={{ headerShown: false }} />
       <Stack.Screen name="Lesson" component={LessonScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="Section" component={SectionScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="Exercise" component={ExerciseScreen} options={{ headerShown: false }} />
     </Stack.Navigator>
 
   );
@@ -156,8 +167,7 @@ const MainScreen = ({ navigation }) => {
     console.log("chay vao main screen");
     return true;
   }
-
-  const vietnamStrings = JSON.parse(vietnam);
+  const {lan} = useContext(LanguageContext);
 
   useEffect(() => {
     BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
@@ -174,7 +184,7 @@ const MainScreen = ({ navigation }) => {
             iconName = focused ? 'ios-home' : 'ios-home';
           } else if (route.name === 'Download' || route.name === 'Tải xuống') {
             iconName = focused ? 'ios-cloud-download' : 'ios-cloud-download';
-          } else if (route.name === 'Browse' || route.name === 'Khám phá') {
+          } else if (route.name === 'Browser' || route.name === 'Khám phá') {
             iconName = focused ? 'ios-browsers' : 'ios-browsers';
           } else if (route.name === 'Search' || route.name === 'Tìm kiếm') {
             iconName = focused ? 'md-search' : 'md-search';
@@ -193,12 +203,13 @@ const MainScreen = ({ navigation }) => {
           backgroundColor: '#424949',
           borderTopColor: '#424949',
         }
+        // options={{ tabBarBadge: 10 }}
       }}>
-      <Tab.Screen name={vietnamStrings.home} component={HomeStack} options={{ tabBarBadge: 10 }} />
-      <Tab.Screen name={vietnamStrings.download} component={DownloadStack} />
-      <Tab.Screen name={vietnamStrings.browse} component={BrowseStack} />
-      <Tab.Screen name={vietnamStrings.search} component={SearchStack} />
-      <Tab.Screen name={vietnamStrings.setting}component={SettingStack} />
+      <Tab.Screen name={lan.home} component={HomeStack}  />
+      <Tab.Screen name={lan.download} component={DownloadStack} />
+      <Tab.Screen name={lan.browse} component={BrowseStack} />
+      <Tab.Screen name={lan.search} component={SearchStack} />
+      <Tab.Screen name={lan.setting}component={SettingStack} />
     </Tab.Navigator>
   )
 }

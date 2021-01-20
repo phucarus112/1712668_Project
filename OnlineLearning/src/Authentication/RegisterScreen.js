@@ -4,11 +4,12 @@ import {ThemeContext} from '../../App'
 import {checkData} from '../Services/authentication-service'
 import {API_REGISTER, API_SEND_ACTIVATE_EMAIL} from '../Global/APIClient'
 import {COLORS_LIST} from '../Global/colors'
+import {LanguageContext} from '../Provider/language-provider'
 
 const RegisterScreen = ({navigation}) =>{
 
     const {theme} = useContext(ThemeContext);
-
+    const {lan } = useContext(LanguageContext);
     // const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [confirm, setConfirm] = useState('');
@@ -78,7 +79,7 @@ const RegisterScreen = ({navigation}) =>{
                         }}>
                         <Image style={{ alignSelf: 'center', width: 20,height:20, tintColor:  COLORS_LIST[3].hex, marginLeft: 10}} source={require('../../assets/back.png')} />
                     </TouchableOpacity>
-                    <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color:  COLORS_LIST[3].hex}}>Đăng ký</Text>
+                    <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color:  COLORS_LIST[3].hex}}>{lan.register}</Text>
                     <Text>          </Text>
                 </View>
                 <View style={{...styles.containerBody, backgroundColor: theme.background}}>
@@ -90,15 +91,15 @@ const RegisterScreen = ({navigation}) =>{
                     <View style={styles.container2}>
                         <TextInput placeholder="" defaultValue={email} onChangeText={(text) => setEmail(text)}></TextInput>
                     </View>
-                    <Text style={styles.label}>Mật khẩu</Text>
+                    <Text style={styles.label}>{lan.password}</Text>
                     <View style={styles.container2}>
                         <TextInput secureTextEntry placeholder="" defaultValue={password} onChangeText={(text) => setPassword(text)}></TextInput>
                     </View>
-                    <Text style={styles.label}>Nhập lại mật khẩu</Text>
+                    <Text style={styles.label}>{lan.confirmPassword}</Text>
                     <View style={styles.container2}>
                         <TextInput secureTextEntry placeholder="" defaultValue={confirm} onChangeText={(text) => setConfirm(text)}></TextInput>
                     </View>
-                    <Text style={styles.label}>Họ và Tên</Text>
+                    <Text style={styles.label}>{lan.name}</Text>
                     <View style={styles.container2}>
                         <TextInput placeholder="" defaultValue={fullname} onChangeText={(text) => setFullname(text)}></TextInput>
                     </View>
@@ -114,7 +115,7 @@ const RegisterScreen = ({navigation}) =>{
                             <TextInput keyboardType={'numeric'} placeholder="" defaultValue={year} onChangeText={(text) => setYear(text)}></TextInput>
                         </View>
                     </View> */}
-                    <Text style={styles.label}>Số điện thoại</Text>
+                    <Text style={styles.label}>{lan.phone}</Text>
                     <View style={styles.container2}>
                         <TextInput placeholder="" defaultValue={phone} onChangeText={(text) => setPhone(text)}></TextInput>
                     </View>
@@ -126,7 +127,7 @@ const RegisterScreen = ({navigation}) =>{
                         <Text   style={{color:  COLORS_LIST[3].hex, fontWeight: 'bold', alignSelf: "center"}} 
                                 onPress={()=>{
                                     setStatus(checkData(password,confirm,fullname,email,phone))
-                            }}>Đăng ký</Text>
+                            }}>{lan.register}</Text>
                     </View>
                 </View>
                 <View />

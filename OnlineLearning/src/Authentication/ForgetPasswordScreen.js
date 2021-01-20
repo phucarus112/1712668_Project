@@ -5,12 +5,15 @@ import {ThemeContext} from '../../App'
 import {COLORS_LIST} from '../Global/colors'
 import {API_FORGET_PASS_SEND_EMAIL} from '../Global/APIClient'
 import {isEmptyInput} from '../Services/authentication-service'
+import {LanguageContext} from '../Provider/language-provider'
 
 const ForgetPasswordScreen = ({navigation}) =>{
 
     const {theme} = useContext(ThemeContext);
     const [status, setStatus] = useState(null);
     const [email,setEmail] = useState('');
+    const {lan} = useContext(LanguageContext);
+    console.log(lan);
 
     function displayAlert(){
       if(status && status.status === 404)
@@ -20,8 +23,8 @@ const ForgetPasswordScreen = ({navigation}) =>{
 
     function alert(){
       Alert.alert(
-        "Thông báo",
-        "Hệ thống đã gửi link reset mật khẩu trong email của bạn. Vui lòng kiểm tra và đổi mật khẩu mới",
+        lan.noti,
+        lan.note-forget,
         [
           { text: "OK", onPress: () => {console.log("OK Pressed")} }
         ],
@@ -63,12 +66,12 @@ const ForgetPasswordScreen = ({navigation}) =>{
                                 onPress={()=>{navigation.goBack()}}>
                     <Image style={{ alignSelf: 'center', width: 20,height:20, tintColor: COLORS_LIST[3].hex, marginLeft: 10}} source={require('../../assets/back.png')} />
                 </TouchableOpacity>
-                <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: COLORS_LIST[3].hex}}>Quên mật khẩu</Text>
+                <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: COLORS_LIST[3].hex}}>{lan.forgetPass}</Text>
                 <Text>          </Text>
             </View>
             <View style={{...styles.containerBody, backgroundColor: theme.background}}>
             <Text style={{marginLeft: 15, marginBottom: 10, fontSize: 12, color: 'red', alignSelf:'center'}}>{displayAlert()}</Text>
-                <Text style={{ marginLeft: 15, marginTop: 20, color: COLORS_LIST[0].hex,}}>Nhập Email để xác nhận</Text>
+                <Text style={{ marginLeft: 15, marginTop: 20, color: COLORS_LIST[0].hex,}}>{lan.emailForgetPass}</Text>
                 <View style={styles.container2}>
                     <TextInput placeholder="" defaultValue={email}
                               onChangeText={(text)=> setEmail(text)} />
@@ -79,7 +82,7 @@ const ForgetPasswordScreen = ({navigation}) =>{
                     <Text style={{color: COLORS_LIST[3].hex, fontWeight: 'bold', alignSelf: "center"}} 
                         onPress={()=>{
                           setStatus(isEmptyInput(email));
-                        }} >Gửi</Text>
+                        }} >{lan.send}</Text>
                 </View>
             </View>
             <View />

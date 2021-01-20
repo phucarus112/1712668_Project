@@ -6,6 +6,7 @@ import { checkDataUpdateProfile } from '../Services/authentication-service'
 import { vietnam } from '../Global/strings'
 import { COLORS_LIST } from '../Global/colors'
 import {API_UPDATE_PROFILE} from '../Global/APIClient'
+import {LanguageContext} from '../Provider/language-provider'
 
 const UpdateAccountScreen = ({ navigation }) => {
 
@@ -13,7 +14,7 @@ const UpdateAccountScreen = ({ navigation }) => {
     navigation.goBack();
     return true;
   }
-
+  const {lan} = useContext(LanguageContext);
   const { theme } = useContext(ThemeContext);
   const { authentication, setAuthentication } = useContext(AuthenticationContext);
   const vietnamStrings = JSON.parse(vietnam);
@@ -35,6 +36,7 @@ const UpdateAccountScreen = ({ navigation }) => {
       setToken(t);
     }
   }
+
 
   getToken();
 
@@ -66,8 +68,8 @@ const UpdateAccountScreen = ({ navigation }) => {
           if (json.message === "OK") {
             setAuthentication(json.payload);
             Alert.alert(
-              vietnamStrings.noti,
-              vietnamStrings.updateYes,
+              lan.noti,
+              lan.updateYes,
               [
                 {
                   text: "OK",
@@ -104,7 +106,7 @@ const UpdateAccountScreen = ({ navigation }) => {
         }}>
           <Image style={{ alignSelf: 'center', width: 20, height: 20, tintColor: 'white', marginLeft: 10 }} source={require('../../assets/back.png')} />
         </TouchableOpacity>
-        <Text style={{ alignSelf: 'center', textAlign: 'center', padding: 15, color: '#fff' }}>{vietnamStrings.updateAcc}</Text>
+        <Text style={{ alignSelf: 'center', textAlign: 'center', padding: 15, color: '#fff' }}>{lan.updateAcc}</Text>
         <Text>          </Text>
       </View>
       <View style={styles.containerBody}>
@@ -116,7 +118,7 @@ const UpdateAccountScreen = ({ navigation }) => {
                     <TextInput placeholder="" defaultValue={username} onChangeText={(text) => setUsername(text)} />
                     
                 </View> */}
-        <Text style={styles.label}>{vietnamStrings.name}</Text>
+        <Text style={styles.label}>{lan.name}</Text>
         <View style={styles.container2}>
           <TextInput placeholder="" defaultValue={fullname} onChangeText={(text) => setFullname(text)} />
 
@@ -137,8 +139,8 @@ const UpdateAccountScreen = ({ navigation }) => {
         <Text style={styles.label}>Email</Text>
         <View style={styles.container2} onStartShouldSetResponder={() => {
           Alert.alert(
-            vietnamStrings.noti,
-            vietnamStrings.banned,
+            lan.noti,
+            lan.banned,
             [
               {
                 text: "OK",
@@ -152,7 +154,7 @@ const UpdateAccountScreen = ({ navigation }) => {
           <TextInput editable={false} placeholder="" defaultValue={email} onChangeText={(text) => setEmail(text)} />
 
         </View>
-        <Text style={styles.label}>{vietnamStrings.phone}</Text>
+        <Text style={styles.label}>{lan.phone}</Text>
         <View style={styles.container2}>
           <TextInput placeholder="" defaultValue={phone} onChangeText={(text) => setPhone(text)} />
 
@@ -166,11 +168,11 @@ const UpdateAccountScreen = ({ navigation }) => {
             onPress={() => {
               setStatus(checkDataUpdateProfile(fullname,phone));
               
-            }}>{vietnamStrings.update}</Text>
+            }}>{lan.update}</Text>
         </View>
         <Text style={{ color: COLORS_LIST[2].hex, alignSelf: 'center', fontSize: 12, marginTop: 8 }} onPress={() => {
           navigation.navigate("VerifyPassword");
-        }}>{vietnamStrings.changePass}</Text>
+        }}>{lan.changePass}</Text>
       </View>
       <View>
       </View>

@@ -1,23 +1,25 @@
 import React, { useState, useContext } from 'react'
-import { StyleSheet, View, Text, Button, AsyncStorage, Image, TextInput, SafeAreaView, ScrollView, Switch, Alert } from 'react-native'
+import { StyleSheet, Share, TouchableOpacity, View, Text, Button, AsyncStorage, Image, TextInput, SafeAreaView, ScrollView, Switch, Alert } from 'react-native'
 import { ThemeContext } from '../../App'
 import { vietnam } from '../Global/strings'
+import {LanguageContext} from '../Provider/language-provider'
 
 const SettingTab = ({ navigation }) => {
     const { theme } = useContext(ThemeContext);
+    const {lan } = useContext(LanguageContext);
     const vietnamStrings = JSON.parse(vietnam);
-    console.log("setting: ", theme);
+  
     return (
 
         <View style={{ ...styles.container, backgroundColor: theme.background }}>
             <View style={styles.abView} >
-                <Text style={{ alignSelf: 'center', textAlign: 'center', padding: 15, color: '#fff' }}>{vietnamStrings.setting}</Text>
+                <Text style={{ alignSelf: 'center', textAlign: 'center', padding: 15, color: '#fff' }}>{lan.setting}</Text>
             </View>
             <View style={{ ...styles.containerBody, backgroundColor: theme.background }}>
                 <View onStartShouldSetResponder={() => {
                     navigation.navigate("Account")
                 }} style={{ flexDirection: 'row', justifyContent: 'space-between', paddingBottom: 10, borderBottomWidth: 0.5, borderBottomColor: '#424949' }}>
-                    <Text style={{ marginLeft: 15, marginTop: 20, color: '#424949', }}>{vietnamStrings.viewAcc}</Text>
+                    <Text style={{ marginLeft: 15, marginTop: 20, color: '#424949', }}>{lan.viewAcc}</Text>
                     <Image style={{ marginTop: 20, marginRight: 15, width: 18, height: 18, tintColor: '#424949' }} source={require('../../assets/arrow.png')} />
                 </View>
                 <View onStartShouldSetResponder={() => {
@@ -29,19 +31,38 @@ const SettingTab = ({ navigation }) => {
                 <View onStartShouldSetResponder={() => {
                     navigation.navigate("ChangeLanguage")
                 }} style={{ flexDirection: 'row', justifyContent: 'space-between', paddingBottom: 10, borderBottomWidth: 0.5, borderBottomColor: '#424949' }}>
-                    <Text style={{ marginLeft: 15, marginTop: 20, color: '#424949', }}>{vietnamStrings.language}</Text>
+                    <Text style={{ marginLeft: 15, marginTop: 20, color: '#424949', }}>{lan.language}</Text>
                     <Image style={{ marginTop: 20, marginRight: 15, width: 18, height: 18, tintColor: '#424949' }} source={require('../../assets/arrow.png')} />
                 </View>
+                <TouchableOpacity onPress={() => {
+                    try {
+                        const result = Share.share({
+                            message: "https://www.pluralsight.com/",
+
+                        });
+                        if (result.action === Share.sharedAction) {
+                            if (result.activityType) {
+                                // shared with activity type of result.activityType
+                            } else {
+                                // shared
+                            }
+                        } else if (result.action === Share.dismissedAction) {
+                            // dismissed
+                        }
+                    } catch (error) {
+                        alert(error.message);
+                    }
+                }}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingBottom: 10, borderBottomWidth: 0.5, borderBottomColor: '#424949' }}>
+                        <Text style={{ marginLeft: 15, marginTop: 20, color: '#424949', }}>{lan.shareApp}</Text>
+                        <Image style={{ marginTop: 20, marginRight: 15, width: 18, height: 18, tintColor: '#424949' }} source={require('../../assets/arrow.png')} />
+                    </View>
+                </TouchableOpacity>
+
                 <View onStartShouldSetResponder={() => {
-                    
-                }} style={{ flexDirection: 'row', justifyContent: 'space-between', paddingBottom: 10, borderBottomWidth: 0.5, borderBottomColor: '#424949' }}>
-                    <Text style={{ marginLeft: 15, marginTop: 20, color: '#424949', }}>{vietnamStrings.shareApp}</Text>
-                    <Image style={{ marginTop: 20, marginRight: 15, width: 18, height: 18, tintColor: '#424949' }} source={require('../../assets/arrow.png')} />
-                </View>
-                 <View onStartShouldSetResponder={() => {
                     Alert.alert(
-                        vietnamStrings.about,
-                        vietnamStrings.aboutContent,
+                        lan.about,
+                        lan.aboutContent,
                         [
                             {
                                 text: "OK",
@@ -51,18 +72,18 @@ const SettingTab = ({ navigation }) => {
                         ],
                     );
                 }} style={{ flexDirection: 'row', justifyContent: 'space-between', paddingBottom: 10, borderBottomWidth: 0.5, borderBottomColor: '#424949' }}>
-                    <Text style={{ marginLeft: 15, marginTop: 20, color: '#424949', }}>{vietnamStrings.about}</Text>
+                    <Text style={{ marginLeft: 15, marginTop: 20, color: '#424949', }}>{lan.about}</Text>
                     <Image style={{ marginTop: 20, marginRight: 15, width: 18, height: 18, tintColor: '#424949' }} source={require('../../assets/arrow.png')} />
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingBottom: 10, borderBottomWidth: 0.5, borderBottomColor: '#424949' }}>
-                    <Text style={{ marginLeft: 15, marginTop: 20, color: '#424949', }}>{vietnamStrings.version}</Text>
+                    <Text style={{ marginLeft: 15, marginTop: 20, color: '#424949', }}>{lan.version}</Text>
                     <Text style={{ marginRight: 15, marginTop: 20, color: '#424949', }}>1.0</Text>
                 </View>
                 <View style={{ ...styles.container2, backgroundColor: theme.background }}
                     onStartShouldSetResponder={() => {
                         Alert.alert(
-                            vietnamStrings.noti,
-                            vietnamStrings.noti_logout,
+                            lan.noti,
+                            lan.noti_logout,
                             [
                                 {
                                     text: "Cancel",
@@ -85,7 +106,7 @@ const SettingTab = ({ navigation }) => {
                         );
 
                     }}>
-                    <Text style={styles.textView} >{vietnamStrings.logout}</Text>
+                    <Text style={styles.textView} >{lan.logout}</Text>
                 </View>
             </View>
             <View>

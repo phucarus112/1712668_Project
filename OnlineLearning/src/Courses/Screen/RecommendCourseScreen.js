@@ -7,6 +7,7 @@ import {COURSES_LIST} from '../../Global/data-sampling'
 import { API_RECOMMEND } from '../../Global/APIClient'
 import { vietnam } from '../../Global/strings'
 import {formatRating} from '../../Services/format-service'
+import {LanguageContext} from '../../Provider/language-provider'
 
 const RecommendCourseScreen = ({navigation}) =>{
 
@@ -15,6 +16,7 @@ const RecommendCourseScreen = ({navigation}) =>{
   const vietnamStrings = JSON.parse(vietnam);
   const {authentication} = useContext(AuthenticationContext);
   const [id,setId] = useState(0);
+  const {lan} = useContext(LanguageContext);
 
   const getLocalData = async ()=>{  
     if(id === 0){
@@ -75,7 +77,7 @@ const RecommendCourseScreen = ({navigation}) =>{
              <Image style={{ alignSelf: 'center', width: 20,height:20, tintColor: 'white', marginLeft: 10}} source={require('../../../assets/back.png')} />
              </TouchableOpacity>
                    
-                    <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: '#fff'}}>{vietnamStrings.recommendCourses}</Text>
+                    <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: '#fff'}}>{lan.recommendCourses}</Text>
                     <Text>          </Text>
           </View>
           <SafeAreaView style={{ ...styles.container, backgroundColor: theme.background }}>

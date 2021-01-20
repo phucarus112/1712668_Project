@@ -6,6 +6,7 @@ import { API_CHANGE_PASSWORD } from '../Global/APIClient'
 import { checkDataUpdatePassword } from '../Services/authentication-service'
 import { COLORS_LIST } from '../Global/colors'
 import { AuthenticationContext } from '../Provider/authentication-provider'
+import {LanguageContext} from '../Provider/language-provider'
 
 const VerifyPasswordScreen = ({ navigation }) => {
 
@@ -17,6 +18,7 @@ const VerifyPasswordScreen = ({ navigation }) => {
     const [status, setStatus] = useState(null);
     const [token, setToken] = useState("");
     const { authentication, setAuthentication } = useContext(AuthenticationContext);
+    const {lan} = useContext(LanguageContext);
 
     const getToken = async () => {
         if (token === "") {
@@ -54,8 +56,8 @@ const VerifyPasswordScreen = ({ navigation }) => {
                     console.log(json);
                     if (json.message === "Mật khẩu đã được đổi") {
                         Alert.alert(
-                            vietnamStrings.noti,
-                            vietnamStrings.updateYes2,
+                            lan.noti,
+                            lan.updateYes2,
                             [
                                 {
                                     text: "OK",
@@ -91,20 +93,20 @@ const VerifyPasswordScreen = ({ navigation }) => {
                 }}>
                     <Image style={{ alignSelf: 'center', width: 20, height: 20, tintColor: 'white', marginLeft: 10 }} source={require('../../assets/back.png')} />
                 </TouchableOpacity>
-                <Text style={{ alignSelf: 'center', textAlign: 'center', padding: 15, color: '#fff' }}>{vietnamStrings.changePass}</Text>
+                <Text style={{ alignSelf: 'center', textAlign: 'center', padding: 15, color: '#fff' }}>{lan.changePass}</Text>
                 <Text>          </Text>
             </View>
             <View style={{ ...styles.containerBody, backgroundColor: theme.background }}>
                 <Text style={{ marginLeft: 15, marginTop: 20, fontSize: 12, color: 'red', alignSelf: 'center' }}>{renderAlertString()}</Text>
-                <Text style={{ marginLeft: 15, marginTop: 20, color: '#424949', }} >{vietnamStrings.currentPass}</Text>
+                <Text style={{ marginLeft: 15, marginTop: 20, color: '#424949', }} >{lan.currentPass}</Text>
                 <View style={styles.container2}>
                     <TextInput secureTextEntry placeholder="" onChangeText={(text) => setCur(text)}></TextInput>
                 </View>
-                <Text style={{ marginLeft: 15, color: '#424949', }}>{vietnamStrings.newPass}</Text>
+                <Text style={{ marginLeft: 15, color: '#424949', }}>{lan.newPass}</Text>
                 <View style={styles.container2}>
                     <TextInput secureTextEntry placeholder="" onChangeText={(text) => setNeww(text)}></TextInput>
                 </View>
-                <Text style={{ marginLeft: 15, color: '#424949', }}>{vietnamStrings.confirmPass}</Text>
+                <Text style={{ marginLeft: 15, color: '#424949', }}>{lan.confirmPass}</Text>
                 <View style={styles.container2}>
                     <TextInput secureTextEntry placeholder="" onChangeText={(text) => setConfirm(text)} ></TextInput>
                 </View>
@@ -114,7 +116,7 @@ const VerifyPasswordScreen = ({ navigation }) => {
                     <Text style={{ color: "#fff", fontWeight: 'bold', alignSelf: "center" }} onPress={() => {
                         
                         setStatus(checkDataUpdatePassword(cur,neww,confirm));
-                    }} >{vietnamStrings.update}</Text>
+                    }} >{lan.update}</Text>
                 </View>
             </View>
             <View>

@@ -1,6 +1,8 @@
 import React, {useState, useEffect, useContext} from 'react'
 import {StyleSheet, View,Text, Button, Image, AsyncStorage} from 'react-native'
-import { ThemeContext } from '../../App';
+import { ThemeContext, themeList  } from '../../App';
+import {LanguageContext} from '../Provider/language-provider'
+import {vietnam, english} from '../Global/strings'
 
 const  SplashScreen = ({navigation}) =>{
 
@@ -19,13 +21,36 @@ const  SplashScreen = ({navigation}) =>{
   //   //     this.setState({loading: newValue})
   //   // },25)
 
-  const { theme } = useContext(ThemeContext);
+  const { theme,changeTheme } = useContext(ThemeContext);
+  const {lan,setLan} = useContext(LanguageContext);
+  const [status,setStatus] = useState(null);
+
+  const getToken = async () => {
+    if(status === null){
+      let t = await AsyncStorage.getItem("theme");
+      let u = await AsyncStorage.getItem("lan");
+      console.log(u);
+      console.log(t);
+      if(JSON.parse(t).theme === "light"){
+        changeTheme(themeList.light);
+      }else changeTheme(themeList.dark);
+      if(JSON.parse(u).lan === "english"){
+        setLan(JSON.parse(english));
+      }else  setLan(JSON.parse(vietnam));
+      setStatus(200);
+    }
+        
+      
+    
+}
+
+getToken();
 
   return (
          <View style={{...styles.container, backgroundColor: theme.background}}>
-                {/* <Image style={styles.tinyLogo}  source={require('../../assets/launch.png')}/>
-                <Text style={{color: "#424949", marginTop:10}}>Loading... {`${this.state.loading}`} % </Text> */}
-          <Button title="click" onPress={()=>{
+                <Image style={styles.tinyLogo}  source={require('../../assets/launch.png')}/>
+                {/* <Text style={{color: "#424949", marginTop:10}}>Loading... {`${this.state.loading}`} % </Text> */}
+          <Button title="START" onPress={()=>{
                   navigation.navigate("ChooseAuthentication");
           }}/>
           </View>

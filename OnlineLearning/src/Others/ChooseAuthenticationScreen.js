@@ -3,12 +3,14 @@ import { StyleSheet, BackHandler, View, Text, Button, Image, AsyncStorage } from
 import { ThemeContext } from '../../App'
 import { API_LOGIN } from '../Global/APIClient'
 import { AuthenticationContext } from '../Provider/authentication-provider'
+import {LanguageContext} from '../Provider/language-provider'
 
 const ChooseAuthenticationScreen = ({ navigation }) => {
 
   const { theme } = useContext(ThemeContext);
   const { authentication, setAuthentication } = useContext(AuthenticationContext);
   const [data, setData] = useState(null);
+  const {lan} = useContext(LanguageContext);
 
   function handleBackButtonClick() {
     navigation.goBack();
@@ -68,12 +70,12 @@ const ChooseAuthenticationScreen = ({ navigation }) => {
       <View style={{ ...styles.container2, backgroundColor: theme.background }} >
         <Text style={styles.textView} onPress={() => {
           navigation.navigate("Login")
-        }} >Đăng nhập</Text>
+        }} >{lan.login}</Text>
       </View>
       <View style={{ ...styles.container2, backgroundColor: theme.background }}>
         <Text style={styles.textView} onPress={() => {
           navigation.navigate("Register")
-        }} >Đăng ký</Text>
+        }} >{lan.register}</Text>
       </View>
     </View>
   )

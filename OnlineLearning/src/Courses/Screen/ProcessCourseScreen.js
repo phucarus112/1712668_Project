@@ -3,21 +3,48 @@ import {StyleSheet,BackHandler, View,Text, Button, Image, TextInput, SafeAreaVie
 import ItemCourseVertical from '../Item/ItemCourseVertical'
 import {ThemeContext} from '../../../App'
 import {NEW_COURSES} from '../../Global/data-sampling'
-import { API_TOP_NEW } from '../../Global/APIClient'
+import { API_TOP_NEW, API_MY_PROCESS_COURSES } from '../../Global/APIClient'
 import { vietnam } from '../../Global/strings'
 import {formatRating} from '../../Services/format-service'
+import {LanguageContext} from '../../Provider/language-provider'
+
 
 const ProcessCourseScreen = ({route,navigation}) =>{
 
   const {theme} = useContext(ThemeContext);
-  const {res} = route.params;
-  const [list, setList] = useState(res);
-  const vietnamStrings = JSON.parse(vietnam);
+  const {res, token} = route.params;
+  const [list, setList] = useState(null);
+  const {lan} = useContext(LanguageContext);
+
 
   function handleBackButtonClick() {
     navigation.goBack();
     return true;
   }
+
+  function getProcessCourses() {
+    if (list != null && list.length > 0) {
+
+    } else {
+      fetch(API_MY_PROCESS_COURSES, {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': "Bearer " + token.slice(1, token.length - 1),
+        },
+      })
+        .then(response => response.json())
+        .then(json => {
+          setList(json.payload);
+        })
+        .catch((error) => console.error(error))
+        .finally(() => {
+        });
+    }
+  }
+
+  getProcessCourses();
 
   useEffect(()=>{
       BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
@@ -29,7 +56,7 @@ const ProcessCourseScreen = ({route,navigation}) =>{
   const renderItemNew = ({ item }) => (
     <TouchableOpacity onPress={() => { navigation.navigate("CourseIntroduction", { idCourse: item.id }) }}>
       <ItemCourseVertical title={item.courseTitle} price={item.coursePrice} name={item.instructorName}
-        imageUrl={item.courseImage} ratedNumber={formatRating(item.courseAveragePoint)} />
+        imageUrl={item.courseImage}  ratedNumber={"none"} latestLearnTime={item.latestLearnTime} />
     </TouchableOpacity>
   );
 
@@ -42,7 +69,7 @@ const ProcessCourseScreen = ({route,navigation}) =>{
              <Image style={{ alignSelf: 'center', width: 20,height:20, tintColor: 'white', marginLeft: 10}} source={require('../../../assets/back.png')} />
              </TouchableOpacity>
                    
-                    <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: '#fff'}}>{vietnamStrings.processCourses}</Text>
+                    <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: '#fff'}}>{lan.processCourses}</Text>
                     <Text>          </Text>
           </View>
         

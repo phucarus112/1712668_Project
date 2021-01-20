@@ -6,13 +6,14 @@ import { BASIC_PATH } from '../../Global/data-sampling'
 import { API_COURSE_SEARCH } from '../../Global/APIClient'
 import { vietnam } from '../../Global/strings'
 import {formatRating} from '../../Services/format-service'
+import {LanguageContext} from '../../Provider/language-provider'
 
 const CoursesBasedOnCategory = ({ route, navigation }) => {
 
   const { theme } = useContext(ThemeContext);
   const { catName, catId } = route.params;
   const [list, setList] = useState(null);
-  const vietnamStrings = JSON.parse(vietnam);
+  const {lan} = useContext(LanguageContext);
 
   function handleBackButtonClick() {
     navigation.goBack();
@@ -112,7 +113,7 @@ const CoursesBasedOnCategory = ({ route, navigation }) => {
         (list != null && list.length === 0)
           ?
           <View style={styles.noDataContainer}>
-            <Text style={{ color: "#424949" }}>{vietnamStrings.noData}</Text>
+            <Text style={{ color: "#424949" }}>{lan.noData}</Text>
           </View>
           :
           <SafeAreaView style={{ ...styles.container, backgroundColor: theme.background }}>

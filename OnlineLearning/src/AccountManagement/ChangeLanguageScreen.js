@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { StyleSheet,AsyncStorage, View, Text, Button, BackHandler, Image, TextInput, SafeAreaView, ScrollView, Switch, TouchableOpacity } from 'react-native'
+import { StyleSheet,  AsyncStorage, View, Text, Button, BackHandler, Image, TextInput, SafeAreaView, ScrollView, Switch, TouchableOpacity } from 'react-native'
 import { ThemeContext, themeList } from '../../App'
-import { vietnam } from '../Global/strings'
+import { vietnam, english} from '../Global/strings'
 import { COLORS_LIST } from '../Global/colors'
 import {LanguageContext} from '../Provider/language-provider'
 
-const ChangeThemeScreen = ({ navigation }) => {
+const ChangeLanguageScreen = ({ navigation }) => {
 
   const vietnamStrings = JSON.parse(vietnam);
 
@@ -15,11 +15,10 @@ const ChangeThemeScreen = ({ navigation }) => {
   }
 
   const { theme, changeTheme } = useContext(ThemeContext);
-  const {lan} = useContext(LanguageContext);
+  const {lan, setLan} = useContext(LanguageContext);
 
   const ShowCheckedIcon = (props) => {
-    console.log("prp" + props.color);
-    if (theme.background === props.color)
+    if (props.home === lan.home)
       return <Image style={{ marginTop: 20, marginRight: 15, width: 18, height: 18, tintColor: COLORS_LIST[2].hex }} source={require('../../assets/check.png')} />
     else
       return <View />
@@ -27,6 +26,7 @@ const ChangeThemeScreen = ({ navigation }) => {
 
   useEffect(() => {
     console.log(theme.background);
+    console.log(lan);
     ShowCheckedIcon(theme.background);
     BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
     return () => {
@@ -41,45 +41,45 @@ const ChangeThemeScreen = ({ navigation }) => {
       }}>
         <Image style={{ alignSelf: 'center', width: 20, height: 20, tintColor: 'white', marginLeft: 10 }} source={require('../../assets/back.png')} />
       </TouchableOpacity>
-      <Text style={{ alignSelf: 'center', textAlign: 'center', padding: 15, color: '#fff' }}>{lan.changeTheme}</Text>
+      <Text style={{ alignSelf: 'center', textAlign: 'center', padding: 15, color: '#fff' }}>{lan.changeLan}</Text>
       <Text>          </Text>
     </View>
     <View style={{ ...styles.containerBody, backgroundColor: theme.background }}>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 5, borderColor: theme.background, borderWidth: 2 }}
         onStartShouldSetResponder={() => {
-          changeTheme(themeList.light);
+          setLan(JSON.parse(vietnam))
           let data = {
-            theme: 'light' 
+            lan: 'vietnam' 
            }
-           AsyncStorage.setItem("theme", JSON.stringify(data));
+           AsyncStorage.setItem("lan", JSON.stringify(data));
         }}>
         <Text style={{ marginLeft: 15, marginTop: 20, color: '#424949' }}
           onPress={() => {
-            changeTheme(themeList.light);
+            setLan(JSON.parse(vietnam))
             let data = {
-              theme: 'light' 
+              lan: 'vietnam' 
              }
-             AsyncStorage.setItem("theme", JSON.stringify(data));
-          }}>{lan.light}</Text>
-        <ShowCheckedIcon color={"#fff"} />
+             AsyncStorage.setItem("lan", JSON.stringify(data));
+          }}>{lan.vietnam}</Text>
+        <ShowCheckedIcon home={"Trang chủ"} />
       </View>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 5, borderColor: theme.background, borderWidth: 2 }}
         onStartShouldSetResponder={() => {
-          changeTheme(themeList.dark);
+          setLan(JSON.parse(english))
           let data = {
-            theme: 'dark' 
+            lan: 'english' 
            }
-           AsyncStorage.setItem("theme", JSON.stringify(data));
+           AsyncStorage.setItem("lan", JSON.stringify(data));
         }}>
         <Text style={{ marginLeft: 15, marginTop: 20, color: '#424949', }}
           onPress={() => {
-            changeTheme(themeList.light);
+            setLan(JSON.parse(english))
             let data = {
-              theme: 'dark' 
+              lan: 'english' 
              }
-             AsyncStorage.setItem("theme", JSON.stringify(data));
-          }}>{lan.dark}</Text>
-        <ShowCheckedIcon color={"#000"} />
+             AsyncStorage.setItem("lan", JSON.stringify(data));
+          }}>{lan.english}</Text>
+        <ShowCheckedIcon home={"Home"} />
       </View>
     </View>
     <View>
@@ -139,4 +139,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default ChangeThemeScreen;
+export default ChangeLanguageScreen;

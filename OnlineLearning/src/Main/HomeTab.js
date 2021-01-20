@@ -8,8 +8,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { ThemeContext } from '../../App'
 import { AuthenticationContext } from '../Provider/authentication-provider'
-import { API_MY_FAVORITE_COURSES, API_MY_PROCESS_COURSES, API_INSTRUCTOR , API_DETAIL_INSTRUCTOR} from '../Global/APIClient'
-import {formatRating} from '../Services/format-service'
+import { API_MY_FAVORITE_COURSES, API_MY_PROCESS_COURSES, API_INSTRUCTOR, API_DETAIL_INSTRUCTOR } from '../Global/APIClient'
+import { formatRating } from '../Services/format-service'
+import {LanguageContext} from '../Provider/language-provider'
 
 import { AUTHORS } from '../Global/data-sampling'
 
@@ -19,7 +20,7 @@ const HomeTab = ({ navigation }) => {
   const renderItemPC = ({ item }) => (
     <TouchableOpacity onPress={() => { navigation.navigate("CourseIntroduction", { idCourse: item.id }) }}>
       <ItemCourseHorizontal title={item.courseTitle} price={item.coursePrice} name={item.instructorName}
-        imageUrl={item.courseImage} ratedNumber={item.courseAveragePoint} />
+        imageUrl={item.courseImage} ratedNumber={"none"} latestLearnTime={item.latestLearnTime}/>
     </TouchableOpacity>
   );
 
@@ -30,17 +31,19 @@ const HomeTab = ({ navigation }) => {
     </TouchableOpacity>
   );
 
-  const renderItemAuthor = ({item}) => (
-      <ItemTopAuthors name={item["user.name"]} avatar ={item["user.avatar"]}/>
+  const renderItemAuthor = ({ item }) => (
+    <ItemTopAuthors name={item["user.name"]} avatar={item["user.avatar"]} />
   );
 
-  const vietnamStrings = JSON.parse(vietnam);
+  
   const { theme } = useContext(ThemeContext);
   const { authentication } = useContext(AuthenticationContext);
   const [token, setToken] = useState("");
   const [listPC, setListPC] = useState(null);
   const [listFC, setListFC] = useState(null);
   const [listIns, setListIns] = useState(null);
+  const {lan} = useContext(LanguageContext);
+
   const getToken = async () => {
     if (token === "") {
       var t = await AsyncStorage.getItem("token");
@@ -62,7 +65,7 @@ const HomeTab = ({ navigation }) => {
       })
         .then(response => response.json())
         .then(json => {
-          setListPC(json.payload);
+          setListPC(json.payload.reverse());
         })
         .catch((error) => console.error(error))
         .finally(() => {
@@ -74,6 +77,7 @@ const HomeTab = ({ navigation }) => {
     if (listFC != null && listFC.length > 0) {
 
     } else {
+    
       fetch(API_MY_FAVORITE_COURSES, {
         method: 'GET',
         headers: {
@@ -84,7 +88,7 @@ const HomeTab = ({ navigation }) => {
       })
         .then(response => response.json())
         .then(json => {
-          setListFC(json.payload);
+          setListFC(json.payload.reverse());
         })
         .catch((error) => console.error(error))
         .finally(() => {
@@ -92,7 +96,7 @@ const HomeTab = ({ navigation }) => {
     }
   }
 
-  function getListIns(){
+  function getListIns() {
     if (listIns != null && listIns.length > 0) {
 
     } else {
@@ -106,7 +110,7 @@ const HomeTab = ({ navigation }) => {
         .then(response => response.json())
         .then(json => {
           setListIns(json.payload);
-          
+
         })
         .catch((error) => console.error(error))
         .finally(() => {
@@ -114,13 +118,14 @@ const HomeTab = ({ navigation }) => {
     }
   }
 
-  
-
   getToken();
   getProcessCourses();
-  getFavoriteCourses();
   getListIns();
-  
+  getFavoriteCourses();
+
+  useEffect(()=>{
+   
+  })
 
   return (
     <NavigationContainer independent={true}>
@@ -130,27 +135,19 @@ const HomeTab = ({ navigation }) => {
             <View style={styles.abView} >
               <Text style={{ alignSelf: 'center', textAlign: 'center', padding: 15, color: '#fff' }}>Online Learning</Text>
             </View>
-            {/* <View style={{ ...styles.abView, backgroundColor: theme.background }}> */}
-              {/* <View style={{padding: 10, borderRadius: 10, marginLeft:15, marginRight: 15, borderWidth: 1, borderColor: COLORS_LIST[0].hex, backgroundColor: theme.background, flexDirection: 'row' }}
-              onStartShouldSetResponder={()=>{
-                navigation.navigate("SearchCourseTab");
-              }}>
-                <Image style={{ width: 15,height:20, padding: 13, tintColor: COLORS_LIST[0].hex}} source={require('../../assets/loupe.png')} />
-                <TextInput editable={false} placeholder = {vietnamStrings.placeholderSearch}  style={{color:"#fff" ,flex: 8, marginLeft: 10, marginRight: 10,}}  />
-          </View> */}
-            {/* </View> */}
+          
             <View style={{ ...styles.containerBody, backgroundColor: theme.background }}>
               <View >
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 5 }}>
-                  <Text style={{ marginLeft: 10, marginTop: 20, color: '#424949', }}>{vietnamStrings.processCourses}</Text>
+                  <Text style={{ marginLeft: 10, marginTop: 20, color: '#424949', }}>{lan.processCourses}</Text>
                   <View onStartShouldSetResponder={() => {
-                    navigation.navigate("ProcessCourse",{res: listPC})
+                    navigation.navigate("ProcessCourse", { res: listPC, token: token})
                   }} style={{ flexDirection: 'row', marginTop: 13, backgroundColor: "#424949", padding: 10, borderRadius: 30 }}>
                     <Text style={{ color: '#fff', marginRight: 3, fontSize: 10 }} onPress={() => {
-                      navigation.navigate("ProcessCourse", {res: listPC})
-                    }}>{vietnamStrings.viewMore}</Text>
+                      navigation.navigate("ProcessCourse", { res: listPC, token: token })
+                    }}>{lan.viewMore}</Text>
                     <TouchableOpacity onPress={() => {
-                      navigation.navigate("ProcessCourse",{res: listPC})
+                      navigation.navigate("ProcessCourse", { res: listPC, token: token })
                     }}>
                       <Image style={{ marginLeft: 3, marginRight: 3, width: 15, height: 15, tintColor: '#fff' }} source={require('../../assets/arrow.png')} />
                     </TouchableOpacity>
@@ -161,26 +158,26 @@ const HomeTab = ({ navigation }) => {
                   (listPC != null && listPC.length === 0)
                     ?
                     <View style={styles.noDataContainer}>
-                      <Text style={{ color: "#424949" ,fontSize: 12}}>{vietnamStrings.noCourse}</Text>
+                      <Text style={{ color: "#424949", fontSize: 12 }}>{lan.noCourse}</Text>
                     </View>
                     :
                     <SafeAreaView>
                       <FlatList horizontal={true}
-                        data={(listPC != null && listPC.length > 3)? listPC.slice(0,3): listPC}
+                        data={(listPC != null && listPC.length > 3) ? listPC.slice(0, 3) : listPC}
                         renderItem={renderItemPC}
                         keyExtractor={item => item.id} />
                     </SafeAreaView>
                 }
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 5 }}>
-                  <Text style={{ marginLeft: 10, marginTop: 20, color: '#424949', }}>{vietnamStrings.favoriteCourses}</Text>
+                  <Text style={{ marginLeft: 10, marginTop: 20, color: '#424949', }}>{lan.favoriteCourses}</Text>
                   <View onStartShouldSetResponder={() => {
-                    navigation.navigate("FavoriteCourse",{res: listFC})
+                    navigation.navigate("FavoriteCourse", { res: listFC, token: token })
                   }} style={{ flexDirection: 'row', marginTop: 13, backgroundColor: "#424949", padding: 10, borderRadius: 30 }}>
-                    <Text onPress={() => {
-                      navigation.navigate("FavoriteCourse",{res: listFC})
-                    }} style={{ color: '#fff', marginRight: 3, fontSize: 10 }}>{vietnamStrings.viewMore}</Text>
+                    <Text onPress={() => { 
+                      navigation.navigate("FavoriteCourse", { res: listFC ,token: token})
+                    }} style={{ color: '#fff', marginRight: 3, fontSize: 10 }}>{lan.viewMore}</Text>
                     <TouchableOpacity onPress={() => {
-                      navigation.navigate("FavoriteCourse",{res: listFC})
+                      navigation.navigate("FavoriteCourse", { res: listFC,token: token })
                     }}>
                       <Image style={{ marginLeft: 3, marginRight: 3, width: 15, height: 15, tintColor: '#fff' }} source={require('../../assets/arrow.png')} />
                     </TouchableOpacity>
@@ -190,18 +187,18 @@ const HomeTab = ({ navigation }) => {
                   (listFC != null && listFC.length === 0)
                     ?
                     <View style={styles.noDataContainer}>
-                      <Text style={{ color: "#424949", fontSize: 12 }}>{vietnamStrings.noCourse}</Text>
+                      <Text style={{ color: "#424949", fontSize: 12 }}>{lan.noCourse}</Text>
                     </View>
                     :
                     <SafeAreaView>
                       <FlatList horizontal={true}
-                        data={(listFC != null && listFC.length > 3)? listFC.slice(0,3): listFC}
+                        data={(listFC != null && listFC.length > 3) ? listFC.slice(0, 3) :listFC}
                         renderItem={renderItemFC}
                         keyExtractor={item => item.id} />
                     </SafeAreaView>
                 }
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 5 }}>
-                  <Text style={{ marginLeft: 10, marginTop: 20, color: '#424949', }}>{vietnamStrings.instructor}</Text>
+                  <Text style={{ marginLeft: 10, marginTop: 20, color: '#424949', }}>{lan.instructor}</Text>
                 </View>
                 <SafeAreaView>
                   <FlatList horizontal={true}
@@ -221,7 +218,7 @@ const HomeTab = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   noDataContainer: {
-  
+
     alignItems: "center",
     justifyContent: 'center',
   },

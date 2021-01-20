@@ -6,12 +6,14 @@ import {TRENDING_COURSES} from '../../Global/data-sampling'
 import { API_TOP_SELL } from '../../Global/APIClient'
 import { vietnam } from '../../Global/strings'
 import {formatRating} from '../../Services/format-service'
+import {LanguageContext} from '../../Provider/language-provider'
 
 const TopSellScreen = ({navigation}) =>{
 
   const {theme} = useContext(ThemeContext);
   const [list, setList] = useState(null);
   const vietnamStrings = JSON.parse(vietnam);
+  const {lan} = useContext(LanguageContext);
 
   function handleBackButtonClick() {
     navigation.goBack();
@@ -70,7 +72,7 @@ const TopSellScreen = ({navigation}) =>{
              <Image style={{ alignSelf: 'center', width: 20,height:20, tintColor: 'white', marginLeft: 10}} source={require('../../../assets/back.png')} />
              </TouchableOpacity>
                    
-                    <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: '#fff'}}>{vietnamStrings.topSell} </Text>
+                    <Text style={{ alignSelf: 'center',textAlign: 'center', padding: 15, color: '#fff'}}>{lan.topSell} </Text>
                     <Text>          </Text>
           </View>
         

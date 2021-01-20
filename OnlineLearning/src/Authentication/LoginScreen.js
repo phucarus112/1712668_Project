@@ -5,6 +5,7 @@ import { ThemeContext } from '../../App'
 import { AuthenticationContext } from '../Provider/authentication-provider'
 import { API_LOGIN } from '../Global/APIClient'
 import { COLORS_LIST } from '../Global/colors'
+import {LanguageContext} from '../Provider/language-provider'
 
 const LoginScreen = ({ navigation }) => {
 
@@ -14,6 +15,7 @@ const LoginScreen = ({ navigation }) => {
   const { theme } = useContext(ThemeContext);
   const { setAuthentication } = useContext(AuthenticationContext);
   const [data, setData] = useState(null);
+  const {lan} = useContext(LanguageContext);
 
   function renderAlertString() {
     if (status) {
@@ -70,7 +72,7 @@ const LoginScreen = ({ navigation }) => {
         <TouchableOpacity style={{ alignSelf: 'center' }} onPress={() => { navigation.goBack() }}>
           <Image style={{ alignSelf: 'center', width: 20, height: 20, tintColor: COLORS_LIST[3].hex, marginLeft: 10 }} source={require('../../assets/back.png')} />
         </TouchableOpacity>
-        <Text style={{ alignSelf: 'center', textAlign: 'center', padding: 15, color: COLORS_LIST[3].hex }}>Đăng nhập</Text>
+        <Text style={{ alignSelf: 'center', textAlign: 'center', padding: 15, color: COLORS_LIST[3].hex }}>{lan.login}</Text>
         <Text>          </Text>
       </View>
       <View style={{ ...styles.containerBody, backgroundColor: theme.background }}>
@@ -81,7 +83,7 @@ const LoginScreen = ({ navigation }) => {
             onChangeText={(text) => setEmail(text)}
             defaultValue={email} />
         </View>
-        <Text style={styles.label}>Mật khẩu</Text>
+        <Text style={styles.label}>{lan.password}</Text>
         <View style={styles.container2}>
           <TextInput placeholder=""
             secureTextEntry={true}
@@ -95,11 +97,11 @@ const LoginScreen = ({ navigation }) => {
           <Text style={{ color: COLORS_LIST[3].hex, fontWeight: 'bold', alignSelf: "center" }}
             onPress={() => {
               setStatus(login(email, password))
-            }}>Đăng nhập</Text>
+            }}>{lan.login}</Text>
         </View>
         <Text style={{ color: COLORS_LIST[2].hex, alignSelf: 'center', fontSize: 12 }} onPress={() => {
           navigation.navigate("ForgetPassword")
-        }}>Quên mật khấu</Text>
+        }}>{lan.forgetPass}</Text>
       </View>
       <View>
       </View>
