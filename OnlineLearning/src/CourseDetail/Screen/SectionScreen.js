@@ -79,6 +79,7 @@ const SectionScreen = ({ route, navigation }) => {
     }, []);
 
     return (
+        <ScrollView>
         <View style={{ ...styles.container, backgroundColor: theme.background }}>
             <View style={styles.abView} >
                 <TouchableOpacity style={{ alignSelf: 'center' }} onPress={() => {
@@ -102,7 +103,9 @@ const SectionScreen = ({ route, navigation }) => {
             </TouchableOpacity>
 
             <View style={{ alignContent: 'flex-start', alignSelf: 'flex-start' }}>
+
                 <SafeAreaView>
+                    
                     <FlatList
 
                         data={list}
@@ -176,8 +179,12 @@ const SectionScreen = ({ route, navigation }) => {
                                                                 .catch((error) => console.error(error))
                                                                 .finally(() => {
                                                                 });
-                                                        }} style={{ textDecorationLine: 'underline', marginLeft: 30, color: COLORS_LIST[0].hex }}>{index.name}</Text>
-                                                        {/* <Text style={{ color: '#424949', fontSize: 10, marginLeft: 7 }}>{lan.rating}: ({props.ratedNumber})</Text> */}
+                                                        }} style={{ textDecorationLine: 'underline', fontSize: 15, marginLeft: 30, color: COLORS_LIST[0].hex }}>{index.name}</Text>
+
+                                                        <Text onPress={()=>{
+                                                            navigation.navigate("Exercise",{token:token, id: index.id});
+                                                        }}
+                                                        style={{fontStyle:'italic', color: '#424949', fontSize: 10,alignContent:'flex-end', marginTop:10,marginBottom:10, alignItems:'flex-end', alignSelf:'flex-end'}}>Xem bài tập</Text>
 
                                                     </View>
                                                 </View>
@@ -192,6 +199,7 @@ const SectionScreen = ({ route, navigation }) => {
             </View>
 
         </View>
+        </ScrollView>
     )
 }
 

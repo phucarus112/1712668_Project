@@ -40,6 +40,8 @@ export const API_UPDATE_TIME_CURRENT_LEARN_VIDEO = "/lesson/update-current-time-
 
 export const API_REGISTER_COURSE = URL + "/payment/get-free-courses";
 
+export const API_GET_EXERCISE = URL +"/exercise/student/list-exercise-lesson";
+
 
 
 

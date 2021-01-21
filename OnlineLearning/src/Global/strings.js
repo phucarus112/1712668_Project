@@ -60,6 +60,7 @@ const stringsVietnam = {
     "aboutContent": "Phát triển bởi Lê Huỳnh Phúc. Ứng dụng dùng để tham gia các khoá học trực tuyến về lĩnh vực IT. bạn sẽ nhận được các khoá học xu hướng với đội ngũ giảng viên chuyển sâu",
     "noHistory": "Không có lịch sử tìm kiếm",
     "noContent": "Rất nhiều khoá học đang chờ bạn tìm kiếm và khám phá",
+    "noBT":"Không có bài tập nào",
     "History": "Lịch sử tìm kiếm",
     "All": "Tất cả",
     "Author": "Tác giả",
@@ -92,7 +93,7 @@ const stringsVietnam = {
     "confirmPassword": "Xác nhận mật khẩu",
     "note-send": "Bạn có muốn gửi không?",
     "payment": "Bạn chưa đăng ký/mua khoá học này nên không thể truy cập",
-    "payment2": "Bạn chưa đăng ký/mua khoá học này nên không thể truy cập",
+    "payment2": "Bạn chưa đăng ký/mua khoá học này nên không thể truy cập. Banh muốn đăng ký miễn phí không?",
 
 }
 
@@ -106,6 +107,7 @@ const stringsEnglish = {
     "Unlike": "Remove from favorite courses",
     "shareCourse": "Share course",
     "showExercises": "Exercises",
+    "noBT":"No Exercise",
     "pay": "Buy this course",
     "noti": "Notification",
     "noti_logout": "Do you want to exit app?",

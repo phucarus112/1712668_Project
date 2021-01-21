@@ -23,6 +23,7 @@ const CourseIntroductionScreen = ({ route, navigation }) => {
     const [rt2, setRt2] = useState(0);
     const [rt3, setRt3] = useState(0);
     const [listFC, setListFC] = useState(null);
+    const [status,setStatus] = useState(null);
 
     function onStarRatingPress1(rating) {
         setRt1(rating);
@@ -163,6 +164,10 @@ const CourseIntroductionScreen = ({ route, navigation }) => {
                                         .then(response => response.json())
                                         .then(json => {
                                             console.log("KQ API:");
+                                            if(json.likeStatus === true && json.message === "OK"){
+                                                setStatus("200");
+                                            
+                                            }
                                             console.log(json);
                                         })
                                         .catch((error) => console.error(error))
@@ -171,7 +176,7 @@ const CourseIntroductionScreen = ({ route, navigation }) => {
                                 }}>
                                     {
                                         (listFC != null) ?
-                                            (check() === true)
+                                            (check() === true || status !== null)
                                                 ?
                                                 <Image style={{ tintColor: '#fff', width: 30, height: 30, tintColor: COLORS_LIST[2].hex }} source={require('../../../assets/bookmark.png')} />
                                                 :
@@ -209,7 +214,7 @@ const CourseIntroductionScreen = ({ route, navigation }) => {
                             navigation.navigate("Section", { section: detail.section, id: detail.id, title: detail.title, token: token })
                         }} style={{ color: "#fff", fontWeight: 'bold', alignSelf: "center", marginLeft: 5, fontSize: 12 }} >{lan.study}</Text>
                     </View>
-                    <View style={styles.container3} onStartShouldSetResponder={() => {
+                    {/* <View style={styles.container3} onStartShouldSetResponder={() => {
                         //  navigation.navigate("Lesson",{index: index})
                     }} >
                         <TouchableOpacity onPress={() => {
@@ -220,7 +225,7 @@ const CourseIntroductionScreen = ({ route, navigation }) => {
                         <Text onPress={() => {
                             //  navigation.navigate("Lesson",{index: index})
                         }} style={{ color: "#fff", fontWeight: 'bold', alignSelf: "center", marginLeft: 5, fontSize: 12 }} >{lan.showExercises}</Text>
-                    </View>
+                    </View> */}
                     {/* <View style={styles.container3} onStartShouldSetResponder={() => {
 
                     }} >
