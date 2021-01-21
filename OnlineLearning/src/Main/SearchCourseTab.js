@@ -11,6 +11,7 @@ const SearchCourseTab = ({ navigation }) => {
   const [historyList, setHistoryList] = useState(null);
   const [token, setToken] = useState("");
   const {lan} = useContext(LanguageContext);
+  const [click,setClick] = useState(false);
 
   const getToken = async () => {
     if (token === "") {
@@ -57,6 +58,12 @@ const SearchCourseTab = ({ navigation }) => {
     };
   }, []);
 
+  if(click === true){
+    setHistoryList(null);
+    setClick(false);
+    getHistory();
+  }
+
   const { theme } = useContext(ThemeContext);
   const [keyword, setKeyword] = useState('');
 
@@ -71,6 +78,7 @@ const SearchCourseTab = ({ navigation }) => {
 
         <View style={{ ...styles.container3, backgroundColor: theme.background }} onStartShouldSetResponder={() => {
          setKeyword(keyword);
+         setClick(true);
           let key = {
                 "word": keyword
               }
@@ -93,6 +101,7 @@ const SearchCourseTab = ({ navigation }) => {
                 ],
               );
             } else {
+              setClick(true);
               setKeyword(keyword);
               let key = {
                 "word": keyword
@@ -118,6 +127,7 @@ const SearchCourseTab = ({ navigation }) => {
                   renderItem={({ item }) => (
                     <View style={{ flexDirection: 'row', padding: 10 }} onStartShouldSetResponder={() => {
                       setKeyword(item.content);
+                      setClick(true);
                       let key = {
                         "word": keyword,
                       }
